@@ -1,0 +1,49 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import { projects, categories } from '../data/projects';
+interface Props { filterable?: boolean; limit?: number; cols?: 2 | 3; }
+const { filterable = false, limit, cols = 3 } = Astro.props;
+const list = limit ? projects.slice(0, limit) : projects;
+const gridCls = cols === 2
+  ? 'grid grid-cols-1 gap-4 sm:grid-cols-2'
+  : 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3';
+---
+{filterable && (
+  <div class="mb-8 flex flex-wrap gap-2" role="group" aria-label="Filtra i lavori">
+    {categories.map((c, i) => (
+      <button
+        class:list={[
+          'filter-btn border border-[var(--color-border)] px-4 py-2 font-[family-name:var(--font-mono)] text-xs font-bold uppercase tracking-wide transition-colors',
+          i === 0 ? 'is-active bg-[var(--color-text)] text-white' : 'hover:border-[var(--color-text)]',
+        ]}
+        data-filter={c}
+      >{c}</button>
+    ))}
+  </div>
+)}
+
+<div id="grid" class={gridCls}>
+  {list.map((p, i) => <ProjectCard project={p} eager={i < 3} />)}
+</div>
+
+{filterable && (
+  <script>
+    const btns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const cards = document.querySelectorAll<HTMLElement>('#grid > a');
+    btns.forEach((b) =>
+      b.addEventListener('click', () => {
+        const f = b.dataset.filter;
+        btns.forEach((x) => {
+          const on = x === b;
+          x.classList.toggle('is-active', on);
+          x.classList.toggle('bg-[var(--color-text)]', on);
+          x.classList.toggle('text-white', on);
+        });
+        cards.forEach((c) => {
+          const show = f === 'Tutti' || c.dataset.category === f;
+          c.style.display = show ? '' : 'none';
+        });
+      })
+    );
+  </script>
+)}

@@ -1,0 +1,13 @@
+---
+import { trust } from '../data/site';
+---
+<section aria-label="Perché fidarsi" class="bg-[var(--color-text)] text-[var(--color-bg)]">
+  <div class="u-container grid grid-cols-2 divide-x divide-white/15 md:grid-cols-4">
+    {trust.map((t, i) => (
+      <div class:list={['px-4 py-6 md:px-6 md:py-8', i >= 2 && 'border-t border-white/15 md:border-t-0']}>
+        <p class="font-[family-name:var(--font-mono)] text-sm font-bold uppercase tracking-wide text-[var(--color-accent)] md:text-base">{t.k}</p>
+        <p class="mt-1 text-xs text-white/60 md:text-sm">{t.v}</p>
+      </div>
+    ))}
+  </div>
+</section>

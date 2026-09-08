@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import PortfolioGrid from '../../components/PortfolioGrid.astro';
+import CTA from '../../components/CTA.astro';
+import { projects } from '../../data/projects';
+const total = projects.length;
+const photos = projects.reduce((n, p) => n + p.images.length, 0);
+---
+<Base
+  title="Lavori eseguiti — Impresa Ippolito | Ristrutturazioni a Milano e Monza Brianza"
+  description="I lavori realizzati dall'Impresa Ippolito: bagni, cucine, appartamenti completi e cantieri a Milano, Monza, Brugherio, Cormano, Bollate e Arese."
+>
+  <section class="border-b border-[var(--color-border)]">
+    <div class="u-container grid grid-cols-1 gap-8 py-14 md:grid-cols-12 md:py-20">
+      <div class="md:col-span-8">
+        <p class="u-label">Lavori</p>
+        <h1 class="mt-5 text-[clamp(2.5rem,6vw,5rem)] font-black leading-[0.9] tracking-[-0.03em]">
+          Lavori <span class="text-[var(--color-accent)]">eseguiti.</span>
+        </h1>
+        <p class="mt-7 max-w-2xl text-lg text-[var(--color-muted)]">
+          Foto reali dei nostri cantieri e delle case consegnate. Filtra per tipo di intervento.
+        </p>
+      </div>
+      <div class="flex items-end md:col-span-4">
+        <div class="w-full divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
+          <div class="flex items-baseline justify-between py-3"><span class="u-label">Progetti</span><span class="font-[family-name:var(--font-display)] text-xl font-black">{total}</span></div>
+          <div class="flex items-baseline justify-between py-3"><span class="u-label">Foto reali</span><span class="font-[family-name:var(--font-display)] text-xl font-black">{photos}</span></div>
+          <div class="flex items-baseline justify-between py-3"><span class="u-label">Zona</span><span class="font-[family-name:var(--font-display)] text-xl font-black">Milano · MB</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 md:py-20">
+    <div class="u-container">
+      <PortfolioGrid filterable={true} />
+    </div>
+  </section>
+
+  <CTA />
+</Base>

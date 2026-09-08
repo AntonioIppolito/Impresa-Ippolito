@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://impresaippolito.it/sitemap-index.xml

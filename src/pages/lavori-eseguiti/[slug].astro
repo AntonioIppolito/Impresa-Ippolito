@@ -1,0 +1,105 @@
+---
+import { Image, getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import { projects, getProject } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const project = getProject(slug!)!;
+const idx = projects.findIndex((p) => p.slug === slug);
+const next = projects[(idx + 1) % projects.length];
+
+// variante ottimizzata per il lightbox (max ~1600px)
+const gallery = await Promise.all(
+  project.images.map(async (im) => ({
+    alt: im.alt,
+    caption: im.caption,
+    thumb: im.src,
+    full: (await getImage({ src: im.src, width: Math.min(1600, im.src.width), format: 'webp', quality: 80 })).src,
+  }))
+);
+---
+<Base
+  title={`${project.title} — Lavori Impresa Ippolito`}
+  description={project.blurb}
+  image={project.cover.src}
+>
+  <!-- header -->
+  <section class="border-b border-[var(--color-border)]">
+    <div class="u-container grid grid-cols-1 gap-8 py-12 md:grid-cols-12 md:py-16">
+      <div class="md:col-span-3">
+        <a href="/lavori-eseguiti" class="u-label hover:text-[var(--color-accent)]">← Tutti i lavori</a>
+        <p class="u-label mt-8">{project.category}</p>
+      </div>
+      <div class="md:col-span-9">
+        <h1 class="text-[clamp(2.25rem,6vw,4.5rem)] font-black leading-[0.92] tracking-[-0.02em]">{project.title}</h1>
+        {project.location && <p class="mt-4 text-xl text-[var(--color-muted)]">{project.location}</p>}
+        <p class="mt-6 max-w-2xl text-lg">{project.blurb}</p>
+        <ul class="mt-8 flex flex-wrap gap-2">
+          {project.scope.map((s) => (
+            <li class="border border-[var(--color-border)] px-3 py-1.5 font-[family-name:var(--font-mono)] text-xs uppercase tracking-wide text-[var(--color-muted)]">{s}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- galleria -->
+  <section class="u-container py-12 md:py-16">
+    <div class="gap-3 [column-count:1] sm:[column-count:2] lg:[column-count:3]">
+      {gallery.map((im, i) => (
+        <button
+          class="ga-thumb group relative mb-3 block w-full break-inside-avoid border border-[var(--color-border)]"
+          data-full={im.full}
+          data-alt={im.alt}
+          aria-label={`Ingrandisci: ${im.alt}`}
+        >
+          <Image src={im.thumb} alt={im.alt} widths={[400, 640, 900]} sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw" class="block h-auto w-full" loading={i < 4 ? 'eager' : 'lazy'} />
+          {im.caption && (
+            <span class="u-label absolute bottom-0 left-0 right-0 bg-[color-mix(in_srgb,var(--color-text)_80%,transparent)] px-3 py-2 text-left text-white">{im.caption}</span>
+          )}
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <!-- prossimo progetto -->
+  <a href={`/lavori-eseguiti/${next.slug}`} class="group block border-t border-[var(--color-border)] bg-[var(--color-tint)] transition-colors hover:bg-[var(--color-accent)]">
+    <div class="u-container flex items-center justify-between gap-6 py-10">
+      <div>
+        <p class="u-label transition-colors group-hover:text-white/70">Prossimo lavoro</p>
+        <p class="mt-2 text-3xl font-black tracking-tight transition-colors group-hover:text-white md:text-5xl">{next.title}</p>
+      </div>
+      <span class="font-[family-name:var(--font-display)] text-4xl font-black text-[var(--color-accent)] transition-colors group-hover:text-white md:text-6xl">→</span>
+    </div>
+  </a>
+
+  <CTA />
+
+  <!-- lightbox -->
+  <dialog id="lb" class="m-auto max-h-[92vh] max-w-[95vw] border-0 bg-transparent p-0 backdrop:bg-black/85">
+    <div class="relative">
+      <img id="lbImg" src="" alt="" class="max-h-[92vh] max-w-[95vw] object-contain" />
+      <button id="lbClose" class="absolute right-2 top-2 flex h-10 w-10 items-center justify-center bg-[var(--color-text)] text-white" aria-label="Chiudi">✕</button>
+    </div>
+  </dialog>
+</Base>
+
+<script>
+  const lb = document.getElementById('lb') as HTMLDialogElement | null;
+  const img = document.getElementById('lbImg') as HTMLImageElement | null;
+  document.querySelectorAll<HTMLButtonElement>('.ga-thumb').forEach((b) => {
+    b.addEventListener('click', () => {
+      if (!lb || !img) return;
+      img.src = b.dataset.full || '';
+      img.alt = b.dataset.alt || '';
+      lb.showModal();
+    });
+  });
+  document.getElementById('lbClose')?.addEventListener('click', () => lb?.close());
+  lb?.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
+</script>

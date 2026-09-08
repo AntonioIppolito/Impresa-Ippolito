@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+import { heroProject as flagship, heroImage as heroImg } from '../data/projects';
+---
+<section class="border-b border-[var(--color-border)]">
+  <div class="u-container grid grid-cols-1 gap-0 lg:grid-cols-12">
+    <!-- colonna testo -->
+    <div class="flex flex-col justify-center pb-8 pt-8 lg:col-span-6 lg:py-20 lg:pr-12">
+      <p class="u-label">Impresa edile di ristrutturazioni</p>
+      <h1 class="mt-5 text-[clamp(2.75rem,7vw,5.5rem)] font-black leading-[0.9] tracking-[-0.03em] [text-wrap:balance]">
+        Casa vostra,<br /><span class="text-[var(--color-accent)]">chiavi in mano.</span>
+      </h1>
+      <p class="mt-6 max-w-md text-lg text-[var(--color-muted)]">
+        Da oltre 30 anni a Milano e in Monza Brianza. Un unico interlocutore, il geom. Antonio Ippolito, dal preventivo alla consegna.
+      </p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <a href="/contatti#preventivo" class="btn btn--primary justify-center sm:justify-start">Richiedi un preventivo</a>
+        <a href="/lavori-eseguiti" class="btn btn--ghost justify-center sm:justify-start">Guarda i lavori</a>
+      </div>
+    </div>
+
+    <!-- colonna foto reale a pieno contrasto -->
+    <div class="relative -mx-6 md:-mx-8 lg:mx-0 lg:col-span-6">
+      <div class="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[80vh]">
+        <Image
+          src={heroImg}
+          alt={`Ristrutturazione realizzata dall'Impresa Ippolito: ${flagship.title}`}
+          widths={[640, 960, 1400, 1800]}
+          sizes="(max-width: 1024px) 100vw, 58vw"
+          class="absolute inset-0 h-full w-full object-cover object-[center_62%] lg:object-center"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <span class="u-label absolute bottom-4 left-4 bg-[var(--color-text)] px-3 py-2 text-white/90">
+          {flagship.title}
+        </span>
+      </div>
+    </div>
+  </div>
+</section>

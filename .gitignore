@@ -1,0 +1,14 @@
+# build
+dist/
+.astro/
+node_modules/
+
+# staging estrazione (NON consegnabile — la knowledge sta in memoria)
+_extraction/
+
+# os / editor
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*

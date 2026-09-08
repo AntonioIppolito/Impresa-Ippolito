@@ -1,0 +1,19 @@
+---
+import { site } from '../data/site';
+interface Props { title?: string; }
+const { title = 'Parliamo del vostro progetto.' } = Astro.props;
+---
+<section class="border-t border-[var(--color-border)] bg-[var(--color-accent)] text-white">
+  <div class="u-container flex min-h-[50vh] flex-col justify-center py-16 md:py-24">
+    <p class="u-label text-white/70">Richiedi un preventivo</p>
+    <h2 class="mt-6 max-w-4xl text-[clamp(2.5rem,6vw,5rem)] font-black leading-[0.9] tracking-[-0.02em]">{title}</h2>
+    <p class="mt-6 max-w-xl text-lg text-white/85">
+      Un sopralluogo, un preventivo dettagliato e un unico referente. Scriveteci o chiamate: rispondiamo noi.
+    </p>
+    <div class="mt-10 flex flex-wrap items-center gap-3">
+      <a href="/contatti#preventivo" class="btn border-white bg-white text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-white">Compila il modulo</a>
+      <a href={site.phone.href} class="btn border-white text-white hover:bg-white hover:text-[var(--color-accent)]">{site.phone.display}</a>
+      <a href={site.mobile.href} class="btn border-white/50 text-white hover:bg-white hover:text-[var(--color-accent)]">{site.mobile.display}</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+
+// SOLO informativo: nessuna aliquota/percentuale fissa (i bonus edilizi cambiano ogni anno).
+const faq = [
+  {
+    q: 'Come funzionano le detrazioni per le ristrutturazioni?',
+    a: 'Molti interventi danno diritto a detrazioni fiscali, recuperate in più anni in dichiarazione dei redditi. Regole e percentuali cambiano ogni anno: prima di iniziare verifichiamo insieme il quadro in vigore.',
+  },
+  {
+    q: 'Chi può usufruirne?',
+    a: 'In genere ne beneficiano i proprietari e i detentori dell’immobile che sostengono le spese. Le condizioni dipendono dal tipo di intervento e dalla situazione dell’immobile.',
+  },
+  {
+    q: 'Quali interventi sono agevolabili?',
+    a: 'Molti lavori che eseguiamo abitualmente: rifacimento bagni, impianti elettrici e termoidraulici, opere murarie, isolamento e altra manutenzione straordinaria. Vi diciamo caso per caso cosa rientra.',
+  },
+  {
+    q: 'Come si richiedono?',
+    a: 'Servono documentazione e pagamenti tracciabili nei modi previsti. Rilasciamo il DURC e le certificazioni degli impianti, requisiti spesso necessari per accedere alle agevolazioni.',
+  },
+];
+---
+<Base
+  title="Agevolazioni fiscali — Impresa Ippolito | Detrazioni per ristrutturazioni"
+  description="Come funzionano le detrazioni fiscali per le ristrutturazioni edilizie. Verifichiamo insieme il tuo caso: DURC e certificazioni incluse. Milano e Monza Brianza."
+>
+  <section class="border-b border-[var(--color-border)]">
+    <div class="u-container grid grid-cols-1 gap-8 py-14 md:grid-cols-12 md:py-20">
+      <div class="md:col-span-8">
+        <p class="u-label">Agevolazioni fiscali</p>
+        <h1 class="mt-5 text-[clamp(2.5rem,6vw,5rem)] font-black leading-[0.9] tracking-[-0.03em]">
+          Le detrazioni, <span class="text-[var(--color-accent)]">spiegate bene.</span>
+        </h1>
+        <p class="mt-7 max-w-2xl text-lg text-[var(--color-muted)]">
+          Le agevolazioni per le ristrutturazioni cambiano ogni anno. Non promettiamo cifre: verifichiamo insieme, in modo trasparente, cosa spetta nel tuo caso.
+        </p>
+      </div>
+      <div class="flex items-end md:col-span-4">
+        <a href="/contatti#preventivo" class="btn btn--primary w-full justify-center">Verifichiamo il tuo caso</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-b border-[var(--color-border)] py-14 md:py-20">
+    <div class="u-container">
+      <h2 class="mb-8 text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Domande frequenti</h2>
+      <div class="grid grid-cols-1 border-l border-t border-[var(--color-border)] md:grid-cols-2">
+        {faq.map((f, i) => (
+          <div class="border-b border-r border-[var(--color-border)] p-6 md:p-8">
+            <span class="u-index text-sm">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="mt-3 text-xl font-black leading-tight tracking-tight md:text-2xl">{f.q}</h3>
+            <p class="mt-3 text-base text-[var(--color-muted)]">{f.a}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-8 border border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-8">
+        <p class="u-label text-[var(--color-accent)]">Nota</p>
+        <p class="mt-3 max-w-3xl text-base text-[var(--color-muted)]">
+          Le informazioni in questa pagina hanno scopo divulgativo e non sostituiscono la consulenza di un professionista abilitato. Percentuali, massimali e requisiti sono quelli stabiliti di anno in anno dalla normativa: fanno fede le fonti ufficiali dell’Agenzia delle Entrate.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CTA title="Verifichiamo insieme il tuo caso." />
+</Base>

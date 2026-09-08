@@ -1,0 +1,33 @@
+# 301 dai vecchi URL Joomla → nuovi (Netlify). Prima le regole specifiche.
+
+# --- pagine principali ---
+/index.php                                  /                              301
+/index.php/                                 /                              301
+/index.php/i-nostri-servizi                 /servizi                       301
+/index.php/prima-e-dopo                     /prima-e-dopo                  301
+/index.php/lavori-eseguiti                  /lavori-eseguiti               301
+/index.php/agevolazioni-fiscali             /agevolazioni-fiscali          301
+/index.php/contatti                         /contatti                      301
+
+# --- schede lavoro (Joomla risolve per id: catturo id-*) ---
+/index.php/lavori-eseguiti/53-*   /lavori-eseguiti/bagno-con-vasca                      301
+/index.php/lavori-eseguiti/52-*   /lavori-eseguiti/bagno-monza-4                        301
+/index.php/lavori-eseguiti/51-*   /lavori-eseguiti/bagno-brugherio                      301
+/index.php/lavori-eseguiti/50-*   /lavori-eseguiti/bagno-cormano                        301
+/index.php/lavori-eseguiti/49-*   /lavori-eseguiti/bagno-milano                         301
+/index.php/lavori-eseguiti/48-*   /lavori-eseguiti/lavori-bollate                       301
+/index.php/lavori-eseguiti/47-*   /lavori-eseguiti/ristrutturazione-bagno-e-cucina      301
+/index.php/lavori-eseguiti/46-*   /lavori-eseguiti/ristrutturazione-appartamento-milano-24  301
+/index.php/lavori-eseguiti/45-*   /lavori-eseguiti/bagno-monza                          301
+/index.php/lavori-eseguiti/44-*   /lavori-eseguiti/bagno-arese                          301
+/index.php/lavori-eseguiti/2-*    /lavori-eseguiti/uncategorised                        301
+
+# --- articoli "prima e dopo" → pagina prima-e-dopo ---
+/index.php/prima-e-dopo/*         /prima-e-dopo                  301
+
+# --- pagine-tag Joomla (i tag erano finti) → indice lavori ---
+/component/tags/*                 /lavori-eseguiti               301
+/index.php/component/tags/*       /lavori-eseguiti               301
+
+# --- fallback: qualunque altro /index.php/... → home ---
+/index.php/*                      /                              301

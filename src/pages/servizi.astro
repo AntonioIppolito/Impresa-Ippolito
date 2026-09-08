@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import ServiceGrid from '../components/ServiceGrid.astro';
+import CTA from '../components/CTA.astro';
+import { services, compliance } from '../data/site';
+---
+<Base
+  title="Servizi — Impresa Ippolito | Ristrutturazioni, bagni, impianti a Milano"
+  description="Ristrutturazioni chiavi in mano: bagni e cucine, impianti elettrici e termoidraulici, pavimenti, cartongesso, tinteggiature, tetti e facciate. Milano e Monza Brianza."
+>
+  <!-- hero compatto a due colonne piene -->
+  <section class="border-b border-[var(--color-border)]">
+    <div class="u-container grid grid-cols-1 gap-8 py-14 md:grid-cols-12 md:py-20">
+      <div class="md:col-span-8">
+        <p class="u-label">Servizi</p>
+        <h1 class="mt-5 text-[clamp(2.5rem,6vw,5rem)] font-black leading-[0.9] tracking-[-0.03em]">
+          Un servizio completo <span class="text-[var(--color-accent)]">a 360 gradi.</span>
+        </h1>
+        <p class="mt-7 max-w-2xl text-lg text-[var(--color-muted)]">
+          Eseguiamo opere di ristrutturazione parziali, complete e chiavi in mano di appartamenti, case indipendenti, uffici e negozi: qualsiasi intervento, interno ed esterno.
+        </p>
+      </div>
+      <div class="flex flex-col justify-end md:col-span-4">
+        <div class="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
+          <div class="flex items-baseline justify-between py-3"><span class="u-label">Servizi</span><span class="font-[family-name:var(--font-display)] text-xl font-black">{services.length}</span></div>
+          <div class="flex items-baseline justify-between py-3"><span class="u-label">Zona</span><span class="font-[family-name:var(--font-display)] text-xl font-black">Milano · MB</span></div>
+          <div class="flex items-baseline justify-between py-3"><span class="u-label">Esperienza</span><span class="font-[family-name:var(--font-display)] text-xl font-black">30+ anni</span></div>
+        </div>
+        <a href="/contatti#preventivo" class="btn btn--primary mt-5 justify-center">Richiedi un preventivo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- griglia servizi a tutta larghezza -->
+  <section class="border-b border-[var(--color-border)] py-14 md:py-20">
+    <div class="u-container">
+      <div class="mb-8 flex items-end justify-between gap-4">
+        <h2 class="text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Cosa facciamo</h2>
+        <span class="u-label hidden sm:block">{services.length} servizi</span>
+      </div>
+      <ServiceGrid />
+    </div>
+  </section>
+
+  <!-- in regola -->
+  <section class="border-b border-[var(--color-border)] bg-[var(--color-tint)] py-14 md:py-20">
+    <div class="u-container">
+      <h2 class="mb-8 text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Lavoriamo in regola</h2>
+      <div class="grid grid-cols-1 border-l border-t border-[var(--color-border)] md:grid-cols-2">
+        {compliance.map((c, i) => (
+          <div class="border-b border-r border-[var(--color-border)] p-6 md:p-8">
+            <span class="u-index text-sm">{String(i + 1).padStart(2, '0')}</span>
+            <p class="mt-4 text-lg">{c}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA title="Avete un lavoro in mente? Vediamolo insieme." />
+</Base>

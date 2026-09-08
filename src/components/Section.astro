@@ -1,0 +1,36 @@
+---
+// Sezione editoriale a due colonne PIENE (niente sidebar vuota):
+// sinistra = etichetta + titolo + lead + slot "aside" (sticky) · destra = contenuto.
+interface Props {
+  label: string;
+  title?: string;
+  lead?: string;
+  id?: string;
+  tone?: 'default' | 'tint' | 'dark';
+  class?: string;
+}
+const { label, title, lead, id, tone = 'default', class: cls = '' } = Astro.props;
+const dark = tone === 'dark';
+const bg = tone === 'tint' ? 'bg-[var(--color-tint)]' : dark ? 'bg-[var(--color-text)] text-[var(--color-bg)]' : '';
+const hasAside = Astro.slots.has('aside');
+---
+<section
+  id={id}
+  class:list={['border-t border-[var(--color-border)] py-14 md:py-20', bg, cls]}
+>
+  <div class="u-container grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-10">
+    <div class="md:col-span-4">
+      <div class="md:sticky md:top-28">
+        <p class:list={['u-label', dark && 'text-white/50']}>{label}</p>
+        {title && (
+          <h2 class="mt-4 text-[clamp(2rem,3.5vw,3.25rem)] font-black leading-[0.95] tracking-tight">{title}</h2>
+        )}
+        {lead && <p class:list={['mt-5 text-lg', dark ? 'text-white/70' : 'text-[var(--color-muted)]']}>{lead}</p>}
+        {hasAside && <div class="mt-7"><slot name="aside" /></div>}
+      </div>
+    </div>
+    <div class="md:col-span-8">
+      <slot />
+    </div>
+  </div>
+</section>

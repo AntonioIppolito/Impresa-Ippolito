@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
+import Section from '../components/Section.astro';
+import ServiceGrid from '../components/ServiceGrid.astro';
+import PortfolioGrid from '../components/PortfolioGrid.astro';
+import WhyUs from '../components/WhyUs.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import CTA from '../components/CTA.astro';
+import { beforeAfter } from '../data/beforeafter';
+import { compliance } from '../data/site';
+---
+<Base
+  title="Impresa Ippolito — Ristrutturazioni chiavi in mano a Milano e Monza Brianza"
+  description="Impresa edile di ristrutturazioni civili a Milano e in Monza Brianza da oltre 30 anni. Un unico interlocutore, dal preventivo alla consegna. Richiedi un preventivo."
+>
+  <Hero />
+  <TrustBar />
+
+  <!-- Chi siamo -->
+  <Section label="Chi siamo" title="Da oltre 30 anni, un solo referente.">
+    <div slot="aside" class="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
+      <div class="flex items-baseline justify-between py-3"><span class="u-label">Attività</span><span class="font-[family-name:var(--font-display)] text-xl font-black">30+ anni</span></div>
+      <div class="flex items-baseline justify-between py-3"><span class="u-label">Zona</span><span class="font-[family-name:var(--font-display)] text-xl font-black">Milano · MB</span></div>
+      <div class="flex items-baseline justify-between py-3"><span class="u-label">Titolare</span><span class="font-[family-name:var(--font-display)] text-xl font-black">Geom. Ippolito</span></div>
+    </div>
+    <p class="text-[clamp(1.5rem,2.6vw,2.1rem)] font-black leading-[1.08] tracking-tight">
+      L’Impresa Ippolito opera nelle ristrutturazioni e costruzioni edili in tutta la provincia di Milano e Monza Brianza, sul principio di qualità, professionalità e garanzia dei lavori.
+    </p>
+    <p class="mt-6 text-lg text-[var(--color-muted)]">
+      L’esecuzione delle opere è seguita in tutte le fasi direttamente dal titolare, il geometra Antonio Ippolito, che grazie a un’equipe di artigiani e professionisti di fiducia altamente qualificati offre un servizio completo a 360 gradi.
+    </p>
+  </Section>
+
+  <!-- Servizi -->
+  <Section label="Servizi" id="servizi" tone="tint" title="Cosa facciamo" lead="Ristrutturazioni parziali, complete e chiavi in mano di appartamenti, case, uffici e negozi. Qualsiasi intervento, interno ed esterno.">
+    <a slot="aside" href="/servizi" class="btn btn--ghost">Tutti i servizi</a>
+    <ServiceGrid />
+  </Section>
+
+  <!-- Lavori showcase -->
+  <Section label="Lavori" title="Lavori eseguiti" lead="Foto reali dei nostri cantieri e delle case consegnate a Milano e in Monza Brianza.">
+    <a slot="aside" href="/lavori-eseguiti" class="btn btn--primary">Vedi tutti i lavori</a>
+    <PortfolioGrid limit={6} cols={2} />
+  </Section>
+
+  <!-- Before/After campione -->
+  <Section label="Prima e dopo" tone="tint" title="Lo stesso spazio, trasformato." lead="Trascina il cursore su ogni immagine per confrontare com’era prima e com’è diventato dopo il nostro intervento.">
+    <a slot="aside" href="/prima-e-dopo" class="btn btn--ghost">Altri confronti</a>
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      {beforeAfter.slice(0, 2).map((ba) => (
+        <BeforeAfter before={ba.before} after={ba.after} label={ba.label} />
+      ))}
+    </div>
+  </Section>
+
+  <!-- Perché sceglierci -->
+  <Section label="Perché sceglierci" tone="dark" title="Noi garantiamo" lead="Dieci impegni concreti, gli stessi da oltre trent’anni, dal preventivo alla consegna.">
+    <div slot="aside" class="border border-white/15 p-5">
+      {compliance.map((c, i) => (
+        <p class:list={['text-sm text-white/70', i > 0 && 'mt-3']}><span class="mr-2 font-[family-name:var(--font-mono)] font-bold text-[var(--color-accent)]">✓</span>{c}</p>
+      ))}
+    </div>
+    <WhyUs />
+  </Section>
+
+  <CTA />
+</Base>

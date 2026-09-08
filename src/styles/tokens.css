@@ -1,0 +1,28 @@
+/* Design tokens — Impresa Ippolito
+   Palette DERIVATA DAL LOGO (§2 prompt). Accent = blu tecnico della tagline.
+   Vietati: cobalt #1351AA (default doc) e magenta BD Media. */
+@theme {
+  /* ---- colori ---- */
+  --color-bg: #f6f7f7;
+  --color-surface: #ffffff;
+  --color-text: #1e1e1e;
+  --color-muted: #6b6b6b;
+  --color-border: #d8d8d6;
+  --color-accent: #2d76b6;      /* blu logo */
+  --color-accent-ink: #1b4e7a;  /* accent scurito per hover/AA su testo piccolo */
+  --color-tint: #eaf1f8;        /* azzurro chiarissimo per fasce di sezione */
+  --color-tint-border: #cadcee; /* bordo su fasce azzurre */
+
+  /* ---- tipografia ---- */
+  --font-display: "Archivo Variable", "Archivo", system-ui, sans-serif;
+  --font-body: "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* ---- forma: zero radius, niente ombre ---- */
+  --radius-none: 0px;
+  --default-transition-duration: 0.3s;
+  --default-transition-timing-function: linear;
+
+  /* ---- layout ---- */
+  --content-max: 1200px;
+}

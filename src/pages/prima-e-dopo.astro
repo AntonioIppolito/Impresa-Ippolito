@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import CTA from '../components/CTA.astro';
+import { beforeAfter } from '../data/beforeafter';
+---
+<Base
+  title="Prima e dopo — Impresa Ippolito | Il risultato delle ristrutturazioni"
+  description="Lo stesso ambiente prima e dopo l'intervento dell'Impresa Ippolito. Trascina il cursore e confronta soggiorni, disimpegni e strutture in cartongesso."
+>
+  <section class="border-b border-[var(--color-border)]">
+    <div class="u-container grid grid-cols-1 gap-8 py-14 md:grid-cols-12 md:py-20">
+      <div class="md:col-span-8">
+        <p class="u-label">Prima e dopo</p>
+        <h1 class="mt-5 text-[clamp(2.5rem,6vw,5rem)] font-black leading-[0.9] tracking-[-0.03em]">
+          Lo stesso spazio, <span class="text-[var(--color-accent)]">trasformato.</span>
+        </h1>
+        <p class="mt-7 max-w-2xl text-lg text-[var(--color-muted)]">
+          Trascina il cursore su ogni immagine per vedere com'era prima e com'è diventato dopo il nostro intervento.
+        </p>
+      </div>
+      <div class="flex items-end md:col-span-4">
+        <a href="/contatti#preventivo" class="btn btn--primary w-full justify-center">Richiedi un preventivo</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--color-tint)] py-14 md:py-20">
+    <div class="u-container">
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {beforeAfter.map((ba) => (
+          <BeforeAfter before={ba.before} after={ba.after} label={ba.label} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Base>

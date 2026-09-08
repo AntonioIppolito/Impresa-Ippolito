@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets';
+import { site, nav } from '../data/site';
+import logoPlate from '../assets/logo-plate.png';
+const year = new Date().getFullYear();
+---
+<footer class="border-t border-[var(--color-border)] bg-[var(--color-text)] text-[var(--color-bg)]">
+  <div class="u-container grid grid-cols-1 gap-10 py-16 md:grid-cols-12">
+    <div class="md:col-span-5">
+      <Image src={logoPlate} alt="Impresa Ippolito" widths={[220, 320]} sizes="220px" class="h-auto w-[200px]" loading="lazy" />
+      <p class="mt-6 max-w-sm text-base text-white/70">{site.claim}</p>
+    </div>
+
+    <div class="md:col-span-3">
+      <p class="u-label text-white/50">Contatti</p>
+      <ul class="mt-4 space-y-2 text-base">
+        <li><a href={site.phone.href} class="hover:text-[var(--color-accent)]">{site.phone.display}</a></li>
+        <li><a href={site.mobile.href} class="hover:text-[var(--color-accent)]">{site.mobile.display}</a></li>
+        <li><a href={site.facebook} target="_blank" rel="noopener" class="hover:text-[var(--color-accent)]">Facebook</a></li>
+        <li>
+          <a href={site.address.maps} target="_blank" rel="noopener" class="hover:text-[var(--color-accent)]">
+            {site.address.street}<br />{site.address.zip} {site.address.city} ({site.address.province})
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="md:col-span-4">
+      <p class="u-label text-white/50">Mappa del sito</p>
+      <ul class="mt-4 grid grid-cols-2 gap-2 text-base">
+        <li><a href="/" class="hover:text-[var(--color-accent)]">Home</a></li>
+        {nav.map((n) => <li><a href={n.href} class="hover:text-[var(--color-accent)]">{n.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/15">
+    <div class="u-container flex flex-col gap-2 py-6 font-[family-name:var(--font-mono)] text-xs text-white/50 md:flex-row md:items-center md:justify-between">
+      <p>{site.legalName}</p>
+      <p>Albo Artigiani {site.legal.alboArtigiani} · P.I. {site.legal.piva} · {site.legal.regImprese}</p>
+      <p>© {year}</p>
+    </div>
+  </div>
+</footer>
