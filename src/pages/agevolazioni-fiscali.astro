@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import strip from '../assets/archivio/foto3.jpg';
 import CTA from '../components/CTA.astro';
 
 // SOLO informativo: nessuna aliquota/percentuale fissa (i bonus edilizi cambiano ogni anno).
@@ -37,6 +39,10 @@ const faq = [
         <p class="mt-7 max-w-2xl text-lg text-[var(--color-muted)]">
           Le agevolazioni per le ristrutturazioni cambiano ogni anno. Non promettiamo cifre: verifichiamo insieme, in modo trasparente, cosa spetta nel tuo caso.
         </p>
+        <figure class="mt-8 max-w-[700px]">
+          <Image src={strip} alt="Lavori di consolidamento in cantiere dell'Impresa Ippolito" widths={[480, 700]} sizes="(max-width:768px) 100vw, 700px" class="w-full border border-[var(--color-border)]" />
+          <figcaption class="u-label mt-3">Dal nostro archivio · consolidamento in cantiere</figcaption>
+        </figure>
       </div>
       <div class="flex items-end md:col-span-4">
         <a href="/contatti#preventivo" class="btn btn--primary w-full justify-center">Verifichiamo il tuo caso</a>

@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import portrait from '../assets/antonio-ippolito.jpg';
 import { site } from '../data/site';
 import { answered } from '../data/faq';
 const { address: a } = site;
@@ -27,6 +29,13 @@ const osm = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=
   <section class="u-container grid grid-cols-1 gap-0 md:grid-cols-12">
     <!-- colonna recapiti -->
     <div class="border-b border-[var(--color-border)] py-12 md:col-span-5 md:border-b-0 md:border-r md:py-16 md:pr-10">
+      <figure class="mb-10 flex items-center gap-5">
+        <Image src={portrait} alt="Il geometra Antonio Ippolito, titolare dell'Impresa Ippolito" width={96} height={104} densities={[1, 2]} class="h-[104px] w-[96px] shrink-0 border border-[var(--color-border)] object-cover" />
+        <figcaption>
+          <span class="block text-lg font-black tracking-tight">Geom. Antonio Ippolito</span>
+          <span class="u-label mt-1 block">Titolare · vi risponde lui</span>
+        </figcaption>
+      </figure>
       <p class="u-label">Recapiti diretti</p>
       <div class="mt-6 flex flex-col gap-3">
         <a href={site.phone.href} class="btn btn--primary justify-between">Telefono <span>{site.phone.display}</span></a>

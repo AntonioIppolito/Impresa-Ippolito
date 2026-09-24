@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import strip from '../assets/archivio/foto2.jpg';
 import ServiceGrid from '../components/ServiceGrid.astro';
 import CTA from '../components/CTA.astro';
 import { services, compliance } from '../data/site';
@@ -20,6 +22,10 @@ import { services, compliance } from '../data/site';
         <p class="mt-7 max-w-2xl text-lg text-[var(--color-muted)]">
           Eseguiamo opere di ristrutturazione parziali, complete e chiavi in mano di appartamenti, case indipendenti, uffici e negozi: qualsiasi intervento, interno ed esterno.
         </p>
+        <figure class="mt-8 max-w-[700px]">
+          <Image src={strip} alt="Opere strutturali in cantiere dell'Impresa Ippolito: casseri, armature e solaio" widths={[480, 700]} sizes="(max-width:768px) 100vw, 700px" class="w-full border border-[var(--color-border)]" />
+          <figcaption class="u-label mt-3">Dal nostro archivio · opere strutturali in cantiere</figcaption>
+        </figure>
       </div>
       <div class="flex flex-col justify-end md:col-span-4">
         <div class="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">

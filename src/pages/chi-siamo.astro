@@ -8,6 +8,8 @@ import CTA from '../components/CTA.astro';
 import { site, services, compliance, transparency, ORG_ID, SITE_URL } from '../data/site';
 import { projects, pickPhoto } from '../data/projects';
 import { answered } from '../data/faq';
+import portrait from '../assets/antonio-ippolito.jpg';
+import stripHome from '../assets/archivio/fotoiniziale.gif';
 
 const totalPhotos = projects.reduce((n, p) => n + p.images.length, 0);
 
@@ -86,6 +88,13 @@ const fill = (i: number, n: number, cols3 = false) => {
         <p class="mt-4 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
           Ristrutturiamo appartamenti, case indipendenti, uffici e negozi: dal solo bagno o cucina fino all’intervento completo, con impianti certificati, pavimenti, cartongesso e finiture.
         </p>
+        <figure class="mt-8 flex items-center gap-5 border-t border-[var(--color-border)] pt-6">
+          <Image src={portrait} alt="Il geometra Antonio Ippolito, titolare dell'Impresa Ippolito" width={112} height={121} densities={[1, 2]} class="h-[121px] w-[112px] shrink-0 border border-[var(--color-border)] object-cover" />
+          <figcaption>
+            <span class="block text-lg font-black tracking-tight">Geom. Antonio Ippolito</span>
+            <span class="u-label mt-1 block">Titolare · presente di persona in cantiere</span>
+          </figcaption>
+        </figure>
       </div>
       <div class="relative md:col-span-5">
         <div class="relative aspect-[4/5] overflow-hidden border border-[var(--color-border)] bg-[var(--color-text)]">
@@ -123,6 +132,10 @@ const fill = (i: number, n: number, cols3 = false) => {
         <p class="u-label">Servizi</p>
         <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Cosa facciamo</h2>
         <a href="/servizi" class="btn btn--ghost mt-7">Tutti i servizi</a>
+        <figure class="mt-10">
+          <Image src={stripHome} alt="Lavori finiti dall'Impresa Ippolito: soggiorno, doccia in legno, zona giorno e bagno azzurro" widths={[480, 700]} sizes="(max-width:768px) 100vw, 30vw" class="w-full border border-[var(--color-border)]" />
+          <figcaption class="u-label mt-3">Dal nostro archivio · lavori finiti</figcaption>
+        </figure>
       </div>
       <ul class="grid grid-cols-1 border-l border-t border-[var(--color-border)] sm:grid-cols-2 md:col-span-8">
         {services.map((s, i) => (
