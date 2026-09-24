@@ -40,6 +40,32 @@
     background: var(--color-accent);
     color: #fff;
   }
+
+  /* ---- scrollbar a tema ---- */
+  html {
+    scrollbar-color: var(--color-accent) var(--color-tint);
+    scrollbar-width: thin;
+  }
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-tint);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    border: 3px solid var(--color-tint); /* cornice: pollice più snello */
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent-ink);
+    border-color: var(--color-accent-ink);
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-corner {
+    background: var(--color-tint);
+  }
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   }
@@ -110,4 +136,41 @@
 
   /* ---- Divisore ---- */
   .u-rule { border: 0; border-top: 1px solid var(--color-border); }
+
+  /* ---- Card animata (hover "poster"): si solleva con ombra piena netta + barra che si disegna ----
+     Personalizzabile per card su fondo scuro con --card-shadow / --card-bar. */
+  .card-anim {
+    --card-shadow: var(--color-accent);
+    --card-bar: var(--color-accent);
+    position: relative;
+    transition:
+      transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+      box-shadow 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+      background-color 0.3s linear;
+  }
+  .card-anim::before {
+    content: '';
+    position: absolute;
+    inset: -1px -1px auto -1px;
+    height: 4px;
+    background: var(--card-bar);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .card-anim:hover,
+  .card-anim:focus-visible {
+    z-index: 3;
+    transform: translate(-4px, -4px);
+    box-shadow: 6px 6px 0 0 var(--card-shadow);
+  }
+  .card-anim:hover::before,
+  .card-anim:focus-visible::before {
+    transform: scaleX(1);
+  }
+  @media (hover: none) {
+    .card-anim:hover { transform: none; box-shadow: none; }
+  }
 }

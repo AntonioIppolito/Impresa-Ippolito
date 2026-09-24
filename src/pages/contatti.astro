@@ -1,13 +1,16 @@
 ---
 import Base from '../layouts/Base.astro';
 import { site } from '../data/site';
+import { answered } from '../data/faq';
 const { address: a } = site;
+const faqPreview = answered.filter((f) => f.home);
 const bbox = `${a.geo.lng - 0.006},${a.geo.lat - 0.003},${a.geo.lng + 0.006},${a.geo.lat + 0.003}`;
 const osm = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${a.geo.lat},${a.geo.lng}`;
 ---
 <Base
-  title="Contatti — Impresa Ippolito | Richiedi un preventivo"
-  description="Contatta l'Impresa Ippolito per un preventivo: telefono, WhatsApp e modulo. Sede a Novate Milanese, operiamo a Milano e in Monza Brianza."
+  title="Contatti e preventivo gratuito | Impresa Ippolito"
+  description="Preventivo gratuito per la vostra ristrutturazione: chiamate o scrivete su WhatsApp al 339 533 0704. Sede in Via Monte Bianco 25 a Novate Milanese (MI)."
+  breadcrumb={[{ name: 'Contatti', path: '/contatti' }]}
 >
   <section class="border-b border-[var(--color-border)]">
     <div class="u-container py-16 md:py-24">
@@ -27,8 +30,7 @@ const osm = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=
       <p class="u-label">Recapiti diretti</p>
       <div class="mt-6 flex flex-col gap-3">
         <a href={site.phone.href} class="btn btn--primary justify-between">Telefono <span>{site.phone.display}</span></a>
-        <a href={site.mobile.href} class="btn btn--ghost justify-between">Cellulare <span>{site.mobile.display}</span></a>
-        <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn--ghost justify-between">WhatsApp <span>{site.mobile.display}</span></a>
+        <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn--ghost justify-between">WhatsApp <span>{site.phone.display}</span></a>
         <a href={site.facebook} target="_blank" rel="noopener" class="btn btn--ghost justify-between">Facebook <span>@impresaippolito</span></a>
       </div>
 
@@ -96,6 +98,25 @@ const osm = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=
           <button type="submit" class="btn btn--primary w-full justify-center sm:w-auto">Invia richiesta</button>
         </div>
       </form>
+    </div>
+  </section>
+
+  <!-- domande prima di scriverci -->
+  <section class="border-t border-[var(--color-border)] bg-[var(--color-tint)] py-14 md:py-20">
+    <div class="u-container grid grid-cols-1 gap-10 md:grid-cols-12">
+      <div class="md:col-span-4">
+        <p class="u-label">Prima di scriverci</p>
+        <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Le domande più frequenti</h2>
+        <a href="/domande-frequenti" class="btn btn--ghost mt-7">Tutte le domande</a>
+      </div>
+      <div class="border-t border-[var(--color-border)] md:col-span-8">
+        {faqPreview.map((f) => (
+          <div class="border-b border-[var(--color-border)] py-5">
+            <h3 class="text-lg font-black tracking-tight">{f.q}</h3>
+            <p class="mt-2 text-[var(--color-muted)]">{f.a}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 

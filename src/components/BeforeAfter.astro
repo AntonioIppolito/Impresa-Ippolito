@@ -13,11 +13,11 @@ const { before, after, label, beforeAlt, afterAlt } = Astro.props;
 <figure class="border border-[var(--color-border)] bg-[var(--color-surface)]">
   <div class="ba relative aspect-[4/3] select-none overflow-hidden" data-ba>
     <!-- DOPO (base) -->
-    <Image src={after} alt={afterAlt ?? `${label} — dopo l'intervento`} widths={[400, 640, 900]} sizes="(max-width:768px) 100vw, 520px" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+    <Image src={after} alt={afterAlt ?? `${label}, dopo l'intervento`} widths={[400, 640, 900]} sizes="(max-width:768px) 100vw, 520px" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
     <span class="u-label absolute right-3 top-3 z-[5] bg-[var(--color-accent)] px-2 py-1 text-white">Dopo</span>
     <!-- PRIMA (sopra, clippata via clip-path) -->
     <div class="ba-before absolute inset-0" style="clip-path: inset(0 50% 0 0)">
-      <Image src={before} alt={beforeAlt ?? `${label} — prima dell'intervento`} widths={[400, 640, 900]} sizes="(max-width:768px) 100vw, 520px" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+      <Image src={before} alt={beforeAlt ?? `${label}, prima dell'intervento`} widths={[400, 640, 900]} sizes="(max-width:768px) 100vw, 520px" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
       <span class="u-label absolute left-3 top-3 bg-[var(--color-text)] px-2 py-1 text-white">Prima</span>
     </div>
     <!-- maniglia -->

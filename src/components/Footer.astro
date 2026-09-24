@@ -15,7 +15,7 @@ const year = new Date().getFullYear();
       <p class="u-label text-white/50">Contatti</p>
       <ul class="mt-4 space-y-2 text-base">
         <li><a href={site.phone.href} class="hover:text-[var(--color-accent)]">{site.phone.display}</a></li>
-        <li><a href={site.mobile.href} class="hover:text-[var(--color-accent)]">{site.mobile.display}</a></li>
+        <li><a href={site.whatsapp} target="_blank" rel="noopener" class="hover:text-[var(--color-accent)]">WhatsApp</a></li>
         <li><a href={site.facebook} target="_blank" rel="noopener" class="hover:text-[var(--color-accent)]">Facebook</a></li>
         <li>
           <a href={site.address.maps} target="_blank" rel="noopener" class="hover:text-[var(--color-accent)]">
@@ -30,6 +30,7 @@ const year = new Date().getFullYear();
       <ul class="mt-4 grid grid-cols-2 gap-2 text-base">
         <li><a href="/" class="hover:text-[var(--color-accent)]">Home</a></li>
         {nav.map((n) => <li><a href={n.href} class="hover:text-[var(--color-accent)]">{n.label}</a></li>)}
+        <li><a href="/cartongesso-di-design" class="hover:text-[var(--color-accent)]">Cartongesso di design</a></li>
       </ul>
     </div>
   </div>

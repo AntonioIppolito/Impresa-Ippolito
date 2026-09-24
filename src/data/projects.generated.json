@@ -256,7 +256,7 @@
     },
     {
       "name": "_D5A4726_copiaBASSA.jpg",
-      "caption": "bagno con vasca",
+      "caption": "Bagno con vasca",
       "w": 922,
       "h": 1382
     },
@@ -268,7 +268,7 @@
     },
     {
       "name": "_D5A4471_copiaBASSA.jpg",
-      "caption": "presa inserita nel casetto",
+      "caption": "Presa inserita nel cassetto",
       "w": 1382,
       "h": 922
     },
@@ -292,13 +292,13 @@
     },
     {
       "name": "_D5A4456_copiaBASSA.jpg",
-      "caption": "bagno ospiti",
+      "caption": "Bagno ospiti",
       "w": 1353,
       "h": 902
     },
     {
       "name": "_D5A4489_copiaBASSA.jpg",
-      "caption": "lavabo in marmo",
+      "caption": "Lavabo in marmo",
       "w": 1345,
       "h": 897
     },
@@ -310,13 +310,13 @@
     },
     {
       "name": "_D5A4502_copiaBASSA.jpg",
-      "caption": "idroscopino con acqua calda e fredda",
+      "caption": "Idroscopino con acqua calda e fredda",
       "w": 903,
       "h": 1355
     },
     {
       "name": "_D5A4506_copiaBASSA.jpg",
-      "caption": "placca di risciaquo con doccino incorporato",
+      "caption": "Placca di risciacquo con doccino incorporato",
       "w": 1359,
       "h": 906
     },
@@ -328,7 +328,7 @@
     },
     {
       "name": "_D5A4575_copiaBASSA.jpg",
-      "caption": "lavabo in marmo bagno padronale",
+      "caption": "Lavabo in marmo bagno padronale",
       "w": 1382,
       "h": 922
     },
@@ -346,25 +346,25 @@
     },
     {
       "name": "_D5A4595_copiaBASSA.jpg",
-      "caption": "radiatore elettrico",
+      "caption": "Radiatore elettrico",
       "w": 901,
       "h": 1352
     },
     {
       "name": "_D5A4588_copiaBASSA.jpg",
-      "caption": "bagno turco",
+      "caption": "Bagno turco",
       "w": 922,
       "h": 1382
     },
     {
       "name": "_D5A4590_copiaBASSA.jpg",
-      "caption": "soffione e cascata",
+      "caption": "Soffione e cascata",
       "w": 906,
       "h": 1360
     },
     {
       "name": "_D5A4774_copiaBASSA.jpg",
-      "caption": "bagno turco",
+      "caption": "Bagno turco",
       "w": 796,
       "h": 1194
     },
@@ -406,7 +406,7 @@
     },
     {
       "name": "_D5A4664_copiaBASSA.jpg",
-      "caption": "lampadario coppi bartolo",
+      "caption": "Lampadario Coppi Bartolo",
       "w": 1357,
       "h": 905
     },
@@ -430,7 +430,7 @@
     },
     {
       "name": "_D5A4790_copiaBASSA.jpg",
-      "caption": "cucina",
+      "caption": "Cucina",
       "w": 1382,
       "h": 922
     },
@@ -550,55 +550,55 @@
   "uncategorised": [
     {
       "name": "20170630_152318.jpg",
-      "caption": "stato di fatto",
+      "caption": "Stato di fatto",
       "w": 640,
       "h": 480
     },
     {
       "name": "20170630_152158.jpg",
-      "caption": "stato di fatto",
+      "caption": "Stato di fatto",
       "w": 640,
       "h": 480
     },
     {
       "name": "IMG-20170703-WA0005.jpg",
-      "caption": "stato di fatto",
+      "caption": "Stato di fatto",
       "w": 640,
       "h": 480
     },
     {
       "name": "IMG_5925.JPG",
-      "caption": "demolizioni",
+      "caption": "Demolizioni",
       "w": 2448,
       "h": 3264
     },
     {
       "name": "20171016_095940.jpg",
-      "caption": "rifacimenti",
+      "caption": "Rifacimenti",
       "w": 3264,
       "h": 2448
     },
     {
       "name": "20171030_122856.jpg",
-      "caption": "controsoffitti e impiantto di condizionamento",
+      "caption": "Controsoffitti e impianto di condizionamento",
       "w": 3264,
       "h": 2448
     },
     {
       "name": "2017-11-15-PHOTO-00003325-1.jpg",
-      "caption": "impianto di condizionamento canalizzato",
+      "caption": "Impianto di condizionamento canalizzato",
       "w": 1600,
       "h": 1200
     },
     {
       "name": "2017-11-22-PHOTO-00003517-1.jpg",
-      "caption": "acclimatzione parquet",
+      "caption": "Acclimatazione del parquet",
       "w": 1600,
       "h": 1200
     },
     {
       "name": "2017-11-22-PHOTO-000035141.jpg",
-      "caption": "posa parquet",
+      "caption": "Posa parquet",
       "w": 1200,
       "h": 1600
     },
@@ -610,105 +610,2037 @@
     },
     {
       "name": "2017-11-04-PHOTO-00003138-1.jpg",
-      "caption": "struttura per con binari porta scorrevole in vetro cabina armadio",
+      "caption": "Struttura con binari per la porta scorrevole in vetro della cabina armadio",
       "w": 1024,
       "h": 768
     },
     {
       "name": "2017-11-04-PHOTO-00003137-1.jpg",
-      "caption": "cabina armadio con faretti incassati",
+      "caption": "Cabina armadio con faretti incassati",
       "w": 1024,
       "h": 768
     },
     {
       "name": "2018-02-10-PHOTO-00004726-1.jpg",
-      "caption": "porta in vetro a tre ante scorrevoli cabina armadio",
+      "caption": "Porta in vetro a tre ante scorrevoli per la cabina armadio",
       "w": 1600,
       "h": 1200
     },
     {
       "name": "2018-02-10-PHOTO-00004727.jpg",
-      "caption": "porte h 2,5",
+      "caption": "Porte alte 2,5 m",
       "w": 1200,
       "h": 1600
     },
     {
       "name": "2017-11-27-PHOTO-00003783-1.jpg",
-      "caption": "porta ripostiglio ncchio l'invisibile",
+      "caption": "Porta ripostiglio nella nicchia, modello L'Invisibile",
       "w": 1200,
       "h": 1600
     },
     {
       "name": "2017-11-24-PHOTO-00003584-1.jpg",
-      "caption": "preparazione muri",
+      "caption": "Preparazione dei muri",
       "w": 1600,
       "h": 1200
     },
     {
       "name": "2017-11-30-PHOTO-00003843-1.jpg",
-      "caption": "tinteggiatura",
+      "caption": "Tinteggiatura",
       "w": 1600,
       "h": 1200
     },
     {
       "name": "2017-11-08-PHOTO-00003223-1.jpg",
-      "caption": "bagno pavimento mutina e rivestimento cesi",
+      "caption": "Bagno con pavimento Mutina e rivestimento Cesi",
       "w": 768,
       "h": 1024
     },
     {
       "name": "2017-11-30-PHOTO-00003846.jpg",
-      "caption": "lavabo bagno della catalano e rubinetteria bellosta",
+      "caption": "Lavabo del bagno Catalano e rubinetteria Bellosta",
       "w": 1600,
       "h": 1200
     },
     {
       "name": "2017-11-30-PHOTO-00003838-1.jpg",
-      "caption": "potra bagno scorrevole ferrero legno",
+      "caption": "Porta scorrevole del bagno Ferrero Legno",
       "w": 1200,
       "h": 1600
     },
     {
       "name": "2017-11-30-PHOTO-00003840-1.jpg",
-      "caption": "disimpegno camera",
+      "caption": "Disimpegno camera",
       "w": 1200,
       "h": 1600
     },
     {
       "name": "2017-11-30-PHOTO-00003839.jpg",
-      "caption": "disimpegno notte",
+      "caption": "Disimpegno notte",
       "w": 1200,
       "h": 1600
     },
     {
       "name": "2017-12-01-PHOTO-00003899.jpg",
-      "caption": "montaggio faretti",
+      "caption": "Montaggio faretti",
       "w": 1600,
       "h": 1200
     },
     {
       "name": "2017-12-14-PHOTO-00004213-1.jpg",
-      "caption": "cucina",
+      "caption": "Cucina",
       "w": 1200,
       "h": 1600
     },
     {
       "name": "2017-12-14-PHOTO-00004182-1.jpg",
-      "caption": "cucina",
+      "caption": "Cucina",
       "w": 1600,
       "h": 1200
     },
     {
       "name": "2017-12-14-PHOTO-00004301-1.jpg",
-      "caption": "luci sala",
+      "caption": "Luci sala",
       "w": 1600,
       "h": 1200
     },
     {
       "name": "2017-12-16-PHOTO-00004359-1.jpg",
-      "caption": "sala",
+      "caption": "Sala",
       "w": 1024,
       "h": 768
+    }
+  ],
+  "cartongesso-design": [
+    {
+      "name": "cartongesso-design-01.jpg",
+      "caption": "Camera con veletta luminosa perimetrale",
+      "w": 900,
+      "h": 1600
+    },
+    {
+      "name": "cartongesso-design-02.jpg",
+      "caption": "Boiserie e gola luminosa a soffitto",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "cartongesso-design-03.jpg",
+      "caption": "Controsoffitto circolare con gola luminosa",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "cartongesso-design-04.jpg",
+      "caption": "Ribassamento ellittico retroilluminato",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "cartongesso-design-05.jpg",
+      "caption": "Corridoio con archi e velette LED",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "cartongesso-design-06.jpg",
+      "caption": "Passaggio ad arco con cornici in cartongesso",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "cartongesso-design-07.jpg",
+      "caption": "Gola luminosa a soffitto",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "cartongesso-design-08.jpg",
+      "caption": "Zona giorno con controsoffitto sagomato",
+      "w": 900,
+      "h": 1600
+    }
+  ],
+  "ristrutturazione-villa": [
+    {
+      "name": "Soggiorno-con-vista-mobile-sospeso.jpg",
+      "caption": "",
+      "w": 768,
+      "h": 768
+    },
+    {
+      "name": "Soggiorno.jpg",
+      "caption": "",
+      "w": 768,
+      "h": 768
+    },
+    {
+      "name": "disimpegno-notte-dopo.jpg",
+      "caption": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "name": "disimpegno.jpg",
+      "caption": "",
+      "w": 768,
+      "h": 768
+    },
+    {
+      "name": "realizzazione-soggiorno-pavimento-in-gres-porcellanato-tipo-legno.jpg",
+      "caption": "",
+      "w": 360,
+      "h": 360
+    },
+    {
+      "name": "struttura-cartongesso-dopo.jpg",
+      "caption": "",
+      "w": 400,
+      "h": 300
+    },
+    {
+      "name": "Bagno-di-servizio.jpg",
+      "caption": "",
+      "w": 768,
+      "h": 768
+    },
+    {
+      "name": "Bagno-padronale-2.jpg",
+      "caption": "",
+      "w": 768,
+      "h": 768
+    },
+    {
+      "name": "Bagno-padronale.jpg",
+      "caption": "",
+      "w": 768,
+      "h": 768
+    }
+  ],
+  "ristrutturazione-bagno": [
+    {
+      "name": "20140605_183140-2.jpg",
+      "caption": "",
+      "w": 3264,
+      "h": 2448
+    },
+    {
+      "name": "20140605_183203-2.jpg",
+      "caption": "",
+      "w": 3264,
+      "h": 2448
+    },
+    {
+      "name": "20140605_183215.jpg",
+      "caption": "",
+      "w": 3264,
+      "h": 2448
+    },
+    {
+      "name": "IMG-20140910-WA0006.jpg",
+      "caption": "",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG-20140910-WA0008-2.jpg",
+      "caption": "",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG-20140910-WA0000.jpg",
+      "caption": "",
+      "w": 1280,
+      "h": 960
+    }
+  ],
+  "bagno-bollate": [
+    {
+      "name": "P110720_165632.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110720_165639.jpg",
+      "caption": "",
+      "w": 1536,
+      "h": 2048
+    },
+    {
+      "name": "P110720_165812-1.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110720_165819-1.jpg",
+      "caption": "",
+      "w": 1536,
+      "h": 2048
+    },
+    {
+      "name": "P110720_165555.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110720_165613.jpg",
+      "caption": "",
+      "w": 1536,
+      "h": 2048
+    }
+  ],
+  "mansarda-paderno": [
+    {
+      "name": "mansarda-01.jpg",
+      "caption": "",
+      "w": 1200,
+      "h": 800
+    },
+    {
+      "name": "mansarda-02.jpg",
+      "caption": "",
+      "w": 800,
+      "h": 1200
+    },
+    {
+      "name": "mansarda-03.jpg",
+      "caption": "",
+      "w": 1200,
+      "h": 800
+    },
+    {
+      "name": "bagno-mansarda-13.jpg",
+      "caption": "",
+      "w": 1067,
+      "h": 800
+    },
+    {
+      "name": "bagno-mansarda-15.jpg",
+      "caption": "",
+      "w": 600,
+      "h": 800
+    },
+    {
+      "name": "bagno-mansarda-02.jpg",
+      "caption": "",
+      "w": 600,
+      "h": 800
+    },
+    {
+      "name": "bagno-mansarda-03.jpg",
+      "caption": "",
+      "w": 600,
+      "h": 800
+    },
+    {
+      "name": "bagno-mansarda-11.jpg",
+      "caption": "",
+      "w": 1067,
+      "h": 800
+    },
+    {
+      "name": "bagno-mansarda-05.jpg",
+      "caption": "",
+      "w": 600,
+      "h": 800
+    },
+    {
+      "name": "bagno-mansarda-14.jpg",
+      "caption": "",
+      "w": 1067,
+      "h": 800
+    },
+    {
+      "name": "foto-mansarda-12.jpg",
+      "caption": "",
+      "w": 1067,
+      "h": 800
+    },
+    {
+      "name": "foto-mansarda-15-2.jpg",
+      "caption": "",
+      "w": 1067,
+      "h": 800
+    }
+  ],
+  "bagno-taverna": [
+    {
+      "name": "IMG-20170131-WA0000.jpg",
+      "caption": "",
+      "w": 747,
+      "h": 1328
+    },
+    {
+      "name": "IMG-20170131-WA0003.jpg",
+      "caption": "",
+      "w": 747,
+      "h": 1328
+    },
+    {
+      "name": "IMG-20170131-WA0006.jpg",
+      "caption": "",
+      "w": 747,
+      "h": 1328
+    },
+    {
+      "name": "IMG-20170131-WA0001.jpg",
+      "caption": "",
+      "w": 747,
+      "h": 1328
+    },
+    {
+      "name": "IMG-20170131-WA0007.jpg",
+      "caption": "",
+      "w": 1328,
+      "h": 747
+    },
+    {
+      "name": "IMG-20170131-WA0004.jpg",
+      "caption": "",
+      "w": 1328,
+      "h": 747
+    }
+  ],
+  "bagno-in-marmo": [
+    {
+      "name": "20151015_103213.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20151015_103222.jpg",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "20151015_103251.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20151015_103303.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    }
+  ],
+  "villa-bollate": [
+    {
+      "name": "P110228_175958.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110228_180110.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110329_154100.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110228_180033.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110228_180021.jpg",
+      "caption": "",
+      "w": 1536,
+      "h": 2048
+    },
+    {
+      "name": "P110329_153822.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110329_153835.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110329_153641.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110329_153652-2.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110329_153814.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110329_153920.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110329_153929.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110329_153940-2.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110319_102933.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    },
+    {
+      "name": "P110319_102956.jpg",
+      "caption": "",
+      "w": 2048,
+      "h": 1536
+    }
+  ],
+  "ampliamento-villa-novate": [
+    {
+      "name": "P1030258.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030282.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030284-2.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030300.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030292.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030304.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030310.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030321.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030336.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "lavori-arcorelavori-zazzi-021.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "Fiera-cavalli-Veronalago-di-Garda-lavori-pap-044.JPG",
+      "caption": "",
+      "w": 4288,
+      "h": 3216
+    },
+    {
+      "name": "gita-marti-2012-027.JPG",
+      "caption": "",
+      "w": 4288,
+      "h": 3216
+    },
+    {
+      "name": "gita-marti-2012-028.JPG",
+      "caption": "",
+      "w": 4288,
+      "h": 3216
+    },
+    {
+      "name": "20140115_150613.jpg",
+      "caption": "",
+      "w": 3264,
+      "h": 2448
+    }
+  ],
+  "ristrutturazione-taverna": [
+    {
+      "name": "Riscaldamento-a-pavimento.jpg",
+      "caption": "Riscaldamento a pavimento",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "Riscaldamento-a-pannelli.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "Riscaldamento-a-pannelli-1.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "IMG-20170306-WA0000.jpg",
+      "caption": "",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "IMG-20170306-WA0004.jpg",
+      "caption": "",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "IMG-20170306-WA0001.jpg",
+      "caption": "",
+      "w": 1600,
+      "h": 1600
+    },
+    {
+      "name": "IMG-20170306-WA0002.jpg",
+      "caption": "",
+      "w": 1600,
+      "h": 1600
+    },
+    {
+      "name": "IMG-20170306-WA0007.jpg",
+      "caption": "",
+      "w": 1200,
+      "h": 1600
+    }
+  ],
+  "bagno-e-lavanderia": [
+    {
+      "name": "IMG-20170313-WA0001.jpg",
+      "caption": "",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "IMG-20170306-WA0004.jpg",
+      "caption": "",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "IMG-20170313-WA0000.jpg",
+      "caption": "",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "IMG-20170313-WA0002.jpg",
+      "caption": "",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "IMG-20170313-WA0003.jpg",
+      "caption": "",
+      "w": 1200,
+      "h": 1600
+    }
+  ],
+  "bagno-moderno": [
+    {
+      "name": "20170415_095418.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170415_095505.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170415_095407.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "elimina.jpg",
+      "caption": "",
+      "w": 477,
+      "h": 637
+    },
+    {
+      "name": "20170415_095535.jpg",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "20170415_095445.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 479
+    }
+  ],
+  "ristrutturazione-bresso": [
+    {
+      "name": "IMG_20180209_142710.jpg",
+      "caption": "Vasca idromassaggio Glass",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180209_143028.jpg",
+      "caption": "Scaldasalviette",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180209_143108.jpg",
+      "caption": "Rubinetto del bidet",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "resized_IMG_20180101_094457.jpg",
+      "caption": "Rivestimento Mariner Glossy tortora e Glossy bianco, con decoro e listello Glossy tortora",
+      "w": 1488,
+      "h": 1984
+    },
+    {
+      "name": "resized_IMG_20180101_094518.jpg",
+      "caption": "Decoro Glossy tortora sulla parete dei sanitari",
+      "w": 1488,
+      "h": 1984
+    },
+    {
+      "name": "resized_IMG_20180101_094621.jpg",
+      "caption": "Pavimento Mariner Northland 60x60",
+      "w": 1488,
+      "h": 1984
+    },
+    {
+      "name": "resized_IMG_20180202_085839.jpg",
+      "caption": "Porta blindata DR",
+      "w": 1488,
+      "h": 1984
+    },
+    {
+      "name": "resized_IMG_20180202_085825.jpg",
+      "caption": "Porte interne Ferrero Legno",
+      "w": 1488,
+      "h": 1984
+    },
+    {
+      "name": "IMG_20180214_142451.jpg",
+      "caption": "Pavimento in legno di rovere fumé crema spazzolato",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "resized_IMG_20180202_085616_BURST001_COVER.jpg",
+      "caption": "",
+      "w": 1984,
+      "h": 1488
+    },
+    {
+      "name": "resized_IMG_20180202_085623.jpg",
+      "caption": "",
+      "w": 1488,
+      "h": 1984
+    },
+    {
+      "name": "resized_IMG_20180209_142535.jpg",
+      "caption": "Cucina Veneta Cucine",
+      "w": 1984,
+      "h": 1488
+    },
+    {
+      "name": "resized_IMG_20180209_142546.jpg",
+      "caption": "",
+      "w": 1984,
+      "h": 1488
+    },
+    {
+      "name": "IMG_20180214_142955.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180214_143012.jpg",
+      "caption": "Piano cottura a induzione",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180214_142703.jpg",
+      "caption": "Nicchia ripostiglio",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180214_143738.jpg",
+      "caption": "Mobile sospeso con mensola e sifone lusso a vista",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180214_143757_1.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180209_143151.jpg",
+      "caption": "Top in finitura rovere con portasalviette e lavabo alto cafè",
+      "w": 3968,
+      "h": 2976
+    },
+    {
+      "name": "IMG_20180214_142642.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "21-IMG_20180209_142710.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180214_142618_BURST001_COVER.jpg",
+      "caption": "Controsoffitto con faretti in gesso incassati",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180202_085839.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180214_142258.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180214_142317.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    }
+  ],
+  "appartamento-viale-jenner": [
+    {
+      "name": "20170630_152318.jpg",
+      "caption": "Stato di fatto",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "IMG-20170703-WA0005.jpg",
+      "caption": "Stato di fatto",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170630_152226.jpg",
+      "caption": "Stato di fatto",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "IMG_5925.JPG",
+      "caption": "Demolizioni",
+      "w": 2448,
+      "h": 3264
+    },
+    {
+      "name": "IMG_5981.JPG",
+      "caption": "Formazione divisori interni",
+      "w": 2448,
+      "h": 3264
+    },
+    {
+      "name": "IMG_5977.JPG",
+      "caption": "Installazione cassonetti originali Scrigno",
+      "w": 3264,
+      "h": 2448
+    },
+    {
+      "name": "2017-10-13-PHOTO-00002900.jpg",
+      "caption": "Formazione sottofondi",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "20171030_122856.jpg",
+      "caption": "Installazione impianto di condizionamento canalizzato",
+      "w": 3264,
+      "h": 2448
+    },
+    {
+      "name": "2017-11-15-PHOTO-00003326-1.jpg",
+      "caption": "Formazione controsoffitti",
+      "w": 1600,
+      "h": 1200
+    },
+    {
+      "name": "2017-11-04-PHOTO-00003134-1.jpg",
+      "caption": "Struttura di sostegno del binario per la porta della cabina armadio",
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "name": "2017-11-04-PHOTO-00003138-1.jpg",
+      "caption": "Chiusura cabina armadio con cartongesso",
+      "w": 1024,
+      "h": 768
+    },
+    {
+      "name": "2017-11-08-PHOTO-00003223-1.jpg",
+      "caption": "Formazione rivestimento bagno Cesi e pavimento Mutina",
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "name": "2017-11-22-PHOTO-000035141.jpg",
+      "caption": "Posa del pavimento in parquet Bauwerk",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "2017-11-30-PHOTO-00003846.jpg",
+      "caption": "Lavabo Catalano e rubinetteria Bellosta",
+      "w": 1600,
+      "h": 1200
+    },
+    {
+      "name": "2018-02-10-PHOTO-00004727.jpg",
+      "caption": "Porta cabina armadio a tre ante scorrevoli Ferrero Legno",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "2017-11-24-PHOTO-00003584-1.jpg",
+      "caption": "Preparazione dei muri per la tinteggiatura",
+      "w": 1600,
+      "h": 1200
+    },
+    {
+      "name": "2017-11-27-PHOTO-00003768-1.jpg",
+      "caption": "",
+      "w": 1600,
+      "h": 1200
+    },
+    {
+      "name": "2017-11-30-PHOTO-00003843-1.jpg",
+      "caption": "Tinteggiatura bicolore",
+      "w": 1600,
+      "h": 1200
+    },
+    {
+      "name": "2017-11-27-PHOTO-00003783-1.jpg",
+      "caption": "Porta ripostiglio nella nicchia, modello L'Invisibile",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "2017-11-30-PHOTO-00003838.jpg",
+      "caption": "Porta scorrevole del bagno Ferrero Legno",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "2017-11-30-PHOTO-00003841-1.jpg",
+      "caption": "Disimpegno camera",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "2017-11-30-PHOTO-00003839.jpg",
+      "caption": "Disimpegno notte",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "2017-12-01-PHOTO-00003899.jpg",
+      "caption": "Ingresso",
+      "w": 1600,
+      "h": 1200
+    },
+    {
+      "name": "2017-12-14-PHOTO-00004182-1.jpg",
+      "caption": "Montaggio cucina",
+      "w": 1600,
+      "h": 1200
+    },
+    {
+      "name": "2017-12-14-PHOTO-00004213-1.jpg",
+      "caption": "Cucina",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "2017-12-14-PHOTO-00004301.jpg",
+      "caption": "Sala",
+      "w": 1600,
+      "h": 1200
+    },
+    {
+      "name": "2017-12-14-PHOTO-00004299.jpg",
+      "caption": "Luci",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "name": "2017-12-16-PHOTO-00004359-1.jpg",
+      "caption": "Sala",
+      "w": 1024,
+      "h": 768
+    }
+  ],
+  "bagno-settimo-milanese": [
+    {
+      "name": "IMG_20180613_172238.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180613_172301.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180613_172344.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180613_172453.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180613_174018.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180613_174048.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180613_172519.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180613_173955.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180613_174059.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180613_174113.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180613_174130.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180613_174309.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180613_174343.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    }
+  ],
+  "bagno-bollate-2": [
+    {
+      "name": "IMG_20180712_163833.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180712_163853.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180717_150223.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180717_150228.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180718_162028.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180718_162100.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180723_195551.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180723_195619.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180723_195645.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180723_195652.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180921_185643.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180921_185612.jpg",
+      "caption": "",
+      "w": 2976,
+      "h": 3968
+    },
+    {
+      "name": "IMG_20180921_185633.jpg",
+      "caption": "",
+      "w": 3968,
+      "h": 2976
+    }
+  ],
+  "appartamento-novate": [
+    {
+      "name": "IMG_20190503_073455.jpg",
+      "caption": "Cassonetto per doppia porta scorrevole",
+      "w": 2560,
+      "h": 1920
+    },
+    {
+      "name": "IMG_20190503_074117.jpg",
+      "caption": "",
+      "w": 1920,
+      "h": 2560
+    },
+    {
+      "name": "IMG_20190510_095210_-_Copia.jpg",
+      "caption": "Formazione livellina",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG_20190510_095158_-_Copia.jpg",
+      "caption": "",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG_20190513_083539.jpg",
+      "caption": "Impermeabilizzazione della doccia",
+      "w": 3840,
+      "h": 5120
+    },
+    {
+      "name": "IMG_20190720_110022.jpg",
+      "caption": "",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG_20190720_110048.jpg",
+      "caption": "",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG_20190720_110054.jpg",
+      "caption": "Doccia con seduta",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG_20190720_110106.jpg",
+      "caption": "",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG_20190720_110117.jpg",
+      "caption": "Vaso a terra filo muro",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG_20190720_110222.jpg",
+      "caption": "Pavimento in legno",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG_20190720_110228.jpg",
+      "caption": "",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG_20190720_110240.jpg",
+      "caption": "",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG_20190720_110302.jpg",
+      "caption": "Cucina",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG_20190720_110308.jpg",
+      "caption": "",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG_20190720_110336.jpg",
+      "caption": "",
+      "w": 960,
+      "h": 1280
+    }
+  ],
+  "appartamento-lambrate": [
+    {
+      "name": "IMG-20191108-WA00144706.jpg",
+      "caption": "",
+      "w": 1024,
+      "h": 778
+    },
+    {
+      "name": "IMG_20190625_150131.jpg",
+      "caption": "Demolizioni",
+      "w": 5120,
+      "h": 3840
+    },
+    {
+      "name": "IMG_20190907_144600.jpg",
+      "caption": "Pavimento in legno Bauwerk",
+      "w": 5120,
+      "h": 3840
+    },
+    {
+      "name": "IMG_20190924_130650.jpg",
+      "caption": "Controsoffitto portante",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG-20191108-WA0001.jpg",
+      "caption": "",
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "name": "IMG-20190925-WA00354714.jpg",
+      "caption": "",
+      "w": 1024,
+      "h": 768
+    },
+    {
+      "name": "IMG_20190924_130012.jpg",
+      "caption": "Creazione nicchia (ripostiglio)",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG_20190924_125642.jpg",
+      "caption": "",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG_20190924_125653.jpg",
+      "caption": "Cucina",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG_20190924_125630.jpg",
+      "caption": "",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG-20191108-WA0002.jpg",
+      "caption": "Camera ragazzi",
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "name": "IMG-20191108-WA0005.jpg",
+      "caption": "Porta scorrevole in vetro cabina armadio",
+      "w": 1024,
+      "h": 768
+    },
+    {
+      "name": "IMG-20191108-WA0006.jpg",
+      "caption": "",
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "name": "IMG-20191108-WA0003.jpg",
+      "caption": "",
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "name": "IMG-20191108-WA00124716.jpg",
+      "caption": "",
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "name": "IMG-20191108-WA00114715.jpg",
+      "caption": "",
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "name": "IMG_20190823_071538.jpg",
+      "caption": "",
+      "w": 960,
+      "h": 1280
+    },
+    {
+      "name": "IMG-20191108-WA0009.jpg",
+      "caption": "",
+      "w": 1024,
+      "h": 768
+    }
+  ],
+  "appartamento-milano-bocconi": [
+    {
+      "name": "004_floorplan_fX16mmMdQdCWjupyzzc2_04-02-2021_04.jpg",
+      "caption": "",
+      "w": 1650,
+      "h": 1265
+    },
+    {
+      "name": "008_floorplan_s0y5ehHTiSTOGUiMblWE_04-02-2021_08.jpg",
+      "caption": "",
+      "w": 1650,
+      "h": 1265
+    },
+    {
+      "name": "026_floorplan_Ux1hzlPjTJmilpgYOygr_04-02-2021_26.jpg",
+      "caption": "",
+      "w": 1650,
+      "h": 1265
+    },
+    {
+      "name": "038_floorplan_1Q3ntPfyS6yob7vG7qgU_04-02-2021_38.jpg",
+      "caption": "",
+      "w": 1650,
+      "h": 1265
+    },
+    {
+      "name": "IMG20220413115501.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220413115623.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220413115642.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220413115734.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220413115747.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220413115754.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220413115922.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220413120147.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220413120156_01.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220413120349.jpg",
+      "caption": "",
+      "w": 2448,
+      "h": 3264
+    },
+    {
+      "name": "IMG20220413120314.jpg",
+      "caption": "",
+      "w": 2448,
+      "h": 3264
+    },
+    {
+      "name": "IMG20220413120318.jpg",
+      "caption": "",
+      "w": 2448,
+      "h": 3264
+    }
+  ],
+  "appartamento-senago": [
+    {
+      "name": "IMG20220224170730.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220224171205.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220224171214.jpg",
+      "caption": "",
+      "w": 2448,
+      "h": 3264
+    },
+    {
+      "name": "IMG20220224171223.jpg",
+      "caption": "",
+      "w": 2448,
+      "h": 3264
+    },
+    {
+      "name": "IMG20220330183500.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220330183512.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220330183538.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220330183612.jpg",
+      "caption": "",
+      "w": 2448,
+      "h": 3264
+    },
+    {
+      "name": "9-IMG20220330183500.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220224170743.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG20220224171055.jpg",
+      "caption": "",
+      "w": 2448,
+      "h": 3264
+    },
+    {
+      "name": "IMG20220224171028.jpg",
+      "caption": "",
+      "w": 3468,
+      "h": 4624
+    },
+    {
+      "name": "IMG-20220330-WA0024.jpg",
+      "caption": "",
+      "w": 1536,
+      "h": 2048
+    },
+    {
+      "name": "IMG-20220330-WA0026.jpg",
+      "caption": "",
+      "w": 1536,
+      "h": 2048
+    },
+    {
+      "name": "IMG-20220330-WA0021.jpg",
+      "caption": "",
+      "w": 1536,
+      "h": 2048
+    },
+    {
+      "name": "IMG-20220330-WA0022.jpg",
+      "caption": "",
+      "w": 1536,
+      "h": 2048
+    },
+    {
+      "name": "IMG-20220330-WA0023.jpg",
+      "caption": "",
+      "w": 1536,
+      "h": 2048
+    }
+  ],
+  "bagni-cormano": [
+    {
+      "name": "IMG-20221016-WA0001.jpg",
+      "caption": "Bagno con finestra",
+      "w": 614,
+      "h": 819
+    },
+    {
+      "name": "IMG-20221016-WA0002.jpg",
+      "caption": "Bagno con finestra",
+      "w": 614,
+      "h": 819
+    },
+    {
+      "name": "IMG-20221016-WA0003.jpg",
+      "caption": "Bagno con finestra",
+      "w": 614,
+      "h": 819
+    },
+    {
+      "name": "IMG-20221016-WA0004.jpg",
+      "caption": "Bagno con finestra",
+      "w": 614,
+      "h": 819
+    },
+    {
+      "name": "IMG-20221213-WA0000.jpg",
+      "caption": "Bagno cieco",
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "name": "IMG-20221213-WA0002.jpg",
+      "caption": "Bagno cieco",
+      "w": 1024,
+      "h": 768
+    },
+    {
+      "name": "IMG-20221213-WA0001.jpg",
+      "caption": "Bagno cieco",
+      "w": 768,
+      "h": 1024
+    }
+  ],
+  "bagno-in-muratura": [
+    {
+      "name": "19.jpg",
+      "caption": "Piano lavabo in muratura",
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "name": "17.jpg",
+      "caption": "",
+      "w": 768,
+      "h": 1024
+    },
+    {
+      "name": "27.jpg",
+      "caption": "",
+      "w": 768,
+      "h": 1024
+    }
+  ],
+  "bagno-triangolare": [
+    {
+      "name": "IMG20221213163507.jpg",
+      "caption": "",
+      "w": 3464,
+      "h": 4618
+    },
+    {
+      "name": "IMG20221213163517.jpg",
+      "caption": "",
+      "w": 3464,
+      "h": 4618
+    },
+    {
+      "name": "IMG20221213163545.jpg",
+      "caption": "",
+      "w": 2448,
+      "h": 3264
+    },
+    {
+      "name": "IMG20221213163751.jpg",
+      "caption": "",
+      "w": 2448,
+      "h": 3264
+    },
+    {
+      "name": "IMG20221213163823.jpg",
+      "caption": "",
+      "w": 2448,
+      "h": 3264
+    },
+    {
+      "name": "IMG20221213163409.jpg",
+      "caption": "",
+      "w": 3464,
+      "h": 4618
+    }
+  ],
+  "appartamento-milano-grande": [
+    {
+      "name": "20170225_143357.jpg",
+      "caption": "Stato di fatto",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170225_143406.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170225_143416.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170225_143424.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170225_144924.jpg",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "20170225_143515.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170424_165412.jpg",
+      "caption": "Porta stile Milano: arco affiorato dalle demolizioni",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170413_115448.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170424_165426.jpg",
+      "caption": "Formazione intonaci",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170424_165438.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170424_165456.jpg",
+      "caption": "Rimozione di tutti gli intonaci",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170424_165547.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170512_100844.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170512_100915.jpg",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "20170524_135016.jpg",
+      "caption": "Formazione controsoffitti",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170523_171028.jpg",
+      "caption": "Linea aria per caldaia a condensazione, presa aria della cappa e del bagno cieco",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170525_104210.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170525_104227.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170523_092242.jpg",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "20170601_150834.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170608_154715.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030510.JPG",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "20170608_154731.jpg",
+      "caption": "Pavimento in gres porcellanato effetto legno",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170727_133807.jpg",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "P1030508.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030507.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030512.JPG",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "P1030513.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "arredamento-soggiorno.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "arco-affiorato-dalle-demoizioni.jpg",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "P1030514.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030576.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030577.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170726_183338.jpg",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "box-doccia.jpg",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "P1030571.JPG",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "P1030564.JPG",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "P1030572.JPG",
+      "caption": "Box doccia",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030573.JPG",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "P1030566.JPG",
+      "caption": "Lavabo a bacinella",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "P1030568.JPG",
+      "caption": "Rubinetteria lavabo a parete",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030574.JPG",
+      "caption": "Sanitari sospesi",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030575.JPG",
+      "caption": "Scaldasalviette con elemento stendino",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "20170726_183403.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170726_183416.jpg",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "20170726_183426.jpg",
+      "caption": "",
+      "w": 480,
+      "h": 640
+    },
+    {
+      "name": "20170726_183458.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170726_183507.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170726_183527.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "20170726_183604.jpg",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030562.JPG",
+      "caption": "",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "P1030581.JPG",
+      "caption": "Piano cottura a induzione",
+      "w": 640,
+      "h": 480
+    },
+    {
+      "name": "elementi-cucina.jpg",
+      "caption": "",
+      "w": 480,
+      "h": 640
     }
   ]
 }

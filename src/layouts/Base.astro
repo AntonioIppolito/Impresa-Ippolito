@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { site } from '../data/site';
+import { site, services, ORG_ID } from '../data/site';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import MobileCTA from '../components/MobileCTA.astro';
@@ -10,19 +10,30 @@ interface Props {
   description: string;
   image?: string;
   noMobileCta?: boolean;
+  /** JSON-LD aggiuntivi della pagina (FAQPage, Service, BreadcrumbList…) */
+  schema?: Record<string, unknown>[];
+  /** briciole di pane: [{name, path}] (la Home viene aggiunta in automatico) */
+  breadcrumb?: { name: string; path: string }[];
 }
-const { title, description, image = '/og-default.jpg', noMobileCta = false } = Astro.props;
+const { title, description, image = '/og-default.jpg', noMobileCta = false, schema = [], breadcrumb } = Astro.props;
+const siteUrl = Astro.site!.href.replace(/\/$/, '');
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(image, Astro.site).href;
 
-const schema = {
+// Entità impresa: stessa @id su tutte le pagine, così Google e le IA la riconoscono come una sola
+const org = {
   '@context': 'https://schema.org',
   '@type': 'GeneralContractor',
-  name: site.legalName,
-  alternateName: site.name,
-  url: Astro.site?.href,
-  telephone: site.phone.href.replace('tel:', ''),
+  '@id': ORG_ID,
+  name: site.name,
+  legalName: site.legal.ragioneSociale,
+  alternateName: site.alternateNames,
+  description:
+    'Impresa edile di ristrutturazioni chiavi in mano con sede a Novate Milanese, attiva da oltre 30 anni in provincia di Milano e in Monza Brianza. Il titolare, il geom. Antonio Ippolito, segue i lavori di persona in cantiere.',
+  url: `${siteUrl}/`,
+  logo: `${siteUrl}/logo.png`,
   image: ogImage,
+  telephone: site.phone.href.replace('tel:', ''),
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.address.street,
@@ -32,11 +43,27 @@ const schema = {
     addressCountry: 'IT',
   },
   geo: { '@type': 'GeoCoordinates', latitude: site.address.geo.lat, longitude: site.address.geo.lng },
-  areaServed: site.areaServed,
-  vatID: site.legal.piva,
-  sameAs: [site.facebook],
-  description: site.claim,
+  areaServed: [
+    ...site.cities.map((c) => ({ '@type': 'City', name: c })),
+    { '@type': 'AdministrativeArea', name: 'Città metropolitana di Milano' },
+    { '@type': 'AdministrativeArea', name: 'Provincia di Monza e della Brianza' },
+  ],
+  founder: { '@type': 'Person', name: 'Antonio Ippolito', jobTitle: 'Geometra, titolare' },
+  vatID: `IT${site.legal.piva}`,
+  knowsAbout: services.map((s) => s.t),
+  sameAs: [site.facebook, site.instagram, site.paginegialle],
 };
+
+const crumbs = breadcrumb?.length
+  ? [{
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [{ name: 'Home', path: '/' }, ...breadcrumb].map((b, i) => ({
+        '@type': 'ListItem', position: i + 1, name: b.name, item: `${siteUrl}${b.path}`,
+      })),
+    }]
+  : [];
+const jsonld = [org, ...crumbs, ...schema];
 ---
 
 <!doctype html>
@@ -52,7 +79,7 @@ const schema = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="theme-color" content="#2d76b6" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
@@ -62,9 +89,11 @@ const schema = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="it_IT" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
 
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <set:html value={`<script type="application/ld+json">${JSON.stringify(schema)}</script>`} />
+    {jsonld.map((j) => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
   </head>
   <body>
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-3 focus:bg-[var(--color-text)] focus:px-4 focus:py-2 focus:text-white">Salta al contenuto</a>

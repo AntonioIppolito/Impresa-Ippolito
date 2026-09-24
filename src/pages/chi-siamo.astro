@@ -1,0 +1,228 @@
+---
+// Pagina GEO: "scheda d'identità" dell'impresa, scritta per essere letta ed estratta da
+// motori di ricerca e assistenti IA. SOLO dati reali e verificati (niente anno di fondazione:
+// le fonti online non concordano, va confermato dal titolare).
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import { site, services, compliance, transparency, ORG_ID, SITE_URL } from '../data/site';
+import { projects, pickPhoto } from '../data/projects';
+import { answered } from '../data/faq';
+
+const totalPhotos = projects.reduce((n, p) => n + p.images.length, 0);
+
+// comuni con lavori reali -> elenco progetti in quel comune
+const byCity = site.cities
+  .map((city) => ({ city, items: projects.filter((p) => p.location?.startsWith(city)) }))
+  .filter((c) => c.items.length);
+
+const featured = [
+  pickPhoto('ristrutturazione-appartamento-milano-24', '_D5A4790'),
+  pickPhoto('cartongesso-design', 'cartongesso-design-05'),
+  pickPhoto('appartamento-viale-jenner'),
+  pickPhoto('appartamento-senago'),
+];
+
+const facts: [string, string][] = [
+  ['Nome', site.name],
+  ['Ragione sociale', `${site.legal.ragioneSociale} (ditta individuale)`],
+  ['Titolare', 'Geom. Antonio Ippolito'],
+  ['Sede', `${site.address.street}, ${site.address.zip} ${site.address.city} (${site.address.province})`],
+  ['Telefono e WhatsApp', site.phone.display],
+  ['Esperienza', 'Oltre 30 anni di ristrutturazioni'],
+  ['Zona servita', 'Provincia di Milano e Monza Brianza'],
+  ['Specialità', 'Ristrutturazioni chiavi in mano, bagni e cucine, impianti, cartongesso di design'],
+  ['Lavori documentati', `${projects.length} progetti e ${totalPhotos} foto reali`],
+  ['Dati di registro', `P.IVA ${site.legal.piva} · Albo Artigiani ${site.legal.alboArtigiani} · ${site.legal.regImprese}`],
+];
+
+const howWeWork = [
+  { t: 'Il titolare in cantiere', d: 'Il geom. Antonio Ippolito segue ogni lavoro di persona, in cantiere, ed è l’unico interlocutore dall’inizio alla fine.' },
+  { t: transparency.t, d: transparency.d },
+  { t: 'DURC prima di iniziare', d: compliance[0] },
+  { t: 'Impianti certificati', d: compliance[1] },
+  { t: 'Garanzia e reperibilità', d: 'Garanzia sulle opere e sui materiali impiegati, assistenza post consegna e totale reperibilità in caso di necessità.' },
+  { t: 'Cantiere pulito e puntuale', d: 'Rispetto e pulizia dei luoghi di lavoro e delle tempistiche di consegna concordate.' },
+];
+
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'Chi siamo: Impresa Ippolito',
+  url: `${SITE_URL}/chi-siamo`,
+  about: { '@id': ORG_ID },
+  mainEntity: { '@id': ORG_ID },
+  inLanguage: 'it-IT',
+};
+const faqPreview = answered.filter((f) => f.home).slice(0, 4);
+
+// l'ultima card si allarga per chiudere la riga (niente celle vuote), su 2 e su 3 colonne
+const fill = (i: number, n: number, cols3 = false) => {
+  if (i !== n - 1) return '';
+  const sm = n % 2 === 1 ? 'sm:col-span-2' : '';
+  if (!cols3) return sm;
+  const r = n % 3;
+  const lg = r === 2 ? 'lg:col-span-2' : r === 1 ? 'lg:col-span-3' : sm ? 'lg:col-span-1' : '';
+  return `${sm} ${lg}`;
+};
+---
+<Base
+  title="Impresa Ippolito: ristrutturazioni a Novate Milanese"
+  description="Impresa di ristrutturazioni chiavi in mano a Novate Milanese: il titolare geometra segue i lavori in cantiere, da oltre 30 anni in provincia di Milano."
+  schema={[aboutSchema]}
+  breadcrumb={[{ name: 'Chi siamo', path: '/chi-siamo' }]}
+>
+  <!-- In breve: risposta subito -->
+  <section class="border-b border-[var(--color-border)]">
+    <div class="u-container grid grid-cols-1 gap-10 py-14 md:grid-cols-12 md:py-20">
+      <div class="md:col-span-7">
+        <p class="u-label">Chi siamo</p>
+        <h1 class="mt-5 text-[clamp(2.5rem,5.5vw,4.75rem)] font-black leading-[0.92] tracking-[-0.03em]">
+          Impresa Ippolito, <span class="text-[var(--color-accent)]">ristrutturazioni a Novate Milanese.</span>
+        </h1>
+        <p class="mt-7 max-w-2xl text-lg leading-relaxed">
+          <strong>Impresa Ippolito</strong> è un’impresa edile di ristrutturazioni chiavi in mano con sede a <strong>Novate Milanese (MI)</strong>, attiva da <strong>oltre 30 anni</strong> in provincia di Milano e in Monza Brianza. Il titolare, il <strong>geometra Antonio Ippolito</strong>, segue ogni lavoro di persona in cantiere e coordina un’equipe di artigiani e professionisti di fiducia.
+        </p>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
+          Ristrutturiamo appartamenti, case indipendenti, uffici e negozi: dal solo bagno o cucina fino all’intervento completo, con impianti certificati, pavimenti, cartongesso e finiture.
+        </p>
+      </div>
+      <div class="relative md:col-span-5">
+        <div class="relative aspect-[4/5] overflow-hidden border border-[var(--color-border)] bg-[var(--color-text)]">
+          <Image src={featured[1].image.src} alt="Cartongesso di design con gole luminose LED realizzato dall'Impresa Ippolito" widths={[480, 800, 1100]} sizes="(max-width:768px) 100vw, 40vw" class="absolute inset-0 h-full w-full object-cover" style="object-position:50% 45%" loading="eager" />
+          <span class="u-label absolute bottom-4 left-4 bg-[var(--color-text)] px-3 py-2 text-white/90">Un nostro lavoro · Cartongesso di design</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scheda impresa -->
+  <section class="border-b border-[var(--color-border)] bg-[var(--color-tint)] py-14 md:py-20">
+    <div class="u-container">
+      <h2 class="text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">L’impresa in breve</h2>
+      <dl class="mt-8 grid grid-cols-1 border-l border-t border-[var(--color-border)] bg-[var(--color-surface)] sm:grid-cols-2">
+        {facts.map(([k, v]) => (
+          <div class="border-b border-r border-[var(--color-border)] px-5 py-4">
+            <dt class="u-label">{k}</dt>
+            <dd class="mt-1.5 text-lg font-bold leading-snug">{v}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="mt-5 max-w-3xl text-sm text-[var(--color-muted)]">
+        Nelle schede online ci trovate anche come {site.alternateNames.map((n, i) => (
+          <span><strong class="font-semibold text-[var(--color-text)]">{n}</strong>{i < site.alternateNames.length - 2 ? ', ' : i === site.alternateNames.length - 2 ? ' e ' : ''}</span>
+        ))}: siamo sempre noi.
+      </p>
+    </div>
+  </section>
+
+  <!-- Cosa facciamo -->
+  <section class="border-b border-[var(--color-border)] py-14 md:py-20">
+    <div class="u-container grid grid-cols-1 gap-10 md:grid-cols-12">
+      <div class="md:col-span-4">
+        <p class="u-label">Servizi</p>
+        <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Cosa facciamo</h2>
+        <a href="/servizi" class="btn btn--ghost mt-7">Tutti i servizi</a>
+      </div>
+      <ul class="grid grid-cols-1 border-l border-t border-[var(--color-border)] sm:grid-cols-2 md:col-span-8">
+        {services.map((s, i) => (
+          <li class:list={['border-b border-r border-[var(--color-border)] p-5', fill(i, services.length)]}>
+            {s.href ? <a href={s.href} class="text-lg font-black tracking-tight hover:text-[var(--color-accent)]">{s.t} →</a> : <p class="text-lg font-black tracking-tight">{s.t}</p>}
+            <p class="mt-1.5 text-sm text-[var(--color-muted)]">{s.d}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Come lavoriamo -->
+  <section class="border-b border-[var(--color-border)] bg-[var(--color-text)] py-14 text-[var(--color-bg)] md:py-20">
+    <div class="u-container">
+      <p class="u-label text-white/50">Metodo</p>
+      <h2 class="mt-4 text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Come lavoriamo</h2>
+      <div class="mt-8 grid grid-cols-1 border-l border-t border-white/15 sm:grid-cols-2 lg:grid-cols-3">
+        {howWeWork.map((h, i) => (
+          <div class="border-b border-r border-white/15 p-6">
+            <span class="font-[family-name:var(--font-mono)] text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="mt-3 text-xl font-black tracking-tight text-white">{h.t}</h3>
+            <p class="mt-2 text-[0.95rem] leading-snug text-white/70">{h.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Dove lavoriamo -->
+  <section class="border-b border-[var(--color-border)] py-14 md:py-20">
+    <div class="u-container">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-12">
+        <div class="md:col-span-5">
+          <p class="u-label">Zona</p>
+          <h2 class="mt-4 text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Dove lavoriamo</h2>
+        </div>
+        <p class="text-lg text-[var(--color-muted)] md:col-span-7">
+          Partiamo da Novate Milanese e lavoriamo in tutta la provincia di Milano e in Monza Brianza. Questi sono i comuni dei lavori che abbiamo pubblicato, con i link alle foto di ciascun cantiere.
+        </p>
+      </div>
+      <div class="mt-8 grid grid-cols-1 border-l border-t border-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-3">
+        {byCity.map((c, i) => (
+          <div class:list={['border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-5', fill(i, byCity.length, true)]}>
+            <div class="flex items-baseline justify-between gap-3">
+              <h3 class="text-xl font-black tracking-tight">{c.city}</h3>
+              <span class="font-[family-name:var(--font-mono)] text-xs text-[var(--color-muted)]">{c.items.length} {c.items.length === 1 ? 'lavoro' : 'lavori'}</span>
+            </div>
+            <ul class="mt-3 space-y-1.5">
+              {c.items.map((p) => (
+                <li><a href={`/lavori-eseguiti/${p.slug}`} class="text-sm text-[var(--color-muted)] underline decoration-[var(--color-border)] underline-offset-4 hover:text-[var(--color-accent)]">{p.title}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Alcuni lavori -->
+  <section class="border-b border-[var(--color-border)] bg-[var(--color-tint)] py-14 md:py-20">
+    <div class="u-container">
+      <div class="flex items-end justify-between gap-4">
+        <h2 class="text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Alcuni lavori</h2>
+        <a href="/lavori-eseguiti" class="u-label hover:text-[var(--color-accent)]">Tutti i {projects.length} lavori →</a>
+      </div>
+      <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {featured.map(({ project, image }) => (
+          <a href={`/lavori-eseguiti/${project.slug}`} class="card-anim group block border border-[var(--color-border)] bg-[var(--color-surface)]">
+            <div class="relative aspect-[4/3] overflow-hidden">
+              <Image src={image.src} alt={image.alt} widths={[400, 640]} sizes="(max-width:640px) 100vw, 25vw" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" loading="lazy" />
+            </div>
+            <div class="p-4">
+              <p class="font-black leading-tight tracking-tight group-hover:text-[var(--color-accent)]">{project.title}</p>
+              <p class="u-label mt-1">{project.category}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Estratto FAQ -->
+  <section class="py-14 md:py-20">
+    <div class="u-container grid grid-cols-1 gap-10 md:grid-cols-12">
+      <div class="md:col-span-4">
+        <p class="u-label">Domande frequenti</p>
+        <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Le risposte più richieste</h2>
+        <a href="/domande-frequenti" class="btn btn--primary mt-7">Tutte le domande</a>
+      </div>
+      <div class="border-t border-[var(--color-border)] md:col-span-8">
+        {faqPreview.map((f) => (
+          <div class="border-b border-[var(--color-border)] py-5">
+            <h3 class="text-lg font-black tracking-tight">{f.q}</h3>
+            <p class="mt-2 text-[var(--color-muted)]">{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Base>

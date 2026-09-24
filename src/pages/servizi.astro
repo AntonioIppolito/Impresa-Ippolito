@@ -5,8 +5,9 @@ import CTA from '../components/CTA.astro';
 import { services, compliance } from '../data/site';
 ---
 <Base
-  title="Servizi — Impresa Ippolito | Ristrutturazioni, bagni, impianti a Milano"
-  description="Ristrutturazioni chiavi in mano: bagni e cucine, impianti elettrici e termoidraulici, pavimenti, cartongesso, tinteggiature, tetti e facciate. Milano e Monza Brianza."
+  title="Servizi di ristrutturazione a Milano nord | Impresa Ippolito"
+  description="Bagni e cucine, impianti elettrici e termoidraulici, pavimenti e parquet, cartongesso e controsoffitti LED, tinteggiature. Da Novate a tutta Milano."
+  breadcrumb={[{ name: 'Servizi', path: '/servizi' }]}
 >
   <!-- hero compatto a due colonne piene -->
   <section class="border-b border-[var(--color-border)]">
@@ -48,8 +49,8 @@ import { services, compliance } from '../data/site';
       <h2 class="mb-8 text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Lavoriamo in regola</h2>
       <div class="grid grid-cols-1 border-l border-t border-[var(--color-border)] md:grid-cols-2">
         {compliance.map((c, i) => (
-          <div class="border-b border-r border-[var(--color-border)] p-6 md:p-8">
-            <span class="u-index text-sm">{String(i + 1).padStart(2, '0')}</span>
+          <div class="card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-8">
+            <span class="u-index inline-block text-sm transition-transform duration-300 group-hover:translate-x-1">{String(i + 1).padStart(2, '0')}</span>
             <p class="mt-4 text-lg">{c}</p>
           </div>
         ))}

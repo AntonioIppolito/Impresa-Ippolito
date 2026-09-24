@@ -4,7 +4,7 @@ import Hero from '../components/Hero.astro';
 import TrustBar from '../components/TrustBar.astro';
 import Section from '../components/Section.astro';
 import ServiceGrid from '../components/ServiceGrid.astro';
-import PortfolioGrid from '../components/PortfolioGrid.astro';
+import ProjectStack from '../components/ProjectStack.astro';
 import WhyUs from '../components/WhyUs.astro';
 import BeforeAfter from '../components/BeforeAfter.astro';
 import CTA from '../components/CTA.astro';
@@ -12,24 +12,25 @@ import { beforeAfter } from '../data/beforeafter';
 import { compliance } from '../data/site';
 ---
 <Base
-  title="Impresa Ippolito — Ristrutturazioni chiavi in mano a Milano e Monza Brianza"
-  description="Impresa edile di ristrutturazioni civili a Milano e in Monza Brianza da oltre 30 anni. Un unico interlocutore, dal preventivo alla consegna. Richiedi un preventivo."
+  title="Ristrutturazioni Novate Milanese e Milano | Impresa Ippolito"
+  description="Impresa edile a Novate Milanese: ristrutturazioni chiavi in mano a Milano e Monza Brianza, con il titolare geometra in cantiere. Preventivo gratuito."
 >
   <Hero />
   <TrustBar />
 
   <!-- Chi siamo -->
-  <Section label="Chi siamo" title="Da oltre 30 anni, un solo referente.">
+  <Section label="Chi siamo" title="Da oltre 30 anni, un solo referente." center>
     <div slot="aside" class="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
       <div class="flex items-baseline justify-between py-3"><span class="u-label">Attività</span><span class="font-[family-name:var(--font-display)] text-xl font-black">30+ anni</span></div>
       <div class="flex items-baseline justify-between py-3"><span class="u-label">Zona</span><span class="font-[family-name:var(--font-display)] text-xl font-black">Milano · MB</span></div>
       <div class="flex items-baseline justify-between py-3"><span class="u-label">Titolare</span><span class="font-[family-name:var(--font-display)] text-xl font-black">Geom. Ippolito</span></div>
+      <div class="flex items-baseline justify-between py-3"><span class="u-label">In cantiere</span><span class="font-[family-name:var(--font-display)] text-xl font-black">Di persona</span></div>
     </div>
     <p class="text-[clamp(1.5rem,2.6vw,2.1rem)] font-black leading-[1.08] tracking-tight">
-      L’Impresa Ippolito opera nelle ristrutturazioni e costruzioni edili in tutta la provincia di Milano e Monza Brianza, sul principio di qualità, professionalità e garanzia dei lavori.
+      L’Impresa Ippolito opera nelle ristrutturazioni edili in tutta la provincia di Milano e Monza Brianza, sul principio di qualità, professionalità e garanzia dei lavori.
     </p>
     <p class="mt-6 text-lg text-[var(--color-muted)]">
-      L’esecuzione delle opere è seguita in tutte le fasi direttamente dal titolare, il geometra Antonio Ippolito, che grazie a un’equipe di artigiani e professionisti di fiducia altamente qualificati offre un servizio completo a 360 gradi.
+      L’esecuzione delle opere è seguita in tutte le fasi direttamente dal titolare, il geometra Antonio Ippolito, che grazie a un’equipe di artigiani e professionisti di fiducia altamente qualificati offre un servizio completo a 360 gradi. Il titolare è presente di persona in cantiere e segue l’avanzamento dei lavori sul posto.
     </p>
   </Section>
 
@@ -42,7 +43,7 @@ import { compliance } from '../data/site';
   <!-- Lavori showcase -->
   <Section label="Lavori" title="Lavori eseguiti" lead="Foto reali dei nostri cantieri e delle case consegnate a Milano e in Monza Brianza.">
     <a slot="aside" href="/lavori-eseguiti" class="btn btn--primary">Vedi tutti i lavori</a>
-    <PortfolioGrid limit={6} cols={2} />
+    <ProjectStack />
   </Section>
 
   <!-- Before/After campione -->

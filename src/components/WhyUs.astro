@@ -1,13 +1,22 @@
 ---
-import { guarantees } from '../data/site';
+import { guarantees, transparency } from '../data/site';
 // usata nella sezione scura "Perché sceglierci"
 const tinted = (i: number) => (Math.floor(i / 2) + (i % 2)) % 2 === 0;
 ---
+<!-- Preventivi trasparenti: banner in evidenza -->
+<div class="mb-4 flex flex-col gap-4 border-l-4 border-[var(--color-accent)] bg-white p-6 sm:flex-row sm:items-center md:p-7">
+  <div class="sm:flex-1">
+    <span class="font-[family-name:var(--font-mono)] text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">In evidenza</span>
+    <h3 class="mt-2 text-2xl font-black tracking-tight text-[var(--color-text)] md:text-3xl">{transparency.t}</h3>
+  </div>
+  <p class="text-base text-[var(--color-muted)] sm:max-w-md">{transparency.d}</p>
+</div>
+
 <div class="grid grid-cols-1 border-l border-t border-white/15 sm:grid-cols-2">
   {guarantees.map((g, i) => (
     <div
       class:list={[
-        'group relative overflow-hidden border-b border-r border-white/15 p-6 transition-colors duration-300 ease-linear hover:bg-[var(--color-accent)] md:p-7',
+        'card-anim group relative overflow-hidden border-b border-r border-white/15 p-6 [--card-bar:#fff] [--card-shadow:#fff] hover:bg-[var(--color-accent)] md:p-7',
         tinted(i) ? 'bg-white/[0.05]' : 'bg-transparent',
       ]}
     >

@@ -1,17 +1,42 @@
 ---
 import { Image } from 'astro:assets';
-import { heroProject as flagship, heroImage as heroImg } from '../data/projects';
+import { getProject } from '../data/projects';
+
+// Carosello hero: foto finite ad alta risoluzione, ognuna porta alla sua scheda.
+// `stem` = parte del nome file (regge anche i nomi hashati in build), `pos` = inquadratura.
+const pick = (slug: string, stem: string, pos = '50% 50%') => {
+  const p = getProject(slug)!;
+  const im = p.images.find((i) => i.src.src.includes(stem)) ?? p.images[0];
+  return {
+    href: `/lavori-eseguiti/${slug}`,
+    title: p.title,
+    src: im.src,
+    alt: `${p.title}${im.caption ? `: ${im.caption}` : ''}, lavoro dell'Impresa Ippolito`,
+    pos,
+  };
+};
+
+const slides = [
+  pick('cartongesso-design', 'cartongesso-design-05', '50% 45%'),
+  pick('ristrutturazione-appartamento-milano-24', '_D5A4824', '50% 62%'),
+  pick('appartamento-senago', 'IMG20220330183538', '50% 60%'),
+  pick('ristrutturazione-appartamento-milano-24', 'IMG20240208092313', '50% 55%'),
+  pick('ristrutturazione-bresso', 'resized_IMG_20180209_142535', '50% 50%'),
+  pick('bagno-settimo-milanese', 'IMG_20180613_174048', '50% 55%'),
+];
 ---
 <section class="border-b border-[var(--color-border)]">
   <div class="u-container grid grid-cols-1 gap-0 lg:grid-cols-12">
     <!-- colonna testo -->
     <div class="flex flex-col justify-center pb-8 pt-8 lg:col-span-6 lg:py-20 lg:pr-12">
-      <p class="u-label">Impresa edile di ristrutturazioni</p>
-      <h1 class="mt-5 text-[clamp(2.75rem,7vw,5.5rem)] font-black leading-[0.9] tracking-[-0.03em] [text-wrap:balance]">
-        Casa vostra,<br /><span class="text-[var(--color-accent)]">chiavi in mano.</span>
+      <h1>
+        <span class="u-label block">Impresa di ristrutturazioni a Novate Milanese</span>
+        <span class="mt-5 block text-[clamp(2.75rem,7vw,5.5rem)] font-black leading-[0.9] tracking-[-0.03em] [text-wrap:balance]">
+          Casa vostra,<br /><span class="text-[var(--color-accent)]">chiavi in mano.</span>
+        </span>
       </h1>
       <p class="mt-6 max-w-md text-lg text-[var(--color-muted)]">
-        Da oltre 30 anni a Milano e in Monza Brianza. Un unico interlocutore, il geom. Antonio Ippolito, dal preventivo alla consegna.
+        Da oltre 30 anni a Milano e in Monza Brianza. Il geom. Antonio Ippolito segue ogni lavoro di persona, presente in cantiere dal preventivo alla consegna.
       </p>
       <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         <a href="/contatti#preventivo" class="btn btn--primary justify-center sm:justify-start">Richiedi un preventivo</a>
@@ -19,22 +44,105 @@ import { heroProject as flagship, heroImage as heroImg } from '../data/projects'
       </div>
     </div>
 
-    <!-- colonna foto reale a pieno contrasto -->
+    <!-- colonna foto: carosello a dissolvenza -->
     <div class="relative -mx-6 md:-mx-8 lg:mx-0 lg:col-span-6">
-      <div class="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[80vh]">
-        <Image
-          src={heroImg}
-          alt={`Ristrutturazione realizzata dall'Impresa Ippolito: ${flagship.title}`}
-          widths={[640, 960, 1400, 1800]}
-          sizes="(max-width: 1024px) 100vw, 58vw"
-          class="absolute inset-0 h-full w-full object-cover object-[center_62%] lg:object-center"
-          loading="eager"
-          fetchpriority="high"
-        />
-        <span class="u-label absolute bottom-4 left-4 bg-[var(--color-text)] px-3 py-2 text-white/90">
-          {flagship.title}
-        </span>
+      <div
+        class="relative aspect-[4/3] overflow-hidden bg-[var(--color-text)] sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[80vh]"
+        data-hero-carousel
+        role="region"
+        aria-roledescription="carosello"
+        aria-label="Alcuni dei nostri lavori"
+      >
+        {slides.map((s, i) => (
+          <a
+            href={s.href}
+            data-slide
+            aria-roledescription="slide"
+            aria-label={`${i + 1} di ${slides.length}: ${s.title}`}
+            aria-hidden={i === 0 ? 'false' : 'true'}
+            tabindex={i === 0 ? 0 : -1}
+            class:list={[
+              'group absolute inset-0 block transition-opacity duration-1000 ease-in-out',
+              i === 0 ? 'z-[2] opacity-100' : 'pointer-events-none z-[1] opacity-0',
+            ]}
+          >
+            <Image
+              src={s.src}
+              alt={s.alt}
+              widths={[640, 960, 1400, 1800]}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              style={`object-position: ${s.pos}`}
+              loading="eager"
+              fetchpriority={i === 0 ? 'high' : 'low'}
+            />
+            <span class="u-label absolute bottom-4 left-4 z-[3] flex items-center gap-2 bg-[var(--color-text)] px-3 py-2 text-white/90 transition-colors duration-300 group-hover:bg-[var(--color-accent)] group-hover:text-white">
+              {s.title}
+              <span aria-hidden="true">→</span>
+            </span>
+          </a>
+        ))}
+
+        <!-- indicatori -->
+        <div class="absolute bottom-5 right-4 z-[4] flex items-center gap-1.5">
+          {slides.map((s, i) => (
+            <button
+              type="button"
+              data-dot
+              aria-label={`Mostra: ${s.title}`}
+              aria-current={i === 0 ? 'true' : 'false'}
+              class="h-1.5 w-3 bg-white/50 transition-all duration-300 hover:bg-white aria-[current=true]:w-7 aria-[current=true]:bg-white"
+            ></button>
+          ))}
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-hero-carousel]').forEach((root) => {
+    const slides = [...root.querySelectorAll<HTMLAnchorElement>('[data-slide]')];
+    const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-dot]')];
+    if (slides.length < 2) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let i = 0;
+    let timer: number | undefined;
+
+    const show = (n: number) => {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => {
+        const on = k === i;
+        s.classList.toggle('opacity-100', on);
+        s.classList.toggle('opacity-0', !on);
+        s.classList.toggle('pointer-events-none', !on);
+        s.classList.toggle('z-[2]', on);
+        s.classList.toggle('z-[1]', !on);
+        s.setAttribute('aria-hidden', String(!on));
+        s.tabIndex = on ? 0 : -1;
+      });
+      dots.forEach((d, k) => d.setAttribute('aria-current', String(k === i)));
+    };
+    // passa alla slide successiva solo se la sua foto è già caricata (mai slide nere)
+    const ready = (n: number) => {
+      const img = slides[(n + slides.length) % slides.length].querySelector('img');
+      return !img || (img.complete && img.naturalWidth > 0);
+    };
+    const start = () => {
+      if (reduce || timer !== undefined) return;
+      timer = window.setInterval(() => { if (ready(i + 1)) show(i + 1); }, 3000);
+    };
+    const stop = () => {
+      if (timer !== undefined) window.clearInterval(timer);
+      timer = undefined;
+    };
+
+    dots.forEach((d, k) => d.addEventListener('click', () => { show(k); stop(); start(); }));
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    root.addEventListener('focusin', stop);
+    root.addEventListener('focusout', start);
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+    start();
+  });
+</script>

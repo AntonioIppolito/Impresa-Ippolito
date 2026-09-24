@@ -3,6 +3,8 @@ import { Image, getImage } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import CTA from '../../components/CTA.astro';
 import { projects, getProject } from '../../data/projects';
+import { projectMeta } from '../../data/seo';
+import { ORG_ID, SITE_URL } from '../../data/site';
 
 export function getStaticPaths() {
   return projects.map((p) => ({ params: { slug: p.slug } }));
@@ -22,11 +24,27 @@ const gallery = await Promise.all(
     full: (await getImage({ src: im.src, width: Math.min(1600, im.src.width), format: 'webp', quality: 80 })).src,
   }))
 );
+
+const meta = projectMeta(project);
+// scheda lavoro come CreativeWork dell'impresa, con le foto reali
+const workSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: project.title,
+  description: project.blurb,
+  url: `${SITE_URL}/lavori-eseguiti/${project.slug}`,
+  creator: { '@id': ORG_ID },
+  ...(project.location && project.location !== 'Provincia di Milano' ? { locationCreated: { '@type': 'Place', name: project.location } } : {}),
+  image: project.images.slice(0, 6).map((im) => new URL(im.src.src, SITE_URL).href),
+  keywords: project.scope.join(', '),
+};
 ---
 <Base
-  title={`${project.title} — Lavori Impresa Ippolito`}
-  description={project.blurb}
+  title={meta.title}
+  description={meta.description}
   image={project.cover.src}
+  schema={[workSchema]}
+  breadcrumb={[{ name: 'Lavori eseguiti', path: '/lavori-eseguiti' }, { name: project.title, path: `/lavori-eseguiti/${project.slug}` }]}
 >
   <!-- header -->
   <section class="border-b border-[var(--color-border)]">

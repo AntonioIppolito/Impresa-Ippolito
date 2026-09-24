@@ -8,21 +8,21 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
 <header class="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-surface)_95%,transparent)] backdrop-blur">
   <div class="u-container flex h-[72px] items-center justify-between gap-4 md:h-20">
     <a href="/" class="flex items-center" aria-label="Impresa Ippolito, home">
-      <Image src={logo} alt="Impresa Ippolito — ristrutturazioni chiavi in mano" widths={[200, 300, 340]} sizes="200px" class="h-10 w-auto md:h-12" loading="eager" />
+      <Image src={logo} alt="Impresa Ippolito, ristrutturazioni chiavi in mano" widths={[200, 300, 340]} sizes="200px" class="h-10 w-auto md:h-12" loading="eager" />
     </a>
 
-    <nav class="hidden items-center gap-7 lg:flex" aria-label="Principale">
+    <nav class="hidden items-center gap-5 xl:flex" aria-label="Principale">
       {nav.map((n) => (
         <a
           href={n.href}
           class:list={[
-            'u-label text-[0.72rem] transition-colors hover:text-[var(--color-text)]',
+            'u-label whitespace-nowrap text-[0.72rem] transition-colors hover:text-[var(--color-text)]',
             isActive(n.href) && 'text-[var(--color-accent)]',
           ]}
           aria-current={isActive(n.href) ? 'page' : undefined}
         >{n.label}</a>
       ))}
-      <a href={site.phone.href} class="u-label text-[0.72rem] text-[var(--color-text)] hover:text-[var(--color-accent)]">
+      <a href={site.phone.href} class="u-label whitespace-nowrap text-[0.72rem] text-[var(--color-text)] hover:text-[var(--color-accent)]">
         {site.phone.display}
       </a>
       <a href="/contatti#preventivo" class="btn btn--primary !px-5 !py-3 !text-[0.72rem]">Preventivo</a>
@@ -30,7 +30,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
 
     <button
       id="navToggle"
-      class="flex h-11 w-11 items-center justify-center border border-[var(--color-text)] lg:hidden"
+      class="flex h-11 w-11 items-center justify-center border border-[var(--color-text)] xl:hidden"
       aria-label="Apri il menu" aria-expanded="false" aria-controls="mobileNav"
     >
       <span class="relative block h-3 w-5">
@@ -41,7 +41,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
     </button>
   </div>
 
-  <div id="mobileNav" hidden class="border-t border-[var(--color-border)] bg-[var(--color-surface)] lg:hidden">
+  <div id="mobileNav" hidden class="border-t border-[var(--color-border)] bg-[var(--color-surface)] xl:hidden">
     <nav class="u-container flex flex-col py-4" aria-label="Menu mobile">
       {nav.map((n) => (
         <a href={n.href} class="border-b border-[var(--color-border)] py-4 font-[family-name:var(--font-display)] text-2xl font-black uppercase tracking-tight">

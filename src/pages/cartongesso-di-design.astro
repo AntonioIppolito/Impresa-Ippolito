@@ -1,0 +1,186 @@
+---
+// Pagina servizio dedicata (ricerca SEO/GEO 2026-09-24): sulla query "controsoffitto cartongesso
+// con luci LED Milano" vincono pagine dedicate e guide, e le IA citano solo pagine con i termini
+// esatti (gole, velette, LED). Contenuto SOLO da dati reali: didascalie e foto dei lavori.
+// Prezzi e tempi NON pubblicati finché non li fornisce il titolare.
+import { Image, getImage } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import { site, ORG_ID, SITE_URL } from '../data/site';
+import { getProject, pickPhoto } from '../data/projects';
+import { answered } from '../data/faq';
+
+const cd = getProject('cartongesso-design')!;
+const byName = (stem: string) => cd.images.find((i) => i.src.src.includes(stem))!;
+
+const tipi = [
+  { t: 'Gole luminose perimetrali', d: 'Una luce indiretta che corre lungo il perimetro del soffitto e disegna la stanza senza lampade in vista.', img: byName('cartongesso-design-02'), pos: '50% 20%' },
+  { t: 'Controsoffitti sagomati', d: 'Ribassamenti circolari o ellittici retroilluminati, che diventano il punto focale dell’ambiente.', img: byName('cartongesso-design-03'), pos: '50% 28%' },
+  { t: 'Velette LED nei corridoi', d: 'Velette luminose che accompagnano i passaggi e valorizzano archi e altezze.', img: byName('cartongesso-design-05'), pos: '50% 40%' },
+  { t: 'Archi, cornici e boiserie', d: 'Passaggi ad arco, cornici e boiserie in cartongesso che danno carattere classico agli spazi contemporanei.', img: byName('cartongesso-design-06'), pos: '50% 40%' },
+];
+
+// cantieri in cui abbiamo realizzato controsoffitti (dalle didascalie reali)
+const related = [
+  { ...pickPhoto('ristrutturazione-bresso', 'resized_IMG_20180209_142535'), note: 'Controsoffitto in gesso con faretti incassati' },
+  { ...pickPhoto('appartamento-viale-jenner'), note: 'Controsoffitti e condizionamento canalizzato' },
+  { ...pickPhoto('appartamento-milano-grande'), note: 'Formazione controsoffitti e arco a vista' },
+  { ...pickPhoto('appartamento-lambrate'), note: 'Controsoffitto portante e nicchia ripostiglio' },
+];
+
+const gallery = await Promise.all(
+  cd.images.map(async (im) => ({
+    ...im,
+    full: (await getImage({ src: im.src, width: Math.min(1600, im.src.width), format: 'webp', quality: 80 })).src,
+  }))
+);
+
+const faqCd = answered.filter((f) => /cartongesso|coordinare/i.test(f.q));
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Cartongesso di design e controsoffitti con luci LED',
+  serviceType: 'Controsoffitti in cartongesso con gole e velette luminose LED',
+  description: 'Gole e velette luminose, controsoffitti sagomati, boiserie e archi in cartongesso con luci a LED e faretti, a Milano e provincia.',
+  provider: { '@id': ORG_ID },
+  areaServed: site.cities.map((c) => ({ '@type': 'City', name: c })),
+  url: `${SITE_URL}/cartongesso-di-design`,
+  image: `${SITE_URL}/og-default.jpg`,
+};
+---
+<Base
+  title="Controsoffitti in cartongesso con LED a Milano | Ippolito"
+  description="Gole e velette luminose, controsoffitti sagomati e boiserie con luci LED: cartongesso di design a Milano e provincia, con le foto dei nostri lavori."
+  schema={[serviceSchema]}
+  breadcrumb={[{ name: 'Servizi', path: '/servizi' }, { name: 'Cartongesso di design', path: '/cartongesso-di-design' }]}
+>
+  <section class="border-b border-[var(--color-border)]">
+    <div class="u-container grid grid-cols-1 gap-10 py-14 md:grid-cols-12 md:py-20">
+      <div class="md:col-span-7">
+        <p class="u-label">Cartongesso di design</p>
+        <h1 class="mt-5 text-[clamp(2.4rem,5.5vw,4.5rem)] font-black leading-[0.92] tracking-[-0.03em]">
+          Controsoffitti in cartongesso <span class="text-[var(--color-accent)]">con luci LED.</span>
+        </h1>
+        <p class="mt-7 max-w-2xl text-lg leading-relaxed">
+          Realizziamo <strong>gole e velette luminose</strong>, <strong>controsoffitti sagomati</strong> e <strong>boiserie</strong> in cartongesso con luci a LED e faretti, per valorizzare i volumi degli ambienti. Lavoriamo a Milano e in tutta la provincia, partendo da Novate Milanese.
+        </p>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
+          Struttura, rasatura e impianto elettrico li segue la stessa impresa, con un unico interlocutore: il geom. Antonio Ippolito, presente di persona in cantiere.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a href="/contatti#preventivo" class="btn btn--primary justify-center">Richiedi un preventivo</a>
+          <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn--ghost justify-center">Mandaci le foto su WhatsApp</a>
+        </div>
+      </div>
+      <div class="relative md:col-span-5">
+        <div class="relative aspect-[4/5] overflow-hidden border border-[var(--color-border)] bg-[var(--color-text)]">
+          <Image src={byName('cartongesso-design-04').src} alt="Controsoffitto ellittico retroilluminato in cartongesso, lavoro dell'Impresa Ippolito" widths={[480, 800, 1100]} sizes="(max-width:768px) 100vw, 40vw" class="absolute inset-0 h-full w-full object-cover" style="object-position:50% 20%" loading="eager" fetchpriority="high" />
+          <span class="u-label absolute bottom-4 left-4 bg-[var(--color-text)] px-3 py-2 text-white/90">Ribassamento ellittico retroilluminato</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cosa realizziamo -->
+  <section class="border-b border-[var(--color-border)] bg-[var(--color-tint)] py-14 md:py-20">
+    <div class="u-container">
+      <h2 class="text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Cosa realizziamo</h2>
+      <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {tipi.map((t) => (
+          <article class="card-anim group flex flex-col border border-[var(--color-border)] bg-[var(--color-surface)]">
+            <div class="relative aspect-[4/5] overflow-hidden bg-[var(--color-text)]">
+              <Image src={t.img.src} alt={`${t.t}: ${t.img.caption}`} widths={[400, 640]} sizes="(max-width:640px) 100vw, 25vw" class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" style={`object-position:${t.pos}`} loading="lazy" />
+            </div>
+            <div class="p-5">
+              <h3 class="text-xl font-black leading-tight tracking-tight group-hover:text-[var(--color-accent)]">{t.t}</h3>
+              <p class="mt-2 text-sm text-[var(--color-muted)]">{t.d}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Galleria completa -->
+  <section class="border-b border-[var(--color-border)] py-14 md:py-20">
+    <div class="u-container">
+      <div class="flex items-end justify-between gap-4">
+        <h2 class="text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Le foto dei nostri lavori</h2>
+        <a href="/lavori-eseguiti/cartongesso-design" class="u-label hover:text-[var(--color-accent)]">Scheda del lavoro →</a>
+      </div>
+      <div class="mt-8 gap-3 [column-count:1] sm:[column-count:2] lg:[column-count:4]">
+        {gallery.map((im, i) => (
+          <button class="ga-thumb group relative mb-3 block w-full break-inside-avoid border border-[var(--color-border)]" data-full={im.full} data-alt={im.alt} aria-label={`Ingrandisci: ${im.alt}`}>
+            <Image src={im.src} alt={im.alt} widths={[400, 640]} sizes="(max-width:640px) 100vw, 25vw" class="block h-auto w-full" loading={i < 4 ? 'eager' : 'lazy'} />
+            {im.caption && <span class="u-label absolute bottom-0 left-0 right-0 bg-[color-mix(in_srgb,var(--color-text)_80%,transparent)] px-3 py-2 text-left text-white">{im.caption}</span>}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Nei nostri cantieri -->
+  <section class="border-b border-[var(--color-border)] bg-[var(--color-tint)] py-14 md:py-20">
+    <div class="u-container">
+      <h2 class="text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Controsoffitti nei nostri cantieri</h2>
+      <p class="mt-4 max-w-2xl text-lg text-[var(--color-muted)]">Il cartongesso fa parte anche delle nostre ristrutturazioni complete: ecco alcuni appartamenti in cui l’abbiamo realizzato.</p>
+      <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {related.map(({ project, image, note }) => (
+          <a href={`/lavori-eseguiti/${project.slug}`} class="card-anim group block border border-[var(--color-border)] bg-[var(--color-surface)]">
+            <div class="relative aspect-[4/3] overflow-hidden">
+              <Image src={image.src} alt={image.alt} widths={[400, 640]} sizes="(max-width:640px) 100vw, 25vw" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" loading="lazy" />
+            </div>
+            <div class="p-4">
+              <p class="font-black leading-tight tracking-tight group-hover:text-[var(--color-accent)]">{project.title}</p>
+              <p class="mt-1 text-sm text-[var(--color-muted)]">{note}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {faqCd.length > 0 && (
+    <section class="py-14 md:py-20">
+      <div class="u-container grid grid-cols-1 gap-10 md:grid-cols-12">
+        <div class="md:col-span-4">
+          <p class="u-label">Domande</p>
+          <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Prima di iniziare</h2>
+          <a href="/domande-frequenti" class="btn btn--ghost mt-7">Tutte le domande</a>
+        </div>
+        <div class="border-t border-[var(--color-border)] md:col-span-8">
+          {faqCd.map((f) => (
+            <div class="border-b border-[var(--color-border)] py-5">
+              <h3 class="text-lg font-black tracking-tight">{f.q}</h3>
+              <p class="mt-2 text-[var(--color-muted)]">{f.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CTA title="Avete in mente un soffitto con luce? Parliamone." />
+
+  <dialog id="lb" class="m-auto max-h-[92vh] max-w-[95vw] border-0 bg-transparent p-0 backdrop:bg-black/85">
+    <div class="relative">
+      <img id="lbImg" src="" alt="" class="max-h-[92vh] max-w-[95vw] object-contain" />
+      <button id="lbClose" class="absolute right-2 top-2 flex h-10 w-10 items-center justify-center bg-[var(--color-text)] text-white" aria-label="Chiudi">✕</button>
+    </div>
+  </dialog>
+</Base>
+
+<script>
+  const lb = document.getElementById('lb') as HTMLDialogElement | null;
+  const img = document.getElementById('lbImg') as HTMLImageElement | null;
+  document.querySelectorAll<HTMLButtonElement>('.ga-thumb').forEach((b) => {
+    b.addEventListener('click', () => {
+      if (!lb || !img) return;
+      img.src = b.dataset.full || '';
+      img.alt = b.dataset.alt || '';
+      lb.showModal();
+    });
+  });
+  document.getElementById('lbClose')?.addEventListener('click', () => lb?.close());
+  lb?.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
+</script>

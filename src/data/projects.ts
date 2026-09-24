@@ -1,5 +1,6 @@
 import type { ImageMetadata } from 'astro';
 import generated from './projects.generated.json';
+import { extraMeta } from './projects.extra';
 
 type GenFile = { name: string; caption: string; w: number; h: number };
 const gen: Record<string, GenFile[]> = generated as any;
@@ -36,7 +37,7 @@ function imagesFor(slug: string, altBase: string): ProjectImage[] {
       return {
         src: files[key],
         caption: f.caption || '',
-        alt: f.caption ? `${altBase}: ${f.caption}` : `${altBase} — foto ${i + 1}`,
+        alt: f.caption ? `${altBase}: ${f.caption}` : `${altBase}, foto ${i + 1}`,
       } as ProjectImage;
     })
     .filter((x): x is ProjectImage => !!x);
@@ -53,6 +54,15 @@ const meta: Omit<Project, 'images' | 'cover'>[] = [
     heroName: '_D5A4824_copiaBASSA.jpg',  // soggiorno
     blurb: 'Ristrutturazione integrale su progetto Layer Studio (arch. Alberto Totaro, Giraldo Carmona Sebastian). Esecuzione Impresa Ippolito: bagni, cucina, impianti, parquet e finiture.',
     scope: ['Demolizioni', 'Impianti elettrici e idraulici', 'Bagni e cucina', 'Parquet', 'Cartongesso', 'Finiture'],
+  },
+  {
+    slug: 'cartongesso-design',
+    title: 'Cartongesso di design',
+    location: null,
+    category: 'Cartongesso di design',
+    coverName: 'cartongesso-design-04.jpg',
+    blurb: 'Soluzioni illuminotecniche in cartongesso: gole e velette luminose, controsoffitti sagomati e boiserie con inserimento di luci a LED e faretti, per valorizzare i volumi degli ambienti.',
+    scope: ['Controsoffitti sagomati', 'Gole e velette luminose', 'Luci a LED e faretti', 'Boiserie', 'Archi e cornici'],
   },
   {
     slug: 'bagno-milano',
@@ -147,7 +157,7 @@ const pickCover = (images: ProjectImage[], m: Omit<Project, 'images' | 'cover'>)
   return images[0]?.src;
 };
 
-export const projects: Project[] = meta.map((m) => {
+export const projects: Project[] = [...meta, ...extraMeta].map((m) => {
   const images = imagesFor(m.slug, m.title + (m.location ? `, ${m.location}` : ''));
   return { ...m, images, cover: pickCover(images, m) } as Project;
 });
@@ -159,5 +169,15 @@ export const heroImage = (() => {
   return (stem && heroProject.images.find((im) => im.src.src.includes(stem))?.src) || heroProject.cover;
 })();
 
-export const categories = ['Tutti', 'Appartamenti completi', 'Bagni', 'Cucine', 'Cantiere & processo'];
+export const categories = ['Tutti', 'Appartamenti completi', 'Ville e case', 'Cartongesso di design', 'Bagni', 'Cucine', 'Cantiere & processo'];
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
+
+// Foto specifica di un progetto (per stem del nome file), altrimenti la sua cover.
+export const pickPhoto = (slug: string, stem?: string) => {
+  const project = getProject(slug)!;
+  const image =
+    (stem && project.images.find((i) => i.src.src.includes(stem))) ||
+    project.images.find((i) => i.src === project.cover) ||
+    project.images[0];
+  return { project, image };
+};

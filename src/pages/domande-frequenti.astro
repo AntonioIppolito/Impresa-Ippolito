@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import { answered, temi } from '../data/faq';
+import { site } from '../data/site';
+
+// schema FAQPage generato dallo STESSO testo mostrato in pagina
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: answered.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+const groups = temi.map((t) => ({ tema: t, items: answered.filter((f) => f.tema === t) })).filter((g) => g.items.length);
+---
+<Base
+  title="Domande frequenti sulle ristrutturazioni | Impresa Ippolito"
+  description="Preventivo gratuito, chi coordina il cantiere, DURC e certificazioni, garanzie e zone servite: le risposte dell'Impresa Ippolito di Novate Milanese."
+  schema={[faqSchema]}
+  breadcrumb={[{ name: 'Domande frequenti', path: '/domande-frequenti' }]}
+>
+  <section class="border-b border-[var(--color-border)]">
+    <div class="u-container grid grid-cols-1 gap-8 py-14 md:grid-cols-12 md:py-20">
+      <div class="md:col-span-8">
+        <p class="u-label">Domande frequenti</p>
+        <h1 class="mt-5 text-[clamp(2.5rem,6vw,5rem)] font-black leading-[0.9] tracking-[-0.03em]">
+          Le domande che ci fate <span class="text-[var(--color-accent)]">più spesso.</span>
+        </h1>
+        <p class="mt-7 max-w-2xl text-lg text-[var(--color-muted)]">
+          Preventivo, cantiere, documenti, garanzie e zone in cui lavoriamo. Se la vostra domanda non c’è, chiedetela direttamente al geom. Antonio Ippolito.
+        </p>
+      </div>
+      <div class="flex flex-col justify-end gap-3 md:col-span-4">
+        <a href={site.phone.href} class="btn btn--primary justify-between">Chiama <span>{site.phone.display}</span></a>
+        <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn--ghost justify-between">WhatsApp <span>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 md:py-20">
+    <div class="u-container grid grid-cols-1 gap-12 md:grid-cols-12">
+      <!-- indice temi -->
+      <nav class="md:col-span-3" aria-label="Temi">
+        <ul class="md:sticky md:top-28 flex flex-wrap gap-2 md:flex-col md:gap-0 md:border-t md:border-[var(--color-border)]">
+          {groups.map((g) => (
+            <li class="md:border-b md:border-[var(--color-border)]">
+              <a href={`#${g.tema.toLowerCase().replace(/[^a-z]+/g, '-')}`} class="u-label block border border-[var(--color-border)] px-3 py-2 transition-colors hover:text-[var(--color-accent)] md:border-0 md:px-0 md:py-3">{g.tema}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="space-y-12 md:col-span-9">
+        {groups.map((g) => (
+          <div id={g.tema.toLowerCase().replace(/[^a-z]+/g, '-')} class="scroll-mt-28">
+            <h2 class="text-[clamp(1.5rem,3vw,2.25rem)] font-black leading-none tracking-tight">{g.tema}</h2>
+            <div class="mt-5 border-t border-[var(--color-border)]">
+              {g.items.map((f) => (
+                <details class="group border-b border-[var(--color-border)] bg-[var(--color-surface)] open:bg-[var(--color-tint)]">
+                  <summary class="flex cursor-pointer list-none items-start justify-between gap-6 px-5 py-5 transition-colors hover:text-[var(--color-accent)] [&::-webkit-details-marker]:hidden">
+                    <h3 class="text-lg font-black leading-snug tracking-tight md:text-xl">{f.q}</h3>
+                    <span aria-hidden="true" class="mt-1 font-[family-name:var(--font-mono)] text-xl font-bold text-[var(--color-accent)] transition-transform duration-300 group-open:rotate-45">+</span>
+                  </summary>
+                  <p class="px-5 pb-6 text-base leading-relaxed text-[var(--color-text)] md:text-lg">{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA title="Non trovate la vostra domanda? Chiedetecela." />
+</Base>

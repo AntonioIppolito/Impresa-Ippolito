@@ -7,9 +7,10 @@ interface Props {
   lead?: string;
   id?: string;
   tone?: 'default' | 'tint' | 'dark';
+  center?: boolean; // centra in verticale il contenuto di destra rispetto alla colonna sinistra
   class?: string;
 }
-const { label, title, lead, id, tone = 'default', class: cls = '' } = Astro.props;
+const { label, title, lead, id, tone = 'default', center = false, class: cls = '' } = Astro.props;
 const dark = tone === 'dark';
 const bg = tone === 'tint' ? 'bg-[var(--color-tint)]' : dark ? 'bg-[var(--color-text)] text-[var(--color-bg)]' : '';
 const hasAside = Astro.slots.has('aside');
@@ -29,7 +30,7 @@ const hasAside = Astro.slots.has('aside');
         {hasAside && <div class="mt-7"><slot name="aside" /></div>}
       </div>
     </div>
-    <div class="md:col-span-8">
+    <div class:list={['md:col-span-8', center && 'md:self-center']}>
       <slot />
     </div>
   </div>
