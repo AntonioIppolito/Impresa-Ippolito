@@ -9,7 +9,10 @@ const tinted = (i: number) => (Math.floor(i / 2) + (i % 2)) % 2 === 0;
     <span class="font-[family-name:var(--font-mono)] text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">In evidenza</span>
     <h3 class="mt-2 text-2xl font-black tracking-tight text-[var(--color-text)] md:text-3xl">{transparency.t}</h3>
   </div>
-  <p class="text-base text-[var(--color-muted)] sm:max-w-md">{transparency.d}</p>
+  <div class="sm:max-w-md">
+    <p class="text-base text-[var(--color-muted)]">{transparency.d}</p>
+    <a href="/prezzi-ristrutturazione" class="u-label mt-3 inline-block text-[var(--color-accent)] hover:underline">Prezzi e tempi indicativi →</a>
+  </div>
 </div>
 
 <div class="grid grid-cols-1 border-l border-t border-white/15 sm:grid-cols-2">

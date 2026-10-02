@@ -137,6 +137,17 @@
   /* ---- Divisore ---- */
   .u-rule { border: 0; border-top: 1px solid var(--color-border); }
 
+  /* ---- Galleria giustificata (src/scripts/justified.ts): righe piene ad altezza uguale,
+     foto intere (niente ritagli), da tablet in su almeno 2 foto per riga e max 62% della larghezza ---- */
+  .jg { --h: 200px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.75rem; }
+  .jg-item { flex-grow: var(--r); flex-basis: calc(var(--r) * var(--h)); aspect-ratio: var(--r); max-width: calc(var(--r) * var(--h) * 2.2); }
+  @media (min-width: 768px) {
+    .jg { --h: clamp(150px, 19vw, 270px); }
+    .jg-item { max-width: min(calc(var(--r) * var(--h) * 1.6), 62%); }
+  }
+  .jg::after { content: ''; flex-grow: 999999; }
+  .jg.jg--js .jg-item { flex: none; max-width: none; aspect-ratio: auto; }
+
   /* ---- Card animata (hover "poster"): si solleva con ombra piena netta + barra che si disegna ----
      Personalizzabile per card su fondo scuro con --card-shadow / --card-bar. */
   .card-anim {
@@ -170,6 +181,10 @@
   .card-anim:focus-visible::before {
     transform: scaleX(1);
   }
+  /* variante per card su fondo scuro: barra e ombra bianche, fondo blu al passaggio */
+  .card-anim--dark { --card-bar: #fff; --card-shadow: #fff; }
+  .card-anim--dark:hover,
+  .card-anim--dark:focus-visible { background-color: var(--color-accent); }
   @media (hover: none) {
     .card-anim:hover { transform: none; box-shadow: none; }
   }

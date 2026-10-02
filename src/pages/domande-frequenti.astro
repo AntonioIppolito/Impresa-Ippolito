@@ -18,7 +18,7 @@ const groups = temi.map((t) => ({ tema: t, items: answered.filter((f) => f.tema 
 ---
 <Base
   title="Domande frequenti sulle ristrutturazioni | Impresa Ippolito"
-  description="Preventivo gratuito, chi coordina il cantiere, DURC e certificazioni, garanzie e zone servite: le risposte dell'Impresa Ippolito di Novate Milanese."
+  description="Quanto costa ristrutturare, quanto durano i lavori, pagamenti, CILA e SCIA, garanzie: le risposte del titolare dell'Impresa Ippolito di Novate Milanese."
   schema={[faqSchema]}
   breadcrumb={[{ name: 'Domande frequenti', path: '/domande-frequenti' }]}
 >
@@ -30,8 +30,12 @@ const groups = temi.map((t) => ({ tema: t, items: answered.filter((f) => f.tema 
           Le domande che ci fate <span class="text-[var(--color-accent)]">più spesso.</span>
         </h1>
         <p class="mt-7 max-w-2xl text-lg text-[var(--color-muted)]">
-          Preventivo, cantiere, documenti, garanzie e zone in cui lavoriamo. Se la vostra domanda non c’è, chiedetela direttamente al geom. Antonio Ippolito.
+          Costi, tempi, pagamenti, cantiere, documenti e garanzie: risponde il titolare, il geom. Antonio Ippolito. Se la vostra domanda non c’è, chiedetela direttamente a lui.
         </p>
+        <div class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+          <a href="/prezzi-ristrutturazione" class="u-label text-[var(--color-accent)] hover:underline">Prezzi e tempi in tabella →</a>
+          <a href="/agevolazioni-fiscali" class="u-label text-[var(--color-accent)] hover:underline">Agevolazioni fiscali →</a>
+        </div>
       </div>
       <div class="flex flex-col justify-end gap-3 md:col-span-4">
         <a href={site.phone.href} class="btn btn--primary justify-between">Chiama <span>{site.phone.display}</span></a>

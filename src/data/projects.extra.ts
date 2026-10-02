@@ -35,12 +35,12 @@ export const extraMeta: ExtraMeta[] = [
     scope: ['Demolizioni', 'Controsoffitto portante', 'Parquet Bauwerk', 'Cabina armadio', 'Cucina'],
   },
   {
-    slug: 'appartamento-senago', title: 'Appartamento, Senago', location: 'Senago (MI)', category: 'Appartamenti completi', coverIndex: 7,
+    slug: 'appartamento-senago', title: 'Appartamento, Senago', location: 'Senago (MI)', category: 'Appartamenti completi', coverName: 'IMG20220330183538.jpg',
     blurb: 'Bagni con rivestimenti effetto marmo, vasca freestanding e lavabo d’appoggio su mensola in legno, doccia in vetro e pavimenti in legno.',
     scope: ['Bagni effetto marmo', 'Vasca freestanding', 'Doccia in vetro', 'Pavimenti in legno'],
   },
   {
-    slug: 'appartamento-milano-bocconi', title: 'Appartamento, Milano (zona Bocconi)', location: 'Milano', category: 'Appartamenti completi', coverIndex: 16,
+    slug: 'appartamento-milano-bocconi', title: 'Appartamento, Milano (zona Bocconi)', location: 'Milano', category: 'Appartamenti completi', coverName: 'IMG20220413120318.jpg',
     blurb: 'Ambienti luminosi con pavimento in legno, cucina aperta sulla zona giorno, camera padronale e bagno con doccia.',
     scope: ['Pavimento in legno', 'Cucina', 'Camera padronale', 'Bagno con doccia'],
   },

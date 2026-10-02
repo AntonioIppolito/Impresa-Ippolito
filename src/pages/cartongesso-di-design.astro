@@ -1,14 +1,28 @@
 ---
 // Pagina servizio dedicata (ricerca SEO/GEO 2026-09-24): sulla query "controsoffitto cartongesso
 // con luci LED Milano" vincono pagine dedicate e guide, e le IA citano solo pagine con i termini
-// esatti (gole, velette, LED). Contenuto SOLO da dati reali: didascalie e foto dei lavori.
-// Prezzi e tempi NON pubblicati finché non li fornisce il titolare.
+// esatti (gole, velette, LED). Contenuto SOLO da dati reali: didascalie e foto dei lavori,
+// guida "Cartongesso di Design e Finiture Moderne" e prezzi inviati dal titolare (ottobre 2026).
 import { Image, getImage } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import CTA from '../components/CTA.astro';
+import FaqToggle from '../components/FaqToggle.astro';
 import { site, ORG_ID, SITE_URL } from '../data/site';
 import { getProject, pickPhoto } from '../data/projects';
 import { answered } from '../data/faq';
+import { cartongesso as prezzi, range, aggiornato } from '../data/prezzi';
+
+// guida del titolare: le 3 soluzioni più richieste a Milano e Monza
+const soluzioni = [
+  { t: 'Controsoffitti con gole luminose', s: 'Effetto sospeso', come: 'Si realizza una struttura in cartongesso lasciando lungo il perimetro uno spazio nascosto, la “gola”, in cui si posiziona una strip LED.', effetto: 'La luce si riflette sul soffitto in modo morbido e diffuso e il soffitto sembra sospeso nel vuoto. È la soluzione ideale per un soggiorno moderno o sopra la testata del letto.' },
+  { t: 'Velette decorative', s: 'Per separare gli ambienti', come: 'Si crea una veletta, un gradino a soffitto, che segue per esempio la linea della penisola della cucina o della zona divano, senza alzare muri.', effetto: 'Con faretti LED incassati o un profilo luminoso si delimita l’open space con eleganza e si porta la luce solo dove serve, sul piano di lavoro o sul tavolo da pranzo.' },
+  { t: 'Librerie, nicchie e pareti attrezzate', s: 'Su misura', come: 'Si progettano pareti attrezzate per la TV, librerie o nicchie decorative integrate direttamente nel muro, sfruttando lo spazio al millimetro.', effetto: 'Piccoli faretti a incasso o micro-LED dentro le nicchie mettono in risalto oggetti, quadri o libri e creano un’atmosfera calda e accogliente.' },
+];
+const luci = [
+  { t: 'Luce calda', k: '2700-3000 K', d: 'La luce del relax e dell’accoglienza: perfetta per le gole luminose del soggiorno, le nicchie decorative e la camera da letto. Valorizza i materiali caldi come il legno e riposa gli occhi la sera.' },
+  { t: 'Luce naturale o neutra', k: '4000 K', d: 'Stimola l’attenzione e non altera i colori: ideale per le velette sopra il piano della cucina, i controsoffitti del bagno e la zona studio.' },
+  { t: 'Luce fredda', k: '5000-6500 K', d: 'Tende all’azzurro ed è molto forte: in casa si usa pochissimo, quasi solo in garage e lavanderia, perché rende gli ambienti troppo freddi.' },
+];
 
 const cd = getProject('cartongesso-design')!;
 const byName = (stem: string) => cd.images.find((i) => i.src.src.includes(stem))!;
@@ -35,22 +49,28 @@ const gallery = await Promise.all(
   }))
 );
 
-const faqCd = answered.filter((f) => /cartongesso|coordinare/i.test(f.q));
+const faqCd = answered.filter((f) => /cartongesso|controsoffitto|coordinare/i.test(f.q));
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Cartongesso di design e controsoffitti con luci LED',
   serviceType: 'Controsoffitti in cartongesso con gole e velette luminose LED',
-  description: 'Gole e velette luminose, controsoffitti sagomati, boiserie e archi in cartongesso con luci a LED e faretti, a Milano e provincia.',
+  description: 'Controsoffitti artistici, velette decorative, gole luminose per l’illuminazione a LED, nicchie e librerie su misura in cartongesso, a Milano, Monza e provincia.',
   provider: { '@id': ORG_ID },
   areaServed: site.cities.map((c) => ({ '@type': 'City', name: c })),
   url: `${SITE_URL}/cartongesso-di-design`,
   image: `${SITE_URL}/og-default.jpg`,
+  offers: prezzi.filter((p) => !p.extra).map((p) => ({
+    '@type': 'Offer',
+    name: `Controsoffitto ${p.t.toLowerCase()}`,
+    description: p.d,
+    priceSpecification: { '@type': 'UnitPriceSpecification', priceCurrency: 'EUR', minPrice: p.r.min, maxPrice: p.r.max, unitCode: 'MTK', unitText: 'metro quadro' },
+  })),
 };
 ---
 <Base
   title="Controsoffitti in cartongesso con LED a Milano | Ippolito"
-  description="Gole e velette luminose, controsoffitti sagomati e boiserie con luci LED: cartongesso di design a Milano e provincia, con le foto dei nostri lavori."
+  description="Controsoffitti con gole e velette LED, nicchie e librerie in cartongesso a Milano e Monza: prezzi da 55 €/mq, guida alla luce e foto dei lavori."
   schema={[serviceSchema]}
   breadcrumb={[{ name: 'Servizi', path: '/servizi' }, { name: 'Cartongesso di design', path: '/cartongesso-di-design' }]}
 >
@@ -62,7 +82,7 @@ const serviceSchema = {
           Controsoffitti in cartongesso <span class="text-[var(--color-accent)]">con luci LED.</span>
         </h1>
         <p class="mt-7 max-w-2xl text-lg leading-relaxed">
-          Realizziamo <strong>gole e velette luminose</strong>, <strong>controsoffitti sagomati</strong> e <strong>boiserie</strong> in cartongesso con luci a LED e faretti, per valorizzare i volumi degli ambienti. Lavoriamo a Milano e in tutta la provincia, partendo da Novate Milanese.
+          Realizziamo <strong>controsoffitti con gole luminose</strong>, <strong>velette decorative</strong>, <strong>controsoffitti sagomati</strong>, <strong>nicchie e librerie su misura</strong> in cartongesso con luci a LED e faretti, per valorizzare ogni ambiente. Lavoriamo a Milano, Monza e in tutta la provincia, partendo da Novate Milanese.
         </p>
         <p class="mt-4 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
           Struttura, rasatura e impianto elettrico li segue la stessa impresa, con un unico interlocutore: il geom. Antonio Ippolito, presente di persona in cantiere.
@@ -101,6 +121,74 @@ const serviceSchema = {
     </div>
   </section>
 
+  <!-- Guida del titolare: 3 soluzioni -->
+  <section class="border-b border-[var(--color-border)] py-14 md:py-20">
+    <div class="u-container">
+      <p class="u-label">Guida</p>
+      <h2 class="mt-4 max-w-3xl text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Come valorizzare la casa con geometrie e luce LED</h2>
+      <p class="mt-5 max-w-3xl text-lg text-[var(--color-muted)]">In una ristrutturazione chiavi in mano il cartongesso non serve solo a dividere gli ambienti: è un vero elemento di architettura e arredamento. Insieme alla luce LED può cambiare l’aspetto e l’atmosfera di ogni stanza. Ecco le tre soluzioni che ci chiedono di più a Milano e Monza.</p>
+      <div class="mt-8 grid grid-cols-1 border-l border-t border-[var(--color-border)] md:grid-cols-3">
+        {soluzioni.map((s, i) => (
+          <article class="card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-8">
+            <span class="u-index text-sm">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="mt-3 text-2xl font-black leading-tight tracking-tight group-hover:text-[var(--color-accent)]">{s.t}</h3>
+            <p class="u-label mt-2">{s.s}</p>
+            <p class="mt-5 text-sm font-bold">Come funziona</p>
+            <p class="mt-1 text-[var(--color-muted)]">{s.come}</p>
+            <p class="mt-4 text-sm font-bold">L’effetto</p>
+            <p class="mt-1 text-[var(--color-muted)]">{s.effetto}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Temperatura della luce -->
+  <section class="border-b border-[var(--color-border)] bg-[var(--color-text)] py-14 text-[var(--color-bg)] md:py-20">
+    <div class="u-container">
+      <p class="u-label text-white/50">La luce giusta</p>
+      <h2 class="mt-4 max-w-3xl text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight text-white">Bianco caldo, naturale o freddo?</h2>
+      <p class="mt-4 max-w-2xl text-lg text-white/70">La forma del cartongesso è metà dell’opera: la temperatura del LED decide l’atmosfera finale della stanza.</p>
+      <div class="mt-8 grid grid-cols-1 border-l border-t border-white/15 md:grid-cols-3">
+        {luci.map((l, i) => (
+          <article class="card-anim card-anim--dark group border-b border-r border-white/15 bg-[var(--color-text)] p-6 md:p-8">
+            <span class="block h-2 w-16" style={`background:${['#FFB866', '#FFF4E0', '#CFE3FF'][i]}`}></span>
+            <h3 class="mt-5 text-2xl font-black tracking-tight text-white">{l.t}</h3>
+            <p class="font-[family-name:var(--font-mono)] text-sm font-bold text-[var(--color-accent)] transition-colors duration-300 group-hover:text-white">{l.k}</p>
+            <p class="mt-3 text-[0.95rem] leading-snug text-white/70">{l.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Prezzi + consiglio dell'esperto -->
+  <section class="border-b border-[var(--color-border)] py-14 md:py-20">
+    <div class="u-container grid grid-cols-1 gap-10 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <p class="u-label">Il consiglio dell’esperto</p>
+        <blockquote class="mt-5 border-l-4 border-[var(--color-accent)] pl-5 text-xl font-bold leading-snug">
+          Per un risultato perfetto sono fondamentali la precisione millimetrica nella posa e la scelta giusta della temperatura della luce. Con il servizio chiavi in mano studiamo insieme le geometrie migliori per i vostri spazi e ci occupiamo sia della struttura in cartongesso sia del collegamento elettrico certificato dei LED.
+        </blockquote>
+        <p class="u-label mt-4">Geom. Antonio Ippolito, titolare</p>
+      </div>
+      <div class="md:col-span-7">
+        <p class="u-label">Quanto costa · aggiornato a {aggiornato.label}</p>
+        <h2 class="mt-4 text-[clamp(1.6rem,3vw,2.5rem)] font-black leading-none tracking-tight">Prezzi medi al metro quadro, posa inclusa</h2>
+        <div class="mt-6 border-t border-[var(--color-border)]">
+          {prezzi.map((p) => (
+            <div class="grid grid-cols-1 gap-1 border-b border-[var(--color-border)] py-4 sm:grid-cols-12 sm:items-baseline sm:gap-6">
+              <h3 class="font-black tracking-tight sm:col-span-4">{p.t}</h3>
+              <p class="font-[family-name:var(--font-display)] text-xl font-black text-[var(--color-accent)] sm:col-span-3">{p.extra ? '+ ' : ''}{range(p.r)}</p>
+              <p class="text-sm text-[var(--color-muted)] sm:col-span-5">{p.d}</p>
+            </div>
+          ))}
+        </div>
+        <a href="/prezzi-ristrutturazione" class="u-label mt-5 inline-block hover:text-[var(--color-accent)]">Tutti i prezzi e i tempi di ristrutturazione →</a>
+      </div>
+    </div>
+  </section>
+
   <!-- Galleria completa -->
   <section class="border-b border-[var(--color-border)] py-14 md:py-20">
     <div class="u-container">
@@ -108,10 +196,10 @@ const serviceSchema = {
         <h2 class="text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Le foto dei nostri lavori</h2>
         <a href="/lavori-eseguiti/cartongesso-design" class="u-label hover:text-[var(--color-accent)]">Scheda del lavoro →</a>
       </div>
-      <div class="mt-8 gap-3 [column-count:1] sm:[column-count:2] lg:[column-count:4]">
+      <div class="jg mt-8">
         {gallery.map((im, i) => (
-          <button class="ga-thumb group relative mb-3 block w-full break-inside-avoid border border-[var(--color-border)]" data-full={im.full} data-alt={im.alt} aria-label={`Ingrandisci: ${im.alt}`}>
-            <Image src={im.src} alt={im.alt} widths={[400, 640]} sizes="(max-width:640px) 100vw, 25vw" class="block h-auto w-full" loading={i < 4 ? 'eager' : 'lazy'} />
+          <button class="jg-item ga-thumb group relative block overflow-hidden border border-[var(--color-border)]" style={`--r:${(im.src.width / im.src.height).toFixed(4)}`} data-full={im.full} data-alt={im.alt} aria-label={`Ingrandisci: ${im.alt}`}>
+            <Image src={im.src} alt={im.alt} widths={[400, 640]} sizes="(max-width:700px) 100vw, 25vw" class="block h-full w-full object-cover" loading={i < 4 ? 'eager' : 'lazy'} />
             {im.caption && <span class="u-label absolute bottom-0 left-0 right-0 bg-[color-mix(in_srgb,var(--color-text)_80%,transparent)] px-3 py-2 text-left text-white">{im.caption}</span>}
           </button>
         ))}
@@ -146,9 +234,10 @@ const serviceSchema = {
         <div class="md:col-span-4">
           <p class="u-label">Domande</p>
           <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Prima di iniziare</h2>
-          <a href="/domande-frequenti" class="btn btn--ghost mt-7">Tutte le domande</a>
+          <FaqToggle target="faq-cartongesso" count={faqCd.length} class="mt-7" />
+          <a href="/domande-frequenti" class="btn btn--ghost mt-3 w-full justify-center md:mt-7 md:w-auto">Tutte le domande</a>
         </div>
-        <div class="border-t border-[var(--color-border)] md:col-span-8">
+        <div id="faq-cartongesso" data-faq-list class="border-t border-[var(--color-border)] md:col-span-8">
           {faqCd.map((f) => (
             <div class="border-b border-[var(--color-border)] py-5">
               <h3 class="text-lg font-black tracking-tight">{f.q}</h3>
@@ -171,7 +260,8 @@ const serviceSchema = {
 </Base>
 
 <script>
-  const lb = document.getElementById('lb') as HTMLDialogElement | null;
+  import '../scripts/justified';
+  const lb =document.getElementById('lb') as HTMLDialogElement | null;
   const img = document.getElementById('lbImg') as HTMLImageElement | null;
   document.querySelectorAll<HTMLButtonElement>('.ga-thumb').forEach((b) => {
     b.addEventListener('click', () => {

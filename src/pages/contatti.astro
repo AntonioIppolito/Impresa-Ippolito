@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import FaqToggle from '../components/FaqToggle.astro';
 import portrait from '../assets/antonio-ippolito.jpg';
 import { site } from '../data/site';
 import { answered } from '../data/faq';
@@ -40,8 +41,12 @@ const osm = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=
       <div class="mt-6 flex flex-col gap-3">
         <a href={site.phone.href} class="btn btn--primary justify-between">Telefono <span>{site.phone.display}</span></a>
         <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn--ghost justify-between">WhatsApp <span>{site.phone.display}</span></a>
+        <a href={`mailto:${site.email}`} class="btn btn--ghost justify-between gap-4">Email <span class="truncate normal-case">{site.email}</span></a>
         <a href={site.facebook} target="_blank" rel="noopener" class="btn btn--ghost justify-between">Facebook <span>@impresaippolito</span></a>
       </div>
+
+      <p class="u-label mt-10">Orari</p>
+      <p class="mt-4 text-lg">Lunedì-venerdì 8-18<br />Sabato 8-12</p>
 
       <p class="u-label mt-10">Sede</p>
       <address class="mt-4 not-italic text-lg">
@@ -116,9 +121,10 @@ const osm = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=
       <div class="md:col-span-4">
         <p class="u-label">Prima di scriverci</p>
         <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Le domande più frequenti</h2>
-        <a href="/domande-frequenti" class="btn btn--ghost mt-7">Tutte le domande</a>
+        <FaqToggle target="faq-contatti" count={faqPreview.length} class="mt-7" />
+        <a href="/domande-frequenti" class="btn btn--ghost mt-3 w-full justify-center md:mt-7 md:w-auto">Tutte le domande</a>
       </div>
-      <div class="border-t border-[var(--color-border)] md:col-span-8">
+      <div id="faq-contatti" data-faq-list class="border-t border-[var(--color-border)] md:col-span-8">
         {faqPreview.map((f) => (
           <div class="border-b border-[var(--color-border)] py-5">
             <h3 class="text-lg font-black tracking-tight">{f.q}</h3>

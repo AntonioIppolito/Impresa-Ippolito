@@ -17,26 +17,27 @@ const pick = (slug: string, stem: string, pos = '50% 50%') => {
 };
 
 const slides = [
-  pick('cartongesso-design', 'cartongesso-design-05', '50% 45%'),
   pick('ristrutturazione-appartamento-milano-24', '_D5A4824', '50% 62%'),
+  pick('cartongesso-design', 'cartongesso-design-05', '50% 45%'),
   pick('appartamento-senago', 'IMG20220330183538', '50% 60%'),
   pick('ristrutturazione-appartamento-milano-24', 'IMG20240208092313', '50% 55%'),
   pick('ristrutturazione-bresso', 'resized_IMG_20180209_142535', '50% 50%'),
-  pick('bagno-settimo-milanese', 'IMG_20180613_174048', '50% 55%'),
 ];
 ---
 <section class="border-b border-[var(--color-border)]">
   <div class="u-container grid grid-cols-1 gap-0 lg:grid-cols-12">
     <!-- colonna testo -->
-    <div class="flex flex-col justify-center pb-8 pt-8 lg:col-span-6 lg:py-20 lg:pr-12">
+    <!-- da desktop titolo e margini scalano anche con l'altezza dello schermo, così la colonna
+         non supera mai lo spazio della prima schermata -->
+    <div class="flex flex-col justify-center pb-8 pt-8 lg:col-span-6 lg:py-[clamp(1.5rem,5svh,5rem)] lg:pr-12">
       <h1>
         <span class="u-label block">Impresa di ristrutturazioni a Novate Milanese</span>
-        <span class="mt-5 block text-[clamp(2.75rem,7vw,5.5rem)] font-black leading-[0.9] tracking-[-0.03em] [text-wrap:balance]">
+        <span class="mt-5 block text-[clamp(2.75rem,7vw,5.5rem)] font-black leading-[0.9] tracking-[-0.03em] [text-wrap:balance] lg:text-[clamp(2.5rem,min(6.5vw,8.5svh),5.5rem)]">
           Casa vostra,<br /><span class="text-[var(--color-accent)]">chiavi in mano.</span>
         </span>
       </h1>
       <p class="mt-6 max-w-md text-lg text-[var(--color-muted)]">
-        Da oltre 30 anni a Milano e in Monza Brianza. Il geom. Antonio Ippolito segue ogni lavoro di persona, presente in cantiere dal preventivo alla consegna.
+        Dal 2001 a Milano e in Monza Brianza. Il geom. Antonio Ippolito, con oltre 30 anni di esperienza, segue ogni lavoro di persona, presente in cantiere dal preventivo alla consegna.
       </p>
       <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         <a href="/contatti#preventivo" class="btn btn--primary justify-center sm:justify-start">Richiedi un preventivo</a>
@@ -44,10 +45,12 @@ const slides = [
       </div>
     </div>
 
-    <!-- colonna foto: carosello a dissolvenza -->
+    <!-- colonna foto: carosello a dissolvenza. Da desktop la hero + barra servizio (40) + navbar (81)
+         + barra dei numeri (113) occupano esattamente la prima schermata: le scritte sotto non si tagliano -->
+
     <div class="relative -mx-6 md:-mx-8 lg:mx-0 lg:col-span-6">
       <div
-        class="relative aspect-[4/3] overflow-hidden bg-[var(--color-text)] sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[80vh]"
+        class="relative aspect-[4/3] overflow-hidden bg-[var(--color-text)] sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[max(460px,calc(100svh-234px))]"
         data-hero-carousel
         role="region"
         aria-roledescription="carosello"

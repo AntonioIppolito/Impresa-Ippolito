@@ -69,7 +69,8 @@ const meta: Omit<Project, 'images' | 'cover'>[] = [
     title: 'Bagno, Milano',
     location: 'Milano',
     category: 'Bagni',
-    blurb: 'Rifacimento completo del bagno: nuovi impianti, posa di rivestimenti in gres e finiture su misura.',
+    coverName: 'IMG20251106091608.jpg', // la prima foto è lo stato di fatto
+    blurb: 'Rifacimento completo del bagno mantenendo la stessa disposizione dei sanitari: nuovi impianti, posa di rivestimenti in gres e finiture su misura.',
     scope: ['Impianti idraulici', 'Rivestimenti gres', 'Sanitari', 'Finiture'],
   },
   {

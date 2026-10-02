@@ -1,0 +1,51 @@
+---
+// Pulsante solo telefono che apre/chiude un estratto di domande frequenti.
+// L'elenco collegato porta data-faq-list e l'id passato in `target`; da tablet in su resta sempre aperto.
+interface Props { target: string; count: number; class?: string }
+const { target, count, class: cls = '' } = Astro.props;
+---
+<button
+  type="button"
+  class:list={['faq-toggle btn btn--primary w-full justify-between md:hidden', cls]}
+  data-faq-toggle
+  aria-expanded="false"
+  aria-controls={target}
+>
+  <span data-when="closed">Mostra le domande ({count})</span>
+  <span data-when="open" hidden>Nascondi le domande</span>
+  <span aria-hidden="true" class="faq-toggle__icon font-[family-name:var(--font-mono)] text-xl leading-none">+</span>
+</button>
+
+<style is:global>
+  @media (max-width: 767.98px) {
+    [data-faq-list]:not([data-open]) { display: none; }
+    [data-faq-list][data-open] { animation: faq-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  }
+  @keyframes faq-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: none; }
+  }
+  .faq-toggle__icon { transition: transform 0.3s ease; }
+  .faq-toggle[aria-expanded='true'] .faq-toggle__icon { transform: rotate(45deg); }
+  @media (prefers-reduced-motion: reduce) {
+    [data-faq-list][data-open] { animation: none; }
+    .faq-toggle__icon { transition: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-faq-toggle]').forEach((btn) => {
+    const list = document.getElementById(btn.getAttribute('aria-controls') ?? '');
+    const closed = btn.querySelector<HTMLElement>('[data-when="closed"]');
+    const opened = btn.querySelector<HTMLElement>('[data-when="open"]');
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      list?.toggleAttribute('data-open', open);
+      if (closed) closed.hidden = open;
+      if (opened) opened.hidden = !open;
+      // chiudendo, se il pulsante è uscito dallo schermo lo riportiamo in vista
+      if (!open && btn.getBoundingClientRect().top < 0) btn.scrollIntoView({ block: 'center' });
+    });
+  });
+</script>

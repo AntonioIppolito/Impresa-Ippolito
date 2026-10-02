@@ -6,7 +6,7 @@ const { project, eager = false } = Astro.props;
 ---
 <a
   href={`/lavori-eseguiti/${project.slug}`}
-  class="group block border border-[var(--color-border)] bg-[var(--color-surface)]"
+  class="card-anim group block border border-[var(--color-border)] bg-[var(--color-surface)]"
   data-category={project.category}
 >
   <div class="relative aspect-[4/3] overflow-hidden">

@@ -19,9 +19,10 @@ import { compliance } from '../data/site';
   <TrustBar />
 
   <!-- Chi siamo -->
-  <Section label="Chi siamo" title="Da oltre 30 anni, un solo referente." center>
+  <Section label="Chi siamo" title="Oltre 25 anni di attività, un solo referente." center>
     <div slot="aside" class="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
-      <div class="flex items-baseline justify-between py-3"><span class="u-label">Attività</span><span class="font-[family-name:var(--font-display)] text-xl font-black">30+ anni</span></div>
+      <div class="flex items-baseline justify-between py-3"><span class="u-label">Attività</span><span class="font-[family-name:var(--font-display)] text-xl font-black">25+ anni</span></div>
+      <div class="flex items-baseline justify-between py-3"><span class="u-label">Esperienza</span><span class="font-[family-name:var(--font-display)] text-xl font-black">30+ anni</span></div>
       <div class="flex items-baseline justify-between py-3"><span class="u-label">Zona</span><span class="font-[family-name:var(--font-display)] text-xl font-black">Milano · MB</span></div>
       <div class="flex items-baseline justify-between py-3"><span class="u-label">Titolare</span><span class="font-[family-name:var(--font-display)] text-xl font-black">Geom. Ippolito</span></div>
       <div class="flex items-baseline justify-between py-3"><span class="u-label">In cantiere</span><span class="font-[family-name:var(--font-display)] text-xl font-black">Di persona</span></div>
@@ -57,10 +58,10 @@ import { compliance } from '../data/site';
   </Section>
 
   <!-- Perché sceglierci -->
-  <Section label="Perché sceglierci" tone="dark" title="Noi garantiamo" lead="Dieci impegni concreti, gli stessi da oltre trent’anni, dal preventivo alla consegna.">
-    <div slot="aside" class="border border-white/15 p-5">
+  <Section label="Perché sceglierci" tone="dark" title="Noi garantiamo" lead="Dieci impegni concreti, dal preventivo alla consegna.">
+    <div slot="aside" class="card-anim card-anim--dark group border border-white/15 bg-[var(--color-text)] p-5">
       {compliance.map((c, i) => (
-        <p class:list={['text-sm text-white/70', i > 0 && 'mt-3']}><span class="mr-2 font-[family-name:var(--font-mono)] font-bold text-[var(--color-accent)]">✓</span>{c}</p>
+        <p class:list={['text-sm text-white/70 transition-colors duration-300 group-hover:text-white', i > 0 && 'mt-3']}><span class="mr-2 font-[family-name:var(--font-mono)] font-bold text-[var(--color-accent)] transition-colors duration-300 group-hover:text-white">✓</span>{c}</p>
       ))}
     </div>
     <WhyUs />

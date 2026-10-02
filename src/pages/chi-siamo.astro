@@ -5,6 +5,7 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import CTA from '../components/CTA.astro';
+import FaqToggle from '../components/FaqToggle.astro';
 import { site, services, compliance, transparency, ORG_ID, SITE_URL } from '../data/site';
 import { projects, pickPhoto } from '../data/projects';
 import { answered } from '../data/faq';
@@ -26,14 +27,18 @@ const featured = [
 ];
 
 const facts: [string, string][] = [
-  ['Nome', site.name],
+  ['Nome', site.officialName],
   ['Ragione sociale', `${site.legal.ragioneSociale} (ditta individuale)`],
   ['Titolare', 'Geom. Antonio Ippolito'],
   ['Sede', `${site.address.street}, ${site.address.zip} ${site.address.city} (${site.address.province})`],
   ['Telefono e WhatsApp', site.phone.display],
-  ['Esperienza', 'Oltre 30 anni di ristrutturazioni'],
+  ['Email', site.email],
+  ['Orari', site.hours.label],
+  ['Attività', `Dal ${site.foundingYear}, oltre 25 anni`],
+  ['Esperienza del titolare', 'Oltre 30 anni'],
+  ['Polizza assicurativa', 'Sì, sui lavori eseguiti'],
   ['Zona servita', 'Provincia di Milano e Monza Brianza'],
-  ['Specialità', 'Ristrutturazioni chiavi in mano, bagni e cucine, impianti, cartongesso di design'],
+  ['Specialità', 'Ristrutturazioni chiavi in mano, bagni e cucine, impianti, cartongesso di design, pratiche edilizie e direzione lavori'],
   ['Lavori documentati', `${projects.length} progetti e ${totalPhotos} foto reali`],
   ['Dati di registro', `P.IVA ${site.legal.piva} · Albo Artigiani ${site.legal.alboArtigiani} · ${site.legal.regImprese}`],
 ];
@@ -70,7 +75,7 @@ const fill = (i: number, n: number, cols3 = false) => {
 ---
 <Base
   title="Impresa Ippolito: ristrutturazioni a Novate Milanese"
-  description="Impresa di ristrutturazioni chiavi in mano a Novate Milanese: il titolare geometra segue i lavori in cantiere, da oltre 30 anni in provincia di Milano."
+  description="Impresa di ristrutturazioni chiavi in mano a Novate Milanese, attiva dal 2001: il titolare geometra segue i lavori in cantiere, pratiche edilizie comprese."
   schema={[aboutSchema]}
   breadcrumb={[{ name: 'Chi siamo', path: '/chi-siamo' }]}
 >
@@ -83,7 +88,7 @@ const fill = (i: number, n: number, cols3 = false) => {
           Impresa Ippolito, <span class="text-[var(--color-accent)]">ristrutturazioni a Novate Milanese.</span>
         </h1>
         <p class="mt-7 max-w-2xl text-lg leading-relaxed">
-          <strong>Impresa Ippolito</strong> è un’impresa edile di ristrutturazioni chiavi in mano con sede a <strong>Novate Milanese (MI)</strong>, attiva da <strong>oltre 30 anni</strong> in provincia di Milano e in Monza Brianza. Il titolare, il <strong>geometra Antonio Ippolito</strong>, segue ogni lavoro di persona in cantiere e coordina un’equipe di artigiani e professionisti di fiducia.
+          <strong>Impresa Ippolito</strong> (Impresa Edile Ippolito Antonio) è un’impresa edile di ristrutturazioni chiavi in mano con sede a <strong>Novate Milanese (MI)</strong>, attiva <strong>dal 2001</strong>, da oltre 25 anni, in provincia di Milano e in Monza Brianza. Il titolare, il <strong>geometra Antonio Ippolito</strong>, ha <strong>oltre 30 anni di esperienza</strong>, segue ogni lavoro di persona in cantiere e coordina un’equipe di artigiani e professionisti di fiducia.
         </p>
         <p class="mt-4 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
           Ristrutturiamo appartamenti, case indipendenti, uffici e negozi: dal solo bagno o cucina fino all’intervento completo, con impianti certificati, pavimenti, cartongesso e finiture.
@@ -110,10 +115,10 @@ const fill = (i: number, n: number, cols3 = false) => {
     <div class="u-container">
       <h2 class="text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">L’impresa in breve</h2>
       <dl class="mt-8 grid grid-cols-1 border-l border-t border-[var(--color-border)] bg-[var(--color-surface)] sm:grid-cols-2">
-        {facts.map(([k, v]) => (
-          <div class="border-b border-r border-[var(--color-border)] px-5 py-4">
+        {facts.map(([k, v], i) => (
+          <div class:list={['card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-4', fill(i, facts.length)]}>
             <dt class="u-label">{k}</dt>
-            <dd class="mt-1.5 text-lg font-bold leading-snug">{v}</dd>
+            <dd class="mt-1.5 text-lg font-bold leading-snug transition-colors duration-300 group-hover:text-[var(--color-accent)]">{v}</dd>
           </div>
         ))}
       </dl>
@@ -139,8 +144,8 @@ const fill = (i: number, n: number, cols3 = false) => {
       </div>
       <ul class="grid grid-cols-1 border-l border-t border-[var(--color-border)] sm:grid-cols-2 md:col-span-8">
         {services.map((s, i) => (
-          <li class:list={['border-b border-r border-[var(--color-border)] p-5', fill(i, services.length)]}>
-            {s.href ? <a href={s.href} class="text-lg font-black tracking-tight hover:text-[var(--color-accent)]">{s.t} →</a> : <p class="text-lg font-black tracking-tight">{s.t}</p>}
+          <li class:list={['card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-5', fill(i, services.length)]}>
+            {s.href ? <a href={s.href} class="text-lg font-black tracking-tight group-hover:text-[var(--color-accent)]">{s.t} →</a> : <p class="text-lg font-black tracking-tight transition-colors duration-300 group-hover:text-[var(--color-accent)]">{s.t}</p>}
             <p class="mt-1.5 text-sm text-[var(--color-muted)]">{s.d}</p>
           </li>
         ))}
@@ -155,8 +160,8 @@ const fill = (i: number, n: number, cols3 = false) => {
       <h2 class="mt-4 text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Come lavoriamo</h2>
       <div class="mt-8 grid grid-cols-1 border-l border-t border-white/15 sm:grid-cols-2 lg:grid-cols-3">
         {howWeWork.map((h, i) => (
-          <div class="border-b border-r border-white/15 p-6">
-            <span class="font-[family-name:var(--font-mono)] text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">{String(i + 1).padStart(2, '0')}</span>
+          <div class="card-anim card-anim--dark group border-b border-r border-white/15 bg-[var(--color-text)] p-6">
+            <span class="font-[family-name:var(--font-mono)] text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent)] transition-colors duration-300 group-hover:text-white">{String(i + 1).padStart(2, '0')}</span>
             <h3 class="mt-3 text-xl font-black tracking-tight text-white">{h.t}</h3>
             <p class="mt-2 text-[0.95rem] leading-snug text-white/70">{h.d}</p>
           </div>
@@ -179,9 +184,9 @@ const fill = (i: number, n: number, cols3 = false) => {
       </div>
       <div class="mt-8 grid grid-cols-1 border-l border-t border-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-3">
         {byCity.map((c, i) => (
-          <div class:list={['border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-5', fill(i, byCity.length, true)]}>
+          <div class:list={['card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-5', fill(i, byCity.length, true)]}>
             <div class="flex items-baseline justify-between gap-3">
-              <h3 class="text-xl font-black tracking-tight">{c.city}</h3>
+              <h3 class="text-xl font-black tracking-tight transition-colors duration-300 group-hover:text-[var(--color-accent)]">{c.city}</h3>
               <span class="font-[family-name:var(--font-mono)] text-xs text-[var(--color-muted)]">{c.items.length} {c.items.length === 1 ? 'lavoro' : 'lavori'}</span>
             </div>
             <ul class="mt-3 space-y-1.5">
@@ -224,9 +229,10 @@ const fill = (i: number, n: number, cols3 = false) => {
       <div class="md:col-span-4">
         <p class="u-label">Domande frequenti</p>
         <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Le risposte più richieste</h2>
-        <a href="/domande-frequenti" class="btn btn--primary mt-7">Tutte le domande</a>
+        <FaqToggle target="faq-chi-siamo" count={faqPreview.length} class="mt-7" />
+        <a href="/domande-frequenti" class="btn btn--ghost mt-3 w-full justify-center md:mt-7 md:w-auto">Tutte le domande</a>
       </div>
-      <div class="border-t border-[var(--color-border)] md:col-span-8">
+      <div id="faq-chi-siamo" data-faq-list class="border-t border-[var(--color-border)] md:col-span-8">
         {faqPreview.map((f) => (
           <div class="border-b border-[var(--color-border)] py-5">
             <h3 class="text-lg font-black tracking-tight">{f.q}</h3>

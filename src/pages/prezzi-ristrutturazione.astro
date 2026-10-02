@@ -1,0 +1,333 @@
+---
+// Pagina GEO "prezzi e tempi" (ottobre 2026): sulle domande "quanto costa ristrutturare / rifare
+// un bagno a Milano" le IA citano pagine con cifre chiare, unità di misura e data di aggiornamento.
+// Tutti i numeri vengono da src/data/prezzi.ts (risposte del titolare): niente cifre inventate.
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import FaqToggle from '../components/FaqToggle.astro';
+import { site, ORG_ID, SITE_URL, faqBreadcrumb } from '../data/site';
+import { projects } from '../data/projects';
+import { answered } from '../data/faq';
+import { aggiornato, appartamento, bagno, cartongesso, durata, durataBagno, tempiPreventivo, pagamenti, range, euro } from '../data/prezzi';
+
+const url = `${SITE_URL}/prezzi-ristrutturazione`;
+const bagni = projects.filter((p) => p.category === 'Bagni' && p.location).slice(0, 4);
+const appartamenti = ['ristrutturazione-appartamento-milano-24', 'appartamento-senago', 'appartamento-milano-bocconi']
+  .map((s) => projects.find((p) => p.slug === s)!)
+  .filter(Boolean);
+
+const faqPrezzi = answered.filter((f) => /costa|durano|tempo ci vuole|pagamenti|CILA/i.test(f.q));
+
+const unit = (u: string) => ({ '@type': 'UnitPriceSpecification', priceCurrency: 'EUR', unitCode: u === 'mq' ? 'MTK' : undefined, unitText: u === 'mq' ? 'metro quadro' : undefined });
+const offer = (name: string, r: { min: number; max: number | null }, u: string, description: string) => ({
+  '@type': 'Offer',
+  name,
+  description,
+  priceSpecification: { ...unit(u), minPrice: r.min, ...(r.max ? { maxPrice: r.max } : {}) },
+});
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${url}#pagina`,
+  name: 'Quanto costa ristrutturare casa a Milano: prezzi e tempi indicativi',
+  url,
+  inLanguage: 'it-IT',
+  dateModified: aggiornato.iso,
+  about: { '@id': ORG_ID },
+  publisher: { '@id': ORG_ID },
+};
+const services = [
+  {
+    '@context': 'https://schema.org', '@type': 'Service',
+    name: 'Ristrutturazione di appartamenti', serviceType: 'Ristrutturazione chiavi in mano',
+    provider: { '@id': ORG_ID }, areaServed: site.cities.map((c) => ({ '@type': 'City', name: c })), url,
+    offers: appartamento.map((a) => offer(`Ristrutturazione ${a.t.toLowerCase()}`, a.r, 'mq', a.d)),
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'Service',
+    name: 'Rifacimento bagno completo', serviceType: 'Ristrutturazione bagno',
+    provider: { '@id': ORG_ID }, areaServed: site.cities.map((c) => ({ '@type': 'City', name: c })), url,
+    offers: bagno.map((b) => offer(`Bagno completo, ${b.t.toLowerCase()}`, b.r, 'corpo', b.d)),
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'Service',
+    name: 'Controsoffitti in cartongesso con luci LED', serviceType: 'Cartongesso di design',
+    provider: { '@id': ORG_ID }, areaServed: site.cities.map((c) => ({ '@type': 'City', name: c })), url: `${SITE_URL}/cartongesso-di-design`,
+    offers: cartongesso.filter((c) => !c.extra).map((c) => offer(`Controsoffitto ${c.t.toLowerCase()}`, c.r, 'mq', c.d)),
+  },
+];
+---
+<Base
+  title="Quanto costa ristrutturare casa a Milano | Impresa Ippolito"
+  description="Prezzi indicativi 2026: appartamento da 400 a 1.500 €/mq, bagno completo da 6.000 a 13.000 €, controsoffitti LED da 55 €/mq. Tempi e pagamenti chiari."
+  schema={[pageSchema, ...services]}
+  breadcrumb={[faqBreadcrumb, { name: 'Prezzi e tempi', path: '/prezzi-ristrutturazione' }]}
+>
+  <!-- In breve: risposta subito, con le cifre -->
+  <section class="border-b border-[var(--color-border)]">
+    <div class="u-container grid grid-cols-1 gap-10 py-14 md:grid-cols-12 md:py-20">
+      <div class="md:col-span-7">
+        <p class="u-label">Prezzi e tempi · aggiornato a {aggiornato.label}</p>
+        <h1 class="mt-5 text-[clamp(2.4rem,5.5vw,4.5rem)] font-black leading-[0.92] tracking-[-0.03em]">
+          Quanto costa ristrutturare <span class="text-[var(--color-accent)]">casa a Milano.</span>
+        </h1>
+        <p class="mt-7 max-w-2xl text-lg leading-relaxed">
+          <strong>In breve:</strong> con l’Impresa Ippolito ristrutturare un appartamento costa indicativamente da <strong>400 a 1.500 euro al metro quadro</strong>, a seconda dell’intervento. Un <strong>bagno completo</strong> costa da <strong>6.000 a 13.000 euro</strong> e oltre e si rifà in <strong>8-15 giorni lavorativi</strong>. Un appartamento medio di 70-100 mq richiede da 60 a 80 giorni lavorativi.
+        </p>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
+          Sono i prezzi medi dei nostri lavori a Milano e in provincia, indicati dal titolare, il geom. Antonio Ippolito. Il prezzo esatto lo trovate nel preventivo voce per voce, dopo il sopralluogo gratuito.
+        </p>
+      </div>
+      <div class="flex flex-col justify-end md:col-span-5">
+        <dl class="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Appartamento</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">400-1.500 €/mq</dd></div>
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Bagno completo</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">6.000-13.000 €+</dd></div>
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Controsoffitto LED</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">55-140 €/mq</dd></div>
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Tempi bagno</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">8-15 giorni</dd></div>
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Sopralluogo</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">Gratuito</dd></div>
+        </dl>
+        <a href="/contatti#preventivo" class="btn btn--primary mt-5 justify-center">Richiedi il preventivo gratuito</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Appartamento -->
+  <section id="appartamento" class="scroll-mt-24 border-b border-[var(--color-border)] bg-[var(--color-tint)] py-14 md:py-20">
+    <div class="u-container">
+      <p class="u-label">Appartamento</p>
+      <h2 class="mt-4 max-w-3xl text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Prezzi al metro quadro per tipo di ristrutturazione</h2>
+      <div class="mt-8 grid grid-cols-1 border-l border-t border-[var(--color-border)] bg-[var(--color-surface)] md:grid-cols-3">
+        {appartamento.map((a) => (
+          <article class="card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-8">
+            <h3 class="u-label">{a.t}</h3>
+            <p class="mt-4 font-[family-name:var(--font-display)] text-[clamp(1.9rem,3.2vw,2.6rem)] font-black leading-none tracking-tight text-[var(--color-accent)]">{range(a.r)}<span class="text-lg text-[var(--color-text)]"> al mq</span></p>
+            <p class="mt-4 text-[var(--color-muted)]">{a.d}</p>
+          </article>
+        ))}
+      </div>
+
+      <!-- stima rapida: stessi numeri della tabella -->
+      <div class="mt-8 grid grid-cols-1 gap-6 border border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:grid-cols-12 md:p-8" data-stima>
+        <div class="md:col-span-5">
+          <p class="u-label text-[var(--color-accent)]">Stima rapida</p>
+          <p class="mt-3 text-lg font-black tracking-tight">Quanto potrebbe costare il vostro appartamento?</p>
+          <label class="mt-5 block">
+            <span class="u-label">Metri quadri</span>
+            <input type="number" min="20" max="400" step="5" value="80" inputmode="numeric" class="mt-2 w-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-lg focus:border-[var(--color-accent)]" data-mq />
+          </label>
+          <fieldset class="mt-5">
+            <legend class="u-label">Tipo di intervento</legend>
+            <div class="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3">
+              {appartamento.map((a, i) => (
+                <label class="flex cursor-pointer items-center gap-2 border border-[var(--color-border)] px-3 py-2 text-sm has-[:checked]:border-[var(--color-accent)] has-[:checked]:bg-[var(--color-tint)]">
+                  <input type="radio" name="livello" value={i} checked={i === 1} class="accent-[var(--color-accent)]" data-min={a.r.min} data-max={a.r.max} />
+                  {a.t.split(' / ')[0]}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        </div>
+        <div class="flex flex-col justify-center border-t border-[var(--color-border)] pt-6 md:col-span-7 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+          <p class="u-label">Stima indicativa</p>
+          <p class="mt-3 font-[family-name:var(--font-display)] text-[clamp(2rem,4.5vw,3.5rem)] font-black leading-none tracking-tight" data-out>48.000-80.000 €</p>
+          <p class="mt-4 text-sm text-[var(--color-muted)]">Calcolata sui prezzi medi al metro quadro qui sopra. Non è un preventivo: il prezzo vero dipende da stato di partenza, materiali e impianti, e lo trovate nel preventivo dopo il sopralluogo gratuito.</p>
+          <a href="/contatti#preventivo" class="btn btn--ghost mt-5 self-start">Chiedi il preventivo esatto</a>
+        </div>
+      </div>
+
+      <div class="mt-10">
+        <p class="u-label">Appartamenti che abbiamo ristrutturato</p>
+        <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {appartamenti.map((p) => (
+            <a href={`/lavori-eseguiti/${p.slug}`} class="card-anim group block border border-[var(--color-border)] bg-[var(--color-surface)]">
+              <div class="relative aspect-[4/3] overflow-hidden">
+                <Image src={p.cover} alt={`${p.title}: ristrutturazione dell'Impresa Ippolito`} widths={[400, 640]} sizes="(max-width:640px) 100vw, 33vw" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" loading="lazy" />
+              </div>
+              <div class="p-4">
+                <p class="font-black leading-tight tracking-tight group-hover:text-[var(--color-accent)]">{p.title}</p>
+                <p class="mt-1 text-sm text-[var(--color-muted)]">{p.images.length} foto del lavoro</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bagno -->
+  <section id="bagno" class="scroll-mt-24 border-b border-[var(--color-border)] py-14 md:py-20">
+    <div class="u-container grid grid-cols-1 gap-10 md:grid-cols-12">
+      <div class="md:col-span-4">
+        <p class="u-label">Bagno</p>
+        <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Quanto costa rifare un bagno completo</h2>
+        <p class="mt-5 text-lg text-[var(--color-muted)]">Un bagno completo da zero richiede mediamente <strong class="text-[var(--color-text)]">{range(durataBagno)} giorni lavorativi</strong>: le lavorazioni seguono una sequenza tecnica con tempi di posa e di asciugatura obbligatori.</p>
+      </div>
+      <div class="md:col-span-8">
+        <div class="border-t border-[var(--color-border)]">
+          {bagno.map((b) => (
+            <div class="grid grid-cols-1 gap-2 border-b border-[var(--color-border)] py-5 sm:grid-cols-12 sm:items-baseline sm:gap-6">
+              <h3 class="text-lg font-black tracking-tight sm:col-span-4">{b.t}</h3>
+              <p class="font-[family-name:var(--font-display)] text-2xl font-black tracking-tight text-[var(--color-accent)] sm:col-span-4">{range(b.r)}</p>
+              <p class="text-[var(--color-muted)] sm:col-span-4">{b.d}</p>
+            </div>
+          ))}
+        </div>
+        <p class="u-label mt-10">Alcuni bagni che abbiamo rifatto</p>
+        <div class="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {bagni.map((p) => (
+            <a href={`/lavori-eseguiti/${p.slug}`} class="card-anim group block border border-[var(--color-border)] bg-[var(--color-surface)]">
+              <div class="relative aspect-[3/4] overflow-hidden">
+                <Image src={p.cover} alt={`${p.title}: bagno rifatto dall'Impresa Ippolito`} widths={[300, 500]} sizes="(max-width:1024px) 50vw, 20vw" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" loading="lazy" />
+              </div>
+              <p class="p-3 text-sm font-black leading-tight tracking-tight group-hover:text-[var(--color-accent)]">{p.title}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Controsoffitti -->
+  <section id="controsoffitti" class="scroll-mt-24 border-b border-[var(--color-border)] bg-[var(--color-tint)] py-14 md:py-20">
+    <div class="u-container">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="u-label">Cartongesso di design</p>
+          <h2 class="mt-4 max-w-3xl text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Controsoffitti in cartongesso con luci LED</h2>
+        </div>
+        <a href="/cartongesso-di-design" class="u-label hover:text-[var(--color-accent)]">Foto e guida al cartongesso →</a>
+      </div>
+      <p class="mt-4 max-w-2xl text-lg text-[var(--color-muted)]">Prezzi medi al metro quadro, posa inclusa.</p>
+      <div class="mt-8 grid grid-cols-1 border-l border-t border-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-4">
+        {cartongesso.map((c) => (
+          <article class="card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+            <h3 class="u-label">{c.t}</h3>
+            <p class="mt-3 font-[family-name:var(--font-display)] text-2xl font-black tracking-tight text-[var(--color-accent)]">{c.extra ? '+ ' : ''}{range(c.r)}<span class="text-base text-[var(--color-text)]"> al mq</span></p>
+            <p class="mt-3 text-sm text-[var(--color-muted)]">{c.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Tempi -->
+  <section id="tempi" class="scroll-mt-24 border-b border-[var(--color-border)] py-14 md:py-20">
+    <div class="u-container">
+      <p class="u-label">Tempi</p>
+      <h2 class="mt-4 max-w-3xl text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Quanto durano i lavori</h2>
+      <p class="mt-4 max-w-2xl text-lg text-[var(--color-muted)]">Giorni lavorativi di cantiere per lavori standard, esclusi i tempi delle pratiche e della scelta dei materiali.</p>
+      <div class="mt-8 grid grid-cols-1 border-l border-t border-[var(--color-border)] md:grid-cols-3">
+        {durata.map((d) => (
+          <article class="card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-8">
+            <h3 class="u-label">{d.t} · {d.mq}</h3>
+            <p class="mt-4 font-[family-name:var(--font-display)] text-[clamp(1.9rem,3.2vw,2.6rem)] font-black leading-none tracking-tight text-[var(--color-accent)]">{range(d.giorni).replace(' €', '')} <span class="text-lg text-[var(--color-text)]">giorni</span></p>
+            <p class="mt-2 font-bold">{d.circa}</p>
+            <p class="mt-3 text-[var(--color-muted)]">{d.d}</p>
+          </article>
+        ))}
+      </div>
+      <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div class="card-anim group border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+          <p class="u-label">Bagno completo</p>
+          <p class="mt-3 text-2xl font-black tracking-tight">{range(durataBagno).replace(' €', '')} giorni lavorativi</p>
+          <p class="mt-2 text-[var(--color-muted)]">Chi promette un bagno nuovo in meno di 5 giorni lavorativi spesso salta passaggi fondamentali.</p>
+        </div>
+        <div class="card-anim group border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+          <p class="u-label">Preventivo scritto</p>
+          {tempiPreventivo.map((t) => (
+            <p class="mt-3"><span class="text-xl font-black tracking-tight">{range(t.giorni).replace(' €', '')} giorni lavorativi</span><br /><span class="text-[var(--color-muted)]">{t.t}, {t.es}.</span></p>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pagamenti -->
+  <section id="pagamenti" class="scroll-mt-24 border-b border-[var(--color-border)] bg-[var(--color-text)] py-14 text-[var(--color-bg)] md:py-20">
+    <div class="u-container">
+      <p class="u-label text-white/50">Pagamenti</p>
+      <h2 class="mt-4 max-w-3xl text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight text-white">Si paga a stato di avanzamento lavori</h2>
+      <p class="mt-4 max-w-2xl text-lg text-white/70">Un acconto alla firma e tre rate legate a ciò che è stato fatto in cantiere, con il saldo solo dopo il collaudo finale.</p>
+      <div class="mt-8 flex h-3 w-full overflow-hidden" aria-hidden="true">
+        {pagamenti.map((p, i) => <span class="h-full border-r-2 border-[var(--color-text)] last:border-r-0" style={`width:${p.pct}%;background:${i === pagamenti.length - 1 ? '#fff' : 'var(--color-accent)'}`}></span>)}
+      </div>
+      <ol class="mt-6 grid grid-cols-1 border-l border-t border-white/15 sm:grid-cols-2 lg:grid-cols-4">
+        {pagamenti.map((p) => (
+          <li class="card-anim card-anim--dark group border-b border-r border-white/15 bg-[var(--color-text)] p-6">
+            <p class="font-[family-name:var(--font-display)] text-4xl font-black text-[var(--color-accent)] transition-colors duration-300 group-hover:text-white">{p.pct}%</p>
+            <h3 class="mt-2 text-xl font-black tracking-tight text-white">{p.t}</h3>
+            <p class="mt-2 text-[0.95rem] leading-snug text-white/70">{p.d}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Cosa è compreso -->
+  <section class="border-b border-[var(--color-border)] py-14 md:py-20">
+    <div class="u-container grid grid-cols-1 gap-10 md:grid-cols-12">
+      <div class="md:col-span-4">
+        <p class="u-label">Trasparenza</p>
+        <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Cosa trovate nel preventivo</h2>
+      </div>
+      <ul class="grid grid-cols-1 border-l border-t border-[var(--color-border)] sm:grid-cols-2 md:col-span-8">
+        <li class="card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-5"><p class="text-lg font-black tracking-tight transition-colors duration-300 group-hover:text-[var(--color-accent)]">Sopralluogo gratuito</p><p class="mt-1.5 text-sm text-[var(--color-muted)]">Viene di persona il geom. Antonio Ippolito, che poi segue il cantiere.</p></li>
+        <li class="card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-5"><p class="text-lg font-black tracking-tight transition-colors duration-300 group-hover:text-[var(--color-accent)]">Preventivo voce per voce</p><p class="mt-1.5 text-sm text-[var(--color-muted)]">Computo metrico chiaro: niente costi nascosti o voci ambigue.</p></li>
+        <li class="card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-5"><p class="text-lg font-black tracking-tight transition-colors duration-300 group-hover:text-[var(--color-accent)]">Varianti solo per iscritto</p><p class="mt-1.5 text-sm text-[var(--color-muted)]">Ogni modifica chiesta in corso d’opera viene quantificata e approvata con un verbale di variante firmato.</p></li>
+        <li class="card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-5"><p class="text-lg font-black tracking-tight transition-colors duration-300 group-hover:text-[var(--color-accent)]">Garanzia e polizza</p><p class="mt-1.5 text-sm text-[var(--color-muted)]">Garanzia su opere e materiali, polizza assicurativa e assistenza dopo la consegna.</p></li>
+        <li class="card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-5"><p class="text-lg font-black tracking-tight transition-colors duration-300 group-hover:text-[var(--color-accent)]">DURC e impianti certificati</p><p class="mt-1.5 text-sm text-[var(--color-muted)]">Il DURC prima di iniziare e impianti conformi alle norme C.E.I. e alla legge 46/90.</p></li>
+        <li class="card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-5"><p class="text-lg font-black tracking-tight transition-colors duration-300 group-hover:text-[var(--color-accent)]">Pratiche e direzione lavori</p><p class="mt-1.5 text-sm text-[var(--color-muted)]">CILA, SCIA, burocrazia e direzione dei lavori le segue il geom. Ippolito; il costo delle pratiche si valuta a parte. Tinteggiature, pavimenti e sanitari sono edilizia libera.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  {faqPrezzi.length > 0 && (
+    <section class="border-b border-[var(--color-border)] bg-[var(--color-tint)] py-14 md:py-20">
+      <div class="u-container grid grid-cols-1 gap-10 md:grid-cols-12">
+        <div class="md:col-span-4">
+          <p class="u-label">Domande</p>
+          <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Costi e tempi: le risposte del titolare</h2>
+          <FaqToggle target="faq-prezzi" count={faqPrezzi.length} class="mt-7" />
+          <a href="/domande-frequenti" class="btn btn--ghost mt-3 w-full justify-center md:mt-7 md:w-auto">Tutte le domande</a>
+        </div>
+        <div id="faq-prezzi" data-faq-list class="border-t border-[var(--color-border)] md:col-span-8">
+          {faqPrezzi.map((f) => (
+            <details class="group border-b border-[var(--color-border)] py-5">
+              <summary class="flex cursor-pointer list-none items-start justify-between gap-6 text-lg font-black tracking-tight [&::-webkit-details-marker]:hidden">
+                {f.q}<span class="font-[family-name:var(--font-mono)] text-[var(--color-accent)] transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <p class="mt-3 text-[var(--color-muted)]">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="py-10">
+    <p class="u-container max-w-3xl text-sm text-[var(--color-muted)]">
+      Prezzi e tempi indicativi aggiornati a {aggiornato.label}, forniti dall’{site.officialName} (Novate Milanese, P.I. {site.legal.piva}) sulla base dei lavori eseguiti a Milano e provincia. Non costituiscono offerta: fa fede il preventivo scritto dopo il sopralluogo.
+    </p>
+  </section>
+
+  <CTA title="Volete il prezzo esatto? Il sopralluogo è gratuito." />
+</Base>
+
+<script>
+  const box = document.querySelector<HTMLElement>('[data-stima]');
+  if (box) {
+    const mq = box.querySelector<HTMLInputElement>('[data-mq]')!;
+    const out = box.querySelector<HTMLElement>('[data-out]')!;
+    const fmt = (n: number) => (Math.round(n / 500) * 500).toLocaleString('it-IT');
+    const calc = () => {
+      const r = box.querySelector<HTMLInputElement>('input[name="livello"]:checked');
+      const m = Math.min(400, Math.max(20, Number(mq.value) || 0));
+      if (!r || !m) return;
+      out.textContent = `${fmt(m * Number(r.dataset.min))}-${fmt(m * Number(r.dataset.max))} €`;
+    };
+    box.addEventListener('input', calc);
+    calc();
+  }
+</script>
