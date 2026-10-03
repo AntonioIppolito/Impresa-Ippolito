@@ -2,11 +2,12 @@
 // Pagina GEO: "scheda d'identità" dell'impresa, scritta per essere letta ed estratta da
 // motori di ricerca e assistenti IA. SOLO dati reali e verificati (niente anno di fondazione:
 // le fonti online non concordano, va confermato dal titolare).
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import CTA from '../components/CTA.astro';
 import FaqToggle from '../components/FaqToggle.astro';
-import { site, services, compliance, transparency, ORG_ID, SITE_URL } from '../data/site';
+import { google, ratingLabel } from '../data/recensioni';
+import { site, services, compliance, transparency, ORG_ID, PERSON_ID, SITE_URL } from '../data/site';
 import { projects, pickPhoto } from '../data/projects';
 import { answered } from '../data/faq';
 import portrait from '../assets/antonio-ippolito.jpg';
@@ -15,8 +16,11 @@ import stripHome from '../assets/archivio/fotoiniziale.gif';
 const totalPhotos = projects.reduce((n, p) => n + p.images.length, 0);
 
 // comuni con lavori reali -> elenco progetti in quel comune
-const byCity = site.cities
-  .map((city) => ({ city, items: projects.filter((p) => p.location?.startsWith(city)) }))
+// (i comuni dei lavori aggiunti dal pannello entrano da soli, dopo quelli dell'elenco fisso)
+const cityOf = (loc: string) => loc.replace(/\s*\([A-Z]{2}\)\s*$/, '').split(' · ')[0].trim();
+const cities = [...new Set([...site.cities, ...projects.flatMap((p) => (p.location && p.location !== 'Provincia di Milano' ? [cityOf(p.location)] : []))])];
+const byCity = cities
+  .map((city) => ({ city, items: projects.filter((p) => p.location && cityOf(p.location) === city) }))
   .filter((c) => c.items.length);
 
 const featured = [
@@ -37,6 +41,7 @@ const facts: [string, string][] = [
   ['Attività', `Dal ${site.foundingYear}, oltre 25 anni`],
   ['Esperienza del titolare', 'Oltre 30 anni'],
   ['Polizza assicurativa', 'Sì, sui lavori eseguiti'],
+  ['Recensioni', `${ratingLabel} su Google (${google.count} recensioni)`],
   ['Zona servita', 'Provincia di Milano e Monza Brianza'],
   ['Specialità', 'Ristrutturazioni chiavi in mano, bagni e cucine, impianti, cartongesso di design, pratiche edilizie e direzione lavori'],
   ['Lavori documentati', `${projects.length} progetti e ${totalPhotos} foto reali`],
@@ -60,6 +65,22 @@ const aboutSchema = {
   about: { '@id': ORG_ID },
   mainEntity: { '@id': ORG_ID },
   inLanguage: 'it-IT',
+  dateModified: '2026-10-03',
+};
+// il titolare come persona (E-E-A-T): chi segue i lavori, con che qualifica ed esperienza
+const portraitUrl = new URL((await getImage({ src: portrait, width: 400, format: 'jpg' })).src, SITE_URL).href;
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': PERSON_ID,
+  name: 'Antonio Ippolito',
+  honorificPrefix: 'Geom.',
+  jobTitle: 'Geometra, titolare',
+  description: `Geometra e titolare dell'${site.officialName} di Novate Milanese, con oltre 30 anni di esperienza nelle ristrutturazioni. Segue ogni lavoro di persona in cantiere e cura pratiche edilizie (CILA, SCIA) e direzione dei lavori.`,
+  image: portraitUrl,
+  worksFor: { '@id': ORG_ID },
+  knowsAbout: [...services.map((s) => s.t), 'Ristrutturazioni chiavi in mano', 'Pratiche edilizie CILA e SCIA', 'Direzione dei lavori'],
+  url: `${SITE_URL}/chi-siamo`,
 };
 const faqPreview = answered.filter((f) => f.home).slice(0, 4);
 
@@ -76,7 +97,7 @@ const fill = (i: number, n: number, cols3 = false) => {
 <Base
   title="Impresa Ippolito: ristrutturazioni a Novate Milanese"
   description="Impresa di ristrutturazioni chiavi in mano a Novate Milanese, attiva dal 2001: il titolare geometra segue i lavori in cantiere, pratiche edilizie comprese."
-  schema={[aboutSchema]}
+  schema={[aboutSchema, personSchema]}
   breadcrumb={[{ name: 'Chi siamo', path: '/chi-siamo' }]}
 >
   <!-- In breve: risposta subito -->

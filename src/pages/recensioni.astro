@@ -1,0 +1,47 @@
+---
+// Tutte le recensioni reali dei clienti (src/data/recensioni.ts), con testi interi.
+// Niente markup Review/AggregateRating: per Google sarebbero recensioni "self-serving".
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import Reviews from '../components/Reviews.astro';
+import { google, recensioni, aggiornatoRecensioni, ratingLabel, tutteCinque } from '../data/recensioni';
+const altreFonti = [...new Set(recensioni.map((r) => r.fonte).filter((f) => f !== 'Google'))];
+const fontiTesto = altreFonti.length ? `, più quelle su ${altreFonti.join(' e ')}` : '';
+---
+<Base
+  title={`Recensioni dei clienti: ${ratingLabel} su Google | Impresa Ippolito`}
+  description={`Recensioni reali dei clienti dell'Impresa Ippolito di Novate Milanese: ${ratingLabel} su Google con ${google.count} recensioni${altreFonti.length ? `, più ${altreFonti.join(' e ')}` : ''}. Testi originali.`}
+  breadcrumb={[{ name: 'Recensioni', path: '/recensioni' }]}
+>
+  <section class="border-b border-[var(--color-border)]">
+    <div class="u-container grid grid-cols-1 gap-8 py-14 md:grid-cols-12 md:py-20">
+      <div class="md:col-span-8">
+        <p class="u-label">Recensioni</p>
+        <h1 class="mt-5 text-[clamp(2.5rem,6vw,5rem)] font-black leading-[0.9] tracking-[-0.03em]">
+          Cosa dicono <span class="text-[var(--color-accent)]">i nostri clienti.</span>
+        </h1>
+        <p class="mt-7 max-w-2xl text-lg text-[var(--color-muted)]">
+          Tutte le recensioni lasciate all’impresa e al geom. Antonio Ippolito: {google.count} su Google{tutteCinque ? ', tutte a 5 stelle' : ''}{fontiTesto}. Le riportiamo come le hanno scritte i clienti, senza tagli.
+        </p>
+      </div>
+      <div class="flex flex-col justify-end md:col-span-4">
+        <div class="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
+          <div class="flex items-baseline justify-between py-3"><span class="u-label">Media Google</span><span class="font-[family-name:var(--font-display)] text-xl font-black">{ratingLabel} su 5</span></div>
+          <div class="flex items-baseline justify-between py-3"><span class="u-label">Recensioni Google</span><span class="font-[family-name:var(--font-display)] text-xl font-black">{google.count}</span></div>
+          <div class="flex items-baseline justify-between py-3"><span class="u-label">Recensioni in tutto</span><span class="font-[family-name:var(--font-display)] text-xl font-black">{recensioni.length}</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--color-tint)] py-14 md:py-20">
+    <div class="u-container">
+      <Reviews full />
+      <p class="mt-8 max-w-3xl text-sm text-[var(--color-muted)]">
+        Recensioni pubbliche raccolte il {aggiornatoRecensioni} dalla scheda Google “Impresa edile Ippolito Antonio”, dalla pagina Facebook dell’impresa e da Habitissimo (servizio oggi chiuso, recensione ancora visibile su Google). Gli autori sono indicati con nome e iniziale del cognome. Avete lavorato con noi? Lasciateci una recensione su Google: aiuta altre famiglie a scegliere.
+      </p>
+    </div>
+  </section>
+
+  <CTA title="Volete essere il prossimo cliente soddisfatto?" />
+</Base>

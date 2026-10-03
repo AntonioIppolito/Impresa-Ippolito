@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
-import { site, services, ORG_ID } from '../data/site';
+import { site, services, ORG_ID, PERSON_ID } from '../data/site';
+import { google } from '../data/recensioni';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import MobileCTA from '../components/MobileCTA.astro';
@@ -14,8 +15,10 @@ interface Props {
   schema?: Record<string, unknown>[];
   /** briciole di pane: [{name, path}] (la Home viene aggiunta in automatico) */
   breadcrumb?: { name: string; path: string }[];
+  /** pagine da non indicizzare (404) */
+  noindex?: boolean;
 }
-const { title, description, image = '/og-default.jpg', noMobileCta = false, schema = [], breadcrumb } = Astro.props;
+const { title, description, image = '/og-default.jpg', noMobileCta = false, schema = [], breadcrumb, noindex = false } = Astro.props;
 const siteUrl = Astro.site!.href.replace(/\/$/, '');
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(image, Astro.site).href;
@@ -55,10 +58,12 @@ const org = {
     { '@type': 'AdministrativeArea', name: 'Città metropolitana di Milano' },
     { '@type': 'AdministrativeArea', name: 'Provincia di Monza e della Brianza' },
   ],
-  founder: { '@type': 'Person', name: 'Antonio Ippolito', jobTitle: 'Geometra, titolare' },
+  founder: { '@type': 'Person', '@id': PERSON_ID, name: 'Antonio Ippolito', jobTitle: 'Geometra, titolare' },
+  employee: { '@id': PERSON_ID },
   vatID: `IT${site.legal.piva}`,
   knowsAbout: services.map((s) => s.t),
-  sameAs: [site.facebook, site.instagram, site.paginegialle],
+  sameAs: [site.facebook, site.instagram, site.paginegialle, google.url],
+  hasMap: google.url,
 };
 
 const crumbs = breadcrumb?.length
@@ -86,7 +91,7 @@ const jsonld = [org, ...crumbs, ...schema];
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="theme-color" content="#2d76b6" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />

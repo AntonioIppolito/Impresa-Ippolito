@@ -1,0 +1,37 @@
+---
+titolo: "Appartamento, Senago"
+comune: "Senago (MI)"
+categoria: "Appartamenti completi"
+ordine: 180
+descrizione: "Bagni con rivestimenti effetto marmo, vasca freestanding e lavabo d’appoggio su mensola in legno, doccia in vetro e pavimenti in legno."
+lavorazioni:
+  - "Bagni effetto marmo"
+  - "Vasca freestanding"
+  - "Doccia in vetro"
+  - "Pavimenti in legno"
+copertina: "./IMG20220330183538.jpg"
+seo:
+  titolo: "Ristrutturazione appartamento a Senago"
+foto:
+  - src: "./IMG20220224170730.jpg"
+  - src: "./IMG20220224171205.jpg"
+  - src: "./IMG20220224171214.jpg"
+  - src: "./IMG20220224171223.jpg"
+  - src: "./IMG20220224171150.jpg"
+  - src: "./IMG20220224171242.jpg"
+  - src: "./IMG20220330183500.jpg"
+  - src: "./IMG20220330183512.jpg"
+  - src: "./IMG20220330183538.jpg"
+  - src: "./IMG20220330183612.jpg"
+  - src: "./IMG20220224170743.jpg"
+  - src: "./IMG20220224171055.jpg"
+  - src: "./IMG20220224171028.jpg"
+  - src: "./IMG-20220330-WA0024.jpg"
+  - src: "./IMG-20220330-WA0026.jpg"
+  - src: "./IMG-20220330-WA0025.jpg"
+  - src: "./IMG-20220330-WA0027.jpg"
+  - src: "./IMG-20220330-WA0029.jpg"
+  - src: "./IMG-20220330-WA0021.jpg"
+  - src: "./IMG-20220330-WA0022.jpg"
+  - src: "./IMG-20220330-WA0023.jpg"
+---

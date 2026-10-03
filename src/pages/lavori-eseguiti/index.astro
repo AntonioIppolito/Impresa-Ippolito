@@ -3,13 +3,30 @@ import Base from '../../layouts/Base.astro';
 import PortfolioGrid from '../../components/PortfolioGrid.astro';
 import CTA from '../../components/CTA.astro';
 import { projects } from '../../data/projects';
+import { SITE_URL } from '../../data/site';
 const total = projects.length;
 const photos = projects.reduce((n, p) => n + p.images.length, 0);
+
+// elenco dei lavori leggibile da Google e dagli assistenti IA
+const listSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Lavori eseguiti dall’Impresa Ippolito',
+  url: `${SITE_URL}/lavori-eseguiti`,
+  numberOfItems: total,
+  itemListElement: projects.map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `${SITE_URL}/lavori-eseguiti/${p.slug}`,
+    name: p.title + (p.location && p.location !== 'Provincia di Milano' ? ` (${p.location})` : ''),
+  })),
+};
 ---
 <Base
   title="Lavori eseguiti a Milano e hinterland | Impresa Ippolito"
   description={`${total} ristrutturazioni reali con ${photos} foto: appartamenti, bagni, ville e cartongesso di design a Milano, Novate, Bollate, Bresso, Senago e Monza.`}
   breadcrumb={[{ name: 'Lavori eseguiti', path: '/lavori-eseguiti' }]}
+  schema={[listSchema]}
 >
   <section class="border-b border-[var(--color-border)]">
     <div class="u-container grid grid-cols-1 gap-8 py-14 md:grid-cols-12 md:py-20">

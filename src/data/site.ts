@@ -2,6 +2,8 @@
 // fonte unica per SEO/footer/schema.
 export const SITE_URL = 'https://impresaippolito.it';
 export const ORG_ID = `${SITE_URL}/#impresa`; // @id dell'entità impresa nello schema.org
+export const PERSON_ID = `${SITE_URL}/#antonio-ippolito`; // @id del titolare (E-E-A-T, GEO)
+export const WEBSITE_ID = `${SITE_URL}/#sito`;
 
 export const site = {
   name: 'Impresa Ippolito', // marchio breve (titoli, interfaccia)
@@ -58,7 +60,7 @@ export const site = {
   paginegialle: 'https://www.paginegialle.it/impresadicostruzioneeristrutturazionediaippolito-novatemilanese',
 
   // comuni con lavori reali pubblicati sul sito (zona servita documentata)
-  cities: ['Milano', 'Novate Milanese', 'Bollate', 'Cormano', 'Bresso', 'Senago', 'Paderno Dugnano', 'Arese', 'Settimo Milanese', 'Brugherio', 'Monza'],
+  cities: ['Milano', 'Novate Milanese', 'Bollate', 'Cormano', 'Bresso', 'Senago', 'Paderno Dugnano', 'Arese', 'Settimo Milanese', 'Brugherio', 'Varedo', 'Desio', 'Monza'],
 } as const;
 
 // TrustBar
@@ -134,6 +136,7 @@ export const nav: NavItem[] = [
   { label: 'Servizi', href: '/servizi' },
   { label: 'Lavori', href: '/lavori-eseguiti' },
   { label: 'Prima e dopo', href: '/prima-e-dopo' },
+  { label: 'Recensioni', href: '/recensioni' },
   {
     label: 'FAQ',
     href: '/domande-frequenti',

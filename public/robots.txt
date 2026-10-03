@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
 
 # Assistenti e motori di ricerca IA: accesso consentito (vogliamo essere citati)
 User-agent: GPTBot

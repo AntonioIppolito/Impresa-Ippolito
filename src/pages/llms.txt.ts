@@ -4,6 +4,7 @@ import type { APIRoute } from 'astro';
 import { site, services, compliance, transparency, SITE_URL } from '../data/site';
 import { projects } from '../data/projects';
 import { answered } from '../data/faq';
+import { google, conTesto, aggiornatoRecensioni, ratingLabel, tutteCinque } from '../data/recensioni';
 import { aggiornato, appartamento, bagno, cartongesso, durata, durataBagno, tempiPreventivo, pagamenti, range } from '../data/prezzi';
 
 export const GET: APIRoute = () => {
@@ -54,7 +55,12 @@ export const GET: APIRoute = () => {
     ...pagamenti.map((p) => `- ${p.pct}% ${p.t.toLowerCase()}: ${p.d}`),
     '- Pratiche edilizie (CILA, SCIA, burocrazia) e direzione lavori: le segue il geom. Antonio Ippolito; il costo delle pratiche non è compreso nel preventivo dei lavori.',
     '',
+    `## Recensioni dei clienti (aggiornate al ${aggiornatoRecensioni})`,
+    `- Google: ${ratingLabel} su 5 con ${google.count} recensioni${tutteCinque ? ', tutte a 5 stelle' : ''} (${google.url}). Elenco completo: ${u('/recensioni')}`,
+    ...conTesto.map((r) => `- ${r.autore}${r.ruolo ? `, ${r.ruolo.toLowerCase()}` : ''} (${r.fonte}, ${r.voto}/5, ${r.anno}): "${r.testo!.replace(/\s+/g, ' ').slice(0, 280)}${r.testo!.length > 280 ? '…' : ''}"`),
+    '',
     '## Pagine principali',
+    `- [Recensioni](${u('/recensioni')}): tutte le recensioni dei clienti, testi originali`,
     `- [Chi siamo](${u('/chi-siamo')}): scheda dell’impresa, metodo di lavoro e comuni in cui lavoriamo`,
     `- [Prezzi e tempi](${u('/prezzi-ristrutturazione')}): quanto costa ristrutturare un appartamento o un bagno, durata dei lavori, pagamenti`,
     `- [Servizi](${u('/servizi')}): tutti i servizi di ristrutturazione`,

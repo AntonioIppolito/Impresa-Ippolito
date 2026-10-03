@@ -104,7 +104,7 @@ export const faqs: Faq[] = [
   // ---- Zona e servizi ----
   {
     q: 'In quali zone lavorate?',
-    a: 'Siamo a Novate Milanese, in Via Monte Bianco 25, e lavoriamo in tutta la provincia di Milano e in Monza Brianza. Tra i lavori pubblicati sul sito ci sono interventi a Milano, Novate Milanese, Bollate, Cormano, Bresso, Senago, Paderno Dugnano, Arese, Settimo Milanese, Brugherio e Monza.',
+    a: 'Siamo a Novate Milanese, in Via Monte Bianco 25, e lavoriamo in tutta la provincia di Milano e in Monza Brianza. Tra i lavori pubblicati sul sito ci sono interventi a Milano, Novate Milanese, Bollate, Cormano, Bresso, Senago, Paderno Dugnano, Arese, Settimo Milanese, Brugherio, Varedo, Desio e Monza.',
     tema: 'Zona e servizi', home: true,
   },
   {

@@ -8,12 +8,26 @@ import ProjectStack from '../components/ProjectStack.astro';
 import WhyUs from '../components/WhyUs.astro';
 import BeforeAfter from '../components/BeforeAfter.astro';
 import CTA from '../components/CTA.astro';
+import Reviews from '../components/Reviews.astro';
 import { beforeAfter } from '../data/beforeafter';
-import { compliance } from '../data/site';
+import { compliance, site, ORG_ID, WEBSITE_ID, SITE_URL } from '../data/site';
+
+// WebSite: Google lo usa per il nome del sito nei risultati; collega sito ed entità impresa
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': WEBSITE_ID,
+  name: site.name,
+  alternateName: [site.officialName, 'Impresa Edile Ippolito'],
+  url: `${SITE_URL}/`,
+  inLanguage: 'it-IT',
+  publisher: { '@id': ORG_ID },
+};
 ---
 <Base
   title="Ristrutturazioni Novate Milanese e Milano | Impresa Ippolito"
   description="Impresa edile a Novate Milanese: ristrutturazioni chiavi in mano a Milano e Monza Brianza, con il titolare geometra in cantiere. Preventivo gratuito."
+  schema={[websiteSchema]}
 >
   <Hero />
   <TrustBar />
@@ -56,6 +70,20 @@ import { compliance } from '../data/site';
       ))}
     </div>
   </Section>
+
+  <!-- Recensioni reali (tutte: Google, Facebook, Habitissimo) -->
+  <section id="recensioni" class="border-t border-[var(--color-border)] py-14 md:py-20">
+    <div class="u-container">
+      <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="u-label">Recensioni</p>
+          <h2 class="mt-4 text-[clamp(2rem,3.5vw,3.25rem)] font-black leading-[0.95] tracking-tight">Cosa dicono i nostri clienti</h2>
+        </div>
+        <a href="/recensioni" class="u-label hover:text-[var(--color-accent)]">Tutte le recensioni →</a>
+      </div>
+      <Reviews />
+    </div>
+  </section>
 
   <!-- Perché sceglierci -->
   <Section label="Perché sceglierci" tone="dark" title="Noi garantiamo" lead="Dieci impegni concreti, dal preventivo alla consegna.">

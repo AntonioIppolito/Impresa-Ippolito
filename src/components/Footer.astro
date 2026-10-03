@@ -30,7 +30,6 @@ const year = new Date().getFullYear();
     <div class="md:col-span-4">
       <p class="u-label text-white/50">Mappa del sito</p>
       <ul class="mt-4 grid grid-cols-2 gap-2 text-base">
-        <li><a href="/" class="hover:text-[var(--color-accent)]">Home</a></li>
         {navFlat.map((n) => <li><a href={n.href} class="hover:text-[var(--color-accent)]">{n.label}</a></li>)}
         <li><a href="/cartongesso-di-design" class="hover:text-[var(--color-accent)]">Cartongesso di design</a></li>
       </ul>

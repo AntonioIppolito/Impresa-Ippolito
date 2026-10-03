@@ -4,12 +4,33 @@ import Base from '../layouts/Base.astro';
 import strip from '../assets/archivio/foto2.jpg';
 import ServiceGrid from '../components/ServiceGrid.astro';
 import CTA from '../components/CTA.astro';
-import { services, compliance } from '../data/site';
+import { services, compliance, site, ORG_ID, SITE_URL } from '../data/site';
+
+// ogni servizio come Service dell'impresa, con le zone servite (GEO: "chi fa X a Y")
+const servicesSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Servizi di ristrutturazione dell’Impresa Ippolito',
+  url: `${SITE_URL}/servizi`,
+  itemListElement: services.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Service',
+      name: s.t,
+      description: s.d,
+      provider: { '@id': ORG_ID },
+      areaServed: site.cities.map((c) => ({ '@type': 'City', name: c })),
+      ...(s.href ? { url: `${SITE_URL}${s.href}` } : {}),
+    },
+  })),
+};
 ---
 <Base
   title="Servizi di ristrutturazione a Milano nord | Impresa Ippolito"
   description="Bagni e cucine, impianti elettrici e termoidraulici, pavimenti e parquet, cartongesso e controsoffitti LED, tinteggiature. Da Novate a tutta Milano."
   breadcrumb={[{ name: 'Servizi', path: '/servizi' }]}
+  schema={[servicesSchema]}
 >
   <!-- hero compatto a due colonne piene -->
   <section class="border-b border-[var(--color-border)]">

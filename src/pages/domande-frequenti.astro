@@ -2,12 +2,15 @@
 import Base from '../layouts/Base.astro';
 import CTA from '../components/CTA.astro';
 import { answered, temi } from '../data/faq';
-import { site } from '../data/site';
+import { site, PERSON_ID } from '../data/site';
 
 // schema FAQPage generato dallo STESSO testo mostrato in pagina
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
+  inLanguage: 'it-IT',
+  dateModified: '2026-10-03', // risposte del titolare (questionario ottobre 2026)
+  author: { '@id': PERSON_ID },
   mainEntity: answered.map((f) => ({
     '@type': 'Question',
     name: f.q,
