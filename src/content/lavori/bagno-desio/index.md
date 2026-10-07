@@ -2,7 +2,7 @@
 titolo: Bagno, Desio
 comune: Desio (MB)
 categoria: Bagni
-descrizione: Bagno con rivestimento in grandi lastre grigie, ampia doccia walk-in con parete in vetro, soffione a pioggia e nicchia illuminata, sanitari sospesi. antonio ippolito
+descrizione: Bagno con rivestimento in grandi lastre grigie, ampia doccia walk-in con parete in vetro, soffione a pioggia e nicchia illuminata, sanitari sospesi.
 lavorazioni:
   - Doccia walk-in
   - Nicchia illuminata
