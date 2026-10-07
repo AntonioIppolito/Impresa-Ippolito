@@ -45,6 +45,13 @@
 /index.php/lavori-eseguiti/16-*   /lavori-eseguiti/ristrutturazione-bagno               301
 /index.php/lavori-eseguiti/15-*   /lavori-eseguiti/ristrutturazione-villa               301
 
+# --- articoli Joomla della categoria "uncategorised" (citati da Google Search Console) ---
+/index.php/2-uncategorised/33-*   /lavori-eseguiti/appartamento-viale-jenner            301
+/index.php/2-uncategorised/*      /lavori-eseguiti               301
+
+# --- articoli sulle agevolazioni (6, dall'archivio web) → pagina agevolazioni ---
+/index.php/agevolazioni-fiscali/*  /agevolazioni-fiscali         301
+
 # --- articoli "prima e dopo" → pagina prima-e-dopo ---
 /index.php/prima-e-dopo/*         /prima-e-dopo                  301
 
