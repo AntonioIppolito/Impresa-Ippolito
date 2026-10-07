@@ -1,0 +1,168 @@
+# Pannello del sito (Sveltia CMS, compatibile Decap).
+# Ogni salvataggio crea un commit su GitHub e Netlify ripubblica il sito in 1-2 minuti.
+backend:
+  name: github
+  repo: AntonioIppolito/Impresa-Ippolito
+  branch: main
+  # accesso con l'account GitHub di Antonio tramite il provider OAuth di Netlify
+  # (OAuth App su GitHub con callback https://api.netlify.com/auth/done, client ID e secret inseriti su Netlify)
+  base_url: https://api.netlify.com
+  commit_messages:
+    create: 'Nuovo lavoro: {{slug}}'
+    update: 'Aggiornato: {{slug}}'
+    delete: 'Eliminato: {{slug}}'
+    uploadMedia: 'Caricata foto {{path}}'
+    deleteMedia: 'Eliminata foto {{path}}'
+
+# non scrivere nel file i campi facoltativi lasciati vuoti
+output:
+  omit_empty_optional_fields: true
+
+site_url: https://impresaippolito.it
+display_url: https://impresaippolito.it
+logo_url: /apple-touch-icon.png
+
+media_folder: public/uploads
+public_folder: /uploads
+
+# le foto caricate vengono ridotte (lato lungo max 2000 px) e convertite in WebP prima dell'invio:
+# il sito resta veloce anche con le foto del telefono
+media_libraries:
+  default:
+    config:
+      max_file_size: 25000000
+      transformations:
+        raster_image:
+          format: webp
+          quality: 82
+          width: 2000
+          height: 2000
+
+collections:
+  # ---------------------------------------------------------------- LAVORI ESEGUITI
+  - name: lavori
+    label: Lavori eseguiti
+    label_singular: Lavoro
+    description: "Ogni lavoro ha la sua cartella con testo e foto. Per aggiungerne uno: Nuovo lavoro, compila i campi, trascina le foto e salva. Dopo 1-2 minuti è online."
+    folder: src/content/lavori
+    path: '{{slug}}/index'
+    media_folder: ''
+    public_folder: ''
+    create: true
+    delete: true
+    slug: '{{titolo}}'
+    identifier_field: titolo
+    summary: '{{titolo}} · {{comune}} · {{categoria}}'
+    sortable_fields:
+      fields: [ordine, titolo, comune, categoria]
+      default:
+        field: ordine
+        direction: ascending
+    view_groups:
+      - { label: Categoria, field: categoria }
+    fields:
+      - label: Titolo
+        name: titolo
+        widget: string
+        hint: "Tipo di lavoro e comune, come appare sul sito. Es. Bagno, Varedo · Appartamento, Senago"
+      - label: Comune
+        name: comune
+        widget: string
+        required: false
+        hint: "Con la provincia tra parentesi, scritto sempre allo stesso modo. Es. Varedo (MB) · Bollate (MI) · Milano. Dal secondo lavoro nello stesso comune il sito crea da solo la pagina di quel comune."
+      - label: Categoria
+        name: categoria
+        widget: select
+        options: ['Bagni', 'Appartamenti completi', 'Ville e case', 'Cucine', 'Cartongesso di design', 'Cantiere & processo']
+        default: Bagni
+      - label: Descrizione
+        name: descrizione
+        widget: text
+        hint: "2-3 righe su cosa avete fatto. Es. Bagno rifatto con doccia a filo pavimento, sanitari sospesi e rivestimenti in gres."
+      - label: Lavorazioni (etichette sotto il titolo)
+        name: lavorazioni
+        widget: list
+        required: false
+        hint: "Da 3 a 5 voci brevi. Es. Doccia a filo · Sanitari sospesi · Impianti"
+      - label: Foto
+        name: foto
+        widget: list
+        min: 1
+        summary: '{{didascalia}}'
+        hint: "Trascina qui le foto, nell'ordine in cui vuoi mostrarle. Meglio foto del lavoro finito, ben illuminate."
+        fields:
+          - { label: Foto, name: src, widget: image }
+          - { label: Didascalia (facoltativa), name: didascalia, widget: string, required: false, hint: "Es. Doccia con nicchia illuminata" }
+      - label: Copertina
+        name: copertina
+        widget: image
+        required: false
+        hint: "La foto che appare nell'elenco dei lavori. Se la lasci vuota si usa la prima foto."
+      - label: Posizione nell'elenco
+        name: ordine
+        widget: number
+        value_type: int
+        default: 0
+        required: false
+        hint: "I lavori con il numero più basso vanno in cima. I nuovi partono da 0, quindi compaiono per primi."
+      - label: Google (titolo e descrizione nei risultati di ricerca)
+        name: seo
+        widget: object
+        required: false
+        collapsed: true
+        hint: "Facoltativo. Se lasci vuoto, il sito li crea da titolo, comune e descrizione."
+        fields:
+          - { label: Titolo per Google (massimo 40 caratteri), name: titolo, widget: string, required: false, hint: "Servizio e comune. Es. Ristrutturazione bagno a Varedo" }
+          - { label: Descrizione per Google (massimo 155 caratteri), name: descrizione, widget: text, required: false }
+      - label: Bozza (non pubblicare ancora)
+        name: bozza
+        widget: boolean
+        default: false
+        required: false
+      - label: Lavoro in evidenza (solo uno, fornisce la foto principale)
+        name: inEvidenza
+        widget: boolean
+        default: false
+        required: false
+        hint: "Lasciare spento: è già impostato sull'appartamento di Milano."
+      - label: Foto per la home (solo per il lavoro in evidenza)
+        name: fotoHero
+        widget: image
+        required: false
+
+  # ---------------------------------------------------------------- RECENSIONI
+  - name: dati
+    label: Recensioni
+    files:
+      - name: recensioni
+        label: Recensioni dei clienti
+        file: src/data/recensioni.json
+        description: "Aggiungi qui le nuove recensioni copiandole da Google così come sono scritte. Numero e media delle stelle si aggiornano da soli."
+        fields:
+          - label: Recensioni aggiornate al
+            name: aggiornate
+            widget: datetime
+            time_format: false
+            format: YYYY-MM-DD
+            date_format: DD/MM/YYYY
+          - label: Link alla scheda Google
+            name: schedaGoogle
+            widget: string
+          - label: Totale recensioni su Google (facoltativo)
+            name: totaleGoogle
+            widget: number
+            value_type: int
+            required: false
+            hint: "Il numero che mostra Google sulla scheda. Se lo lasci vuoto, il sito conta quelle in elenco."
+          - label: Recensioni
+            name: recensioni
+            widget: list
+            summary: '{{autore}} · {{fonte}} · {{voto}} stelle'
+            add_to_top: true
+            fields:
+              - { label: Autore, name: autore, widget: string, hint: "Nome e iniziale del cognome. Es. Mario R." }
+              - { label: Ruolo (facoltativo), name: ruolo, widget: string, required: false, hint: "Es. Architetto" }
+              - { label: Fonte, name: fonte, widget: select, options: ['Google', 'Facebook', 'Altro'], default: Google }
+              - { label: Stelle, name: voto, widget: number, value_type: int, min: 1, max: 5, default: 5 }
+              - { label: Anno, name: anno, widget: string, hint: "Es. 2026" }
+              - { label: Testo (lascia vuoto se ha messo solo le stelle), name: testo, widget: text, required: false }
