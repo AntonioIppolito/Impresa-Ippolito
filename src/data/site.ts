@@ -94,9 +94,10 @@ type Service = {
   tags?: string[];
   photo?: { slug: string; stem: string; pos?: string };
   href?: string;
+  cta?: string; // testo del link nelle card normali
 };
 export const services: Service[] = [
-  { t: 'Rifacimento bagni e cucine', d: 'Demolizione, impianti, posa di rivestimenti e sanitari: il bagno o la cucina rifatti a regola d’arte.', layout: 'wide' },
+  { t: 'Rifacimento bagni e cucine', d: 'Demolizione, impianti, posa di rivestimenti e sanitari: il bagno o la cucina rifatti a regola d’arte.', layout: 'wide', href: '/ristrutturazione-bagno-milano', cta: 'Prezzi e foto dei bagni' },
   { t: 'Impianti elettrici e domotica', d: 'Impianti a norma C.E.I. e legge 46/90, con soluzioni domotiche su richiesta.' },
   { t: 'Impianti termoidraulici', d: 'Riscaldamento, idrosanitario e condizionamento, anche canalizzato.' },
   { t: 'Pavimenti e rivestimenti', d: 'Fornitura e posa di ceramica, gres porcellanato e parquet, interni ed esterni.' },

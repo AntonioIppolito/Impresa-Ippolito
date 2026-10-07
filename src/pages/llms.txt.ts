@@ -3,6 +3,7 @@
 import type { APIRoute } from 'astro';
 import { site, services, compliance, transparency, SITE_URL } from '../data/site';
 import { projects } from '../data/projects';
+import { comuniConPagina, riepilogo } from '../data/comuni';
 import { answered } from '../data/faq';
 import { google, conTesto, aggiornatoRecensioni, ratingLabel, tutteCinque } from '../data/recensioni';
 import { aggiornato, appartamento, bagno, cartongesso, durata, durataBagno, tempiPreventivo, pagamenti, range, giorni } from '../data/prezzi';
@@ -63,6 +64,9 @@ export const GET: APIRoute = () => {
     `- [Chi siamo](${u('/chi-siamo')}): scheda dell’impresa, metodo di lavoro e comuni in cui lavoriamo`,
     `- [Prezzi e tempi](${u('/prezzi-ristrutturazione')}): quanto costa ristrutturare un appartamento o un bagno, durata dei lavori, pagamenti`,
     `- [Servizi](${u('/servizi')}): tutti i servizi di ristrutturazione`,
+    `- [Ristrutturazione bagno a Milano](${u('/ristrutturazione-bagno-milano')}): prezzi per fascia, durata, lavorazioni e tutti i bagni rifatti con foto`,
+    `- [Dove lavoriamo](${u('/ristrutturazioni')}): i comuni con lavori pubblicati, in provincia di Milano e Monza Brianza`,
+    ...comuniConPagina.map((c) => `- [Ristrutturazioni a ${c.city}](${u(c.href!)}): ${riepilogo(c.items)}, con foto`),
     `- [Cartongesso di design](${u('/cartongesso-di-design')}): controsoffitti in cartongesso con gole e velette luminose LED, nicchie e librerie, guida alla luce, prezzi e foto dei lavori`,
     `- [Lavori eseguiti](${u('/lavori-eseguiti')}): ${projects.length} ristrutturazioni con foto`,
     `- [Prima e dopo](${u('/prima-e-dopo')}): confronti prima e dopo l’intervento`,

@@ -5,6 +5,7 @@ import CTA from '../../components/CTA.astro';
 import { projects, getProject } from '../../data/projects';
 import { projectMeta } from '../../data/seo';
 import { ORG_ID, SITE_URL } from '../../data/site';
+import { comuneOf } from '../../data/comuni';
 
 export function getStaticPaths() {
   return projects.map((p) => ({ params: { slug: p.slug } }));
@@ -26,6 +27,7 @@ const gallery = await Promise.all(
 );
 
 const meta = projectMeta(project);
+const comune = comuneOf(project.location);
 // scheda lavoro come CreativeWork dell'impresa, con le foto reali
 const workSchema = {
   '@context': 'https://schema.org',
@@ -55,7 +57,12 @@ const workSchema = {
       </div>
       <div class="md:col-span-9">
         <h1 class="text-[clamp(2.25rem,6vw,4.5rem)] font-black leading-[0.92] tracking-[-0.02em]">{project.title}</h1>
-        {project.location && <p class="mt-4 text-xl text-[var(--color-muted)]">{project.location}</p>}
+        {project.location && (
+          <p class="mt-4 text-xl text-[var(--color-muted)]">
+            {project.location}
+            {comune?.href && <a href={comune.href} class="u-label ml-3 align-middle text-[var(--color-accent)] hover:underline">Altri lavori a {comune.city} →</a>}
+          </p>
+        )}
         <p class="mt-6 max-w-2xl text-lg">{project.blurb}</p>
         <ul class="mt-8 flex flex-wrap gap-2">
           {project.scope.map((s) => (

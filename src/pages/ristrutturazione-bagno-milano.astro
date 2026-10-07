@@ -1,0 +1,234 @@
+---
+// Pagina servizio "ristrutturazione bagno" (ricerca SEO/GEO 2026-09-24: "quanto costa rifare un bagno
+// a Milano" è la ricerca con più intenzione di contatto; le IA citano pagine con cifre, tempi e data).
+// Contenuto SOLO da dati reali: prezzi e tempi del titolare (prezzi.ts), FAQ approvate, lavori della
+// categoria Bagni con le loro descrizioni e lavorazioni, recensioni vere.
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import FaqToggle from '../components/FaqToggle.astro';
+import NotaPrezzi from '../components/NotaPrezzi.astro';
+import { site, ORG_ID, SITE_URL } from '../data/site';
+import { projects, pickPhoto } from '../data/projects';
+import { comuneOf } from '../data/comuni';
+import { answered } from '../data/faq';
+import { conTesto } from '../data/recensioni';
+import { bagno, range, daA, breve, euro, giorni, totBagno, durataBagno, tempiPreventivo, aggiornato } from '../data/prezzi';
+
+const url = `${SITE_URL}/ristrutturazione-bagno-milano`;
+const bagni = projects.filter((p) => p.category === 'Bagni');
+const fotoBagni = bagni.reduce((n, p) => n + p.images.length, 0);
+const hero = pickPhoto('bagno-varedo');
+
+// comuni in cui abbiamo rifatto bagni (dai lavori), con link alla pagina del comune se esiste
+const comuniBagni = [...new Map(bagni.flatMap((p) => { const c = comuneOf(p.location); return c ? [[c.city, c] as const] : []; })).values()];
+// lavorazioni dei nostri bagni (tag reali dei lavori), le più frequenti prima
+const lavorazioni = Object.entries(
+  bagni.flatMap((p) => p.scope).reduce<Record<string, number>>((acc, s) => ((acc[s] = (acc[s] ?? 0) + 1), acc), {})
+).sort((a, b) => b[1] - a[1]);
+
+// recensione che parla del bagno (testo originale)
+const recBagno = conTesto.find((r) => /bagno/i.test(r.testo ?? ''));
+
+const faqBagno = answered.filter((f) => /bagno|preventivo è gratuito|CILA|DURC/i.test(f.q));
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Ristrutturazione bagno a Milano e provincia',
+  serviceType: 'Ristrutturazione bagno',
+  description: `Rifacimento completo del bagno chiavi in mano a Milano, in provincia e in Monza Brianza: demolizione, impianti, rivestimenti e sanitari. Prezzo indicativo ${daA(totBagno)}, ${giorni(durataBagno)} giorni lavorativi.`,
+  provider: { '@id': ORG_ID },
+  areaServed: comuniBagni.map((c) => ({ '@type': 'City', name: c.city })),
+  url,
+  offers: bagno.map((b) => ({
+    '@type': 'Offer',
+    name: `Bagno completo, ${b.t.toLowerCase()}`,
+    description: b.d,
+    priceSpecification: { '@type': 'PriceSpecification', priceCurrency: 'EUR', minPrice: b.r.min, ...(b.r.max ? { maxPrice: b.r.max } : {}) },
+  })),
+};
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${url}#pagina`,
+  name: 'Ristrutturazione bagno a Milano: prezzi, tempi e lavori',
+  url,
+  inLanguage: 'it-IT',
+  dateModified: aggiornato.iso,
+  about: { '@id': ORG_ID },
+  publisher: { '@id': ORG_ID },
+};
+const listSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Bagni ristrutturati dall’Impresa Ippolito',
+  numberOfItems: bagni.length,
+  itemListElement: bagni.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE_URL}/lavori-eseguiti/${p.slug}`, name: p.title })),
+};
+---
+<Base
+  title="Ristrutturazione bagno a Milano: prezzi e lavori | Ippolito"
+  description={`Rifare il bagno a Milano e provincia: da ${euro(totBagno.min)} a ${euro(totBagno.max ?? 0)} € indicativi, ${giorni(durataBagno)} giorni lavorativi, ${bagni.length} bagni rifatti con foto. Sopralluogo e preventivo gratuiti.`}
+  image={hero.image.src.src}
+  schema={[pageSchema, serviceSchema, listSchema]}
+  breadcrumb={[{ name: 'Servizi', path: '/servizi' }, { name: 'Ristrutturazione bagno', path: '/ristrutturazione-bagno-milano' }]}
+>
+  <!-- In breve -->
+  <section class="border-b border-[var(--color-border)]">
+    <div class="u-container grid grid-cols-1 gap-10 py-14 md:grid-cols-12 md:py-20">
+      <div class="md:col-span-7">
+        <p class="u-label">Ristrutturazione bagno · aggiornato a {aggiornato.label}</p>
+        <h1 class="mt-5 text-[clamp(2.4rem,5.5vw,4.5rem)] font-black leading-[0.92] tracking-[-0.03em]">
+          Ristrutturazione bagno <span class="text-[var(--color-accent)]">a Milano.</span>
+        </h1>
+        <p class="mt-7 max-w-2xl text-lg leading-relaxed">
+          <strong>In breve:</strong> con l’Impresa Ippolito rifare un bagno completo costa indicativamente <strong>{daA(totBagno)}</strong>, a seconda dei materiali e degli impianti, e richiede <strong>{giorni(durataBagno)} giorni lavorativi</strong>. Il preventivo scritto arriva in {giorni(tempiPreventivo[0].giorni)} giorni lavorativi, dopo il sopralluogo gratuito.
+        </p>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
+          Demolizione, impianti, rivestimenti e sanitari li segue la stessa impresa, con un unico referente: il geom. Antonio Ippolito, presente di persona in cantiere. Sul sito trovate {bagni.length} bagni che abbiamo rifatto, con {fotoBagni} foto.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a href="/contatti#preventivo" class="btn btn--primary justify-center">Richiedi un preventivo</a>
+          <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn--ghost justify-center">Mandaci le foto del bagno</a>
+        </div>
+      </div>
+      <div class="flex flex-col gap-5 md:col-span-5">
+        <a href={`/lavori-eseguiti/${hero.project.slug}`} class="group relative block aspect-[4/3] overflow-hidden border border-[var(--color-border)] bg-[var(--color-text)]">
+          <Image src={hero.image.src} alt={hero.image.alt} widths={[480, 800, 1100]} sizes="(max-width:768px) 100vw, 40vw" class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="eager" fetchpriority="high" />
+          <span class="u-label absolute bottom-4 left-4 bg-[var(--color-text)] px-3 py-2 text-white/90">{hero.project.title}</span>
+        </a>
+        <dl class="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Bagno completo</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">{breve(totBagno)}</dd></div>
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Durata</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">{giorni(durataBagno)} giorni</dd></div>
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Preventivo scritto</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">{giorni(tempiPreventivo[0].giorni)} giorni</dd></div>
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Sopralluogo</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">Gratuito</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prezzi -->
+  <section id="prezzi" class="scroll-mt-24 border-b border-[var(--color-border)] bg-[var(--color-tint)] py-14 md:py-20">
+    <div class="u-container">
+      <p class="u-label">Quanto costa</p>
+      <h2 class="mt-4 max-w-3xl text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Quanto costa rifare un bagno completo</h2>
+      <p class="mt-4 max-w-2xl text-lg text-[var(--color-muted)]">Prezzo a corpo per il bagno completo, dalla demolizione ai sanitari: cambia soprattutto con i materiali, le modifiche agli impianti e le finiture.</p>
+      <div class="mt-8 grid grid-cols-1 border-l border-t border-[var(--color-border)] md:grid-cols-3">
+        {bagno.map((b) => (
+          <article class="card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-8">
+            <h3 class="u-label">{b.t}</h3>
+            <p class="mt-4 font-[family-name:var(--font-display)] text-[clamp(1.8rem,3vw,2.4rem)] font-black leading-none tracking-tight text-[var(--color-accent)]">{range(b.r)}</p>
+            <p class="mt-4 text-[var(--color-muted)]">{b.d}</p>
+          </article>
+        ))}
+      </div>
+      <NotaPrezzi class="mt-6" />
+      <a href="/prezzi-ristrutturazione" class="u-label mt-5 inline-block hover:text-[var(--color-accent)]">Prezzi di appartamenti e controsoffitti →</a>
+    </div>
+  </section>
+
+  <!-- Tempi -->
+  <section class="border-b border-[var(--color-border)] py-14 md:py-20">
+    <div class="u-container grid grid-cols-1 gap-10 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <p class="u-label">Quanto ci vuole</p>
+        <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">{giorni(durataBagno)} giorni lavorativi per un bagno completo</h2>
+      </div>
+      <div class="md:col-span-7">
+        <p class="text-lg leading-relaxed">
+          Per rifare un bagno completo da zero servono mediamente da {durataBagno.min} a {durataBagno.max} giorni lavorativi. I tempi non si possono comprimere più di tanto, perché le lavorazioni seguono una sequenza tecnica precisa con tempi di posa e di asciugatura obbligatori.
+        </p>
+        <blockquote class="mt-6 border-l-4 border-[var(--color-accent)] pl-5 text-xl font-bold leading-snug">
+          Chi promette un bagno nuovo in meno di 5 giorni lavorativi spesso salta passaggi fondamentali e mette a rischio il risultato.
+        </blockquote>
+        <p class="u-label mt-4">Geom. Antonio Ippolito, titolare</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lavorazioni -->
+  <section class="border-b border-[var(--color-border)] bg-[var(--color-tint)] py-14 md:py-20">
+    <div class="u-container grid grid-cols-1 gap-10 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <p class="u-label">Cosa facciamo</p>
+        <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Le lavorazioni dei nostri bagni</h2>
+        <p class="mt-5 text-lg text-[var(--color-muted)]">Dalle tracce degli impianti alla posa: questi sono gli interventi che ricorrono nei {bagni.length} bagni pubblicati sul sito. Gli impianti li consegniamo con regolare certificazione, conformi alle norme C.E.I. e alla legge 46/90.</p>
+      </div>
+      <ul class="flex flex-wrap content-start gap-2 md:col-span-7">
+        {lavorazioni.map(([s, n]) => (
+          <li class="border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1.5 text-sm">
+            {s}{n > 1 && <span class="ml-1.5 font-[family-name:var(--font-mono)] text-xs text-[var(--color-muted)]">×{n}</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Bagni rifatti -->
+  <section class="border-b border-[var(--color-border)] py-14 md:py-20">
+    <div class="u-container">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <h2 class="text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">I bagni che abbiamo rifatto</h2>
+        <a href="/lavori-eseguiti" class="u-label hover:text-[var(--color-accent)]">Tutti i lavori →</a>
+      </div>
+      <div class="jg mt-8">
+        {bagni.map((p) => (
+          <a href={`/lavori-eseguiti/${p.slug}`} class="jg-item group relative block overflow-hidden border border-[var(--color-border)]" style={`--r:${(p.cover.width / p.cover.height).toFixed(4)}`}>
+            <Image src={p.cover} alt={`${p.title}: bagno rifatto dall'Impresa Ippolito`} widths={[400, 640]} sizes="(max-width:700px) 100vw, 30vw" class="block h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" loading="lazy" />
+            <span class="u-label absolute bottom-0 left-0 right-0 bg-[color-mix(in_srgb,var(--color-text)_80%,transparent)] px-3 py-2 text-left text-white">{p.title} · {p.images.length} foto</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Recensione + comuni -->
+  <section class="border-b border-[var(--color-border)] bg-[var(--color-text)] py-14 text-[var(--color-bg)] md:py-20">
+    <div class="u-container grid grid-cols-1 gap-10 md:grid-cols-12">
+      {recBagno && (
+        <figure class="md:col-span-7">
+          <p class="u-label text-white/50">Dicono di noi · {recBagno.fonte}</p>
+          <blockquote class:list={['mt-5 leading-snug text-white', (recBagno.testo ?? '').length > 280 ? 'text-lg font-semibold' : 'text-xl font-bold']}>“{recBagno.testo}”</blockquote>
+          <figcaption class="u-label mt-4 text-white/60">{recBagno.autore} · {'★'.repeat(recBagno.voto)} · <a href="/recensioni" class="underline underline-offset-2 hover:text-white">tutte le recensioni</a></figcaption>
+        </figure>
+      )}
+      <div class:list={[recBagno ? 'md:col-span-5' : 'md:col-span-12']}>
+        <p class="u-label text-white/50">Bagni rifatti a</p>
+        <ul class="mt-5 flex flex-wrap gap-2">
+          {comuniBagni.map((c) => (
+            <li><a href={c.href ?? `/lavori-eseguiti/${c.items.find((p) => p.category === 'Bagni')!.slug}`} class="inline-block border border-white/25 px-3 py-1.5 text-sm text-white transition-colors hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)]">{c.city}</a></li>
+          ))}
+        </ul>
+        <p class="mt-5 text-white/70">Partiamo da {site.address.city} e lavoriamo in tutta la provincia di Milano e in Monza Brianza.</p>
+      </div>
+    </div>
+  </section>
+
+  {faqBagno.length > 0 && (
+    <section class="py-14 md:py-20">
+      <div class="u-container grid grid-cols-1 gap-10 md:grid-cols-12">
+        <div class="md:col-span-4">
+          <p class="u-label">Domande</p>
+          <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Prima di rifare il bagno</h2>
+          <FaqToggle target="faq-bagno" count={faqBagno.length} class="mt-7" />
+          <a href="/domande-frequenti" class="btn btn--ghost mt-3 w-full justify-center md:mt-7 md:w-auto">Tutte le domande</a>
+        </div>
+        <div id="faq-bagno" data-faq-list class="border-t border-[var(--color-border)] md:col-span-8">
+          {faqBagno.map((f) => (
+            <div class="border-b border-[var(--color-border)] py-5">
+              <h3 class="text-lg font-black tracking-tight">{f.q}</h3>
+              <p class="mt-2 text-[var(--color-muted)]">{f.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CTA title="Rifacciamo il vostro bagno? Mandateci le foto." />
+</Base>
+
+<script>
+  import '../scripts/justified';
+</script>

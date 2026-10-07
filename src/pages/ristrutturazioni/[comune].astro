@@ -1,0 +1,295 @@
+---
+// Pagina locale per comune (ricerca SEO/GEO 2026-09-24): esiste solo dove ci sono almeno
+// MIN_LAVORI lavori pubblicati, e il contenuto viene tutto da quei lavori (titoli, descrizioni,
+// lavorazioni, foto) e dai dati approvati dal titolare (prezzi, FAQ). Niente testi fotocopia.
+import { Image, getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import FaqToggle from '../../components/FaqToggle.astro';
+import NotaPrezzi from '../../components/NotaPrezzi.astro';
+import { site, ORG_ID, SITE_URL } from '../../data/site';
+import { comuni, comuniConPagina, riepilogo, type Comune } from '../../data/comuni';
+import { answered } from '../../data/faq';
+import { google, ratingLabel } from '../../data/recensioni';
+import { appartamento, bagno, range, breve, totAppartamento, totBagno, aggiornato } from '../../data/prezzi';
+
+export function getStaticPaths() {
+  return comuniConPagina.map((c) => ({ params: { comune: c.slug }, props: { c } }));
+}
+const { c } = Astro.props as { c: Comune };
+const { city, items } = c;
+const sede = city === site.address.city;
+const url = `${SITE_URL}${c.href}`;
+
+// lavoro con più foto = immagine d'apertura
+const lead = [...items].sort((a, b) => b.images.length - a.images.length)[0];
+const sintesi = riepilogo(items);
+// lavorazioni fatte in questo comune (dai tag reali dei lavori), le più frequenti prima
+const lavorazioni = Object.entries(
+  items.flatMap((p) => p.scope).reduce<Record<string, number>>((acc, s) => ((acc[s] = (acc[s] ?? 0) + 1), acc), {})
+)
+  .sort((a, b) => b[1] - a[1])
+  .map(([s]) => s)
+  .slice(0, 14);
+// foto dai cantieri: lavori finiti, una per lavoro a giro (prima la copertina, poi le ultime foto,
+// che di solito sono quelle a lavoro concluso), senza stato di fatto e demolizioni; fino a 12
+const nonFinita = /stato di fatto|demoli|tracce|prima dei lavori|in corso/i;
+const code = items.map((p) => {
+  const cover = p.images.find((im) => im.src.src === p.cover.src);
+  const rest = [...p.images].reverse().filter((im) => im !== cover && !nonFinita.test(im.caption));
+  return [...(cover ? [cover] : []), ...rest].map((im) => ({ ...im, project: p }));
+});
+const picks: (typeof code)[number] = [];
+for (let i = 0; picks.length < 12 && code.some((q) => q[i]); i++)
+  for (const q of code) if (q[i] && picks.length < 12) picks.push(q[i]);
+const gallery = await Promise.all(
+  picks.map(async (im) => ({ ...im, full: (await getImage({ src: im.src, width: Math.min(1600, im.src.width), format: 'webp', quality: 80 })).src }))
+);
+
+const faqLocali = answered.filter((f) => /preventivo è gratuito|coordinare|In quali zone|durano i lavori|rifare un bagno completo|CILA/i.test(f.q));
+const altri = comuni.filter((x) => x.city !== city);
+
+// colonne della griglia lavori senza buchi a fine riga: l'ultima card chiude la riga
+const cols3 = items.length % 2 === 1 || items.length % 3 === 0;
+const fill = (i: number) => {
+  if (i !== items.length - 1) return '';
+  const sm = items.length % 2 === 1 ? 'sm:col-span-2' : '';
+  if (!cols3) return sm;
+  const r = items.length % 3;
+  return `${sm} ${r === 2 ? 'lg:col-span-2' : r === 1 ? 'lg:col-span-3' : sm ? 'lg:col-span-1' : ''}`;
+};
+
+const title = `Impresa di ristrutturazioni a ${city} | Ippolito`;
+const cut = (s: string, n = 155) => (s.length <= n ? s : s.slice(0, s.lastIndexOf(' ', n - 1)).replace(/[,:;.\s]+$/, '') + '…');
+const description = cut(`Ristrutturazioni a ${city}: ${sintesi}, con ${c.photos} foto dei lavori. Sopralluogo e preventivo gratuiti, il geometra titolare segue il cantiere.`);
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: `Ristrutturazioni a ${city}`,
+  serviceType: 'Ristrutturazione chiavi in mano',
+  description: `Ristrutturazioni di appartamenti, case e bagni a ${city} (${c.prov}): ${sintesi} pubblicati con le foto dei lavori.`,
+  provider: { '@id': ORG_ID },
+  areaServed: { '@type': 'City', name: city, containedInPlace: { '@type': 'AdministrativeArea', name: c.prov === 'MB' ? 'Provincia di Monza e della Brianza' : 'Città metropolitana di Milano' } },
+  url,
+};
+const listSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `Lavori dell'Impresa Ippolito a ${city}`,
+  numberOfItems: items.length,
+  itemListElement: items.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE_URL}/lavori-eseguiti/${p.slug}`, name: p.title })),
+};
+---
+<Base
+  title={title}
+  description={description}
+  image={lead.cover.src}
+  schema={[serviceSchema, listSchema]}
+  breadcrumb={[{ name: 'Dove lavoriamo', path: '/ristrutturazioni' }, { name: city, path: c.href! }]}
+>
+  <!-- In breve -->
+  <section class="border-b border-[var(--color-border)]">
+    <div class="u-container grid grid-cols-1 gap-10 py-14 md:grid-cols-12 md:py-20">
+      <div class="md:col-span-7">
+        <p class="u-label">Ristrutturazioni · {city} ({c.prov})</p>
+        <h1 class="mt-5 text-[clamp(2.4rem,5.5vw,4.5rem)] font-black leading-[0.92] tracking-[-0.03em]">
+          Ristrutturazioni <span class="text-[var(--color-accent)]">a {city}.</span>
+        </h1>
+        <p class="mt-7 max-w-2xl text-lg leading-relaxed">
+          <strong>In breve:</strong> a {city} l’{site.officialName} ha eseguito <strong>{sintesi}</strong>, pubblicati sul sito con <strong>{c.photos} foto reali</strong> dei cantieri.
+          {sede
+            ? <> {city} è anche il comune della nostra sede, in {site.address.street}.</>
+            : <> Partiamo dalla sede di {site.address.city} e lavoriamo in tutta la provincia di {c.provName}.</>}
+        </p>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
+          Sopralluogo e preventivo sono gratuiti. Il geom. Antonio Ippolito segue ogni lavoro di persona, dal sopralluogo alla consegna, comprese le pratiche edilizie con il Comune di {city}.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a href="/contatti#preventivo" class="btn btn--primary justify-center">Richiedi un preventivo</a>
+          <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn--ghost justify-center">Scrivici su WhatsApp</a>
+        </div>
+      </div>
+      <div class="flex flex-col gap-5 md:col-span-5">
+        <a href={`/lavori-eseguiti/${lead.slug}`} class="group relative block aspect-[4/3] overflow-hidden border border-[var(--color-border)] bg-[var(--color-text)]">
+          <Image src={lead.cover} alt={`${lead.title}: ristrutturazione dell'Impresa Ippolito a ${city}`} widths={[480, 800, 1100]} sizes="(max-width:768px) 100vw, 40vw" class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="eager" fetchpriority="high" />
+          <span class="u-label absolute bottom-4 left-4 bg-[var(--color-text)] px-3 py-2 text-white/90">{lead.title}</span>
+        </a>
+        <dl class="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Lavori a {city}</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">{items.length}</dd></div>
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Foto dei lavori</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">{c.photos}</dd></div>
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Appartamento</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">{breve(totAppartamento, 'mq')}</dd></div>
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Bagno completo</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">{breve(totBagno)}</dd></div>
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Recensioni Google</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">{ratingLabel} · {google.count}</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- I lavori nel comune -->
+  <section class="border-b border-[var(--color-border)] bg-[var(--color-tint)] py-14 md:py-20">
+    <div class="u-container">
+      <p class="u-label">Lavori eseguiti</p>
+      <h2 class="mt-4 text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">I nostri lavori a {city}</h2>
+      <div class:list={['mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2', cols3 && 'lg:grid-cols-3']}>
+        {items.map((p, i) => (
+          <a href={`/lavori-eseguiti/${p.slug}`} class:list={['card-anim group flex flex-col border border-[var(--color-border)] bg-[var(--color-surface)]', fill(i)]}>
+            <div class="relative aspect-[4/3] overflow-hidden">
+              <Image src={p.cover} alt={`${p.title}: lavoro dell'Impresa Ippolito`} widths={[400, 640, 900]} sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" loading="lazy" />
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <p class="u-label">{p.category} · {p.images.length} foto</p>
+              <h3 class="mt-2 text-xl font-black leading-tight tracking-tight group-hover:text-[var(--color-accent)]">{p.title}</h3>
+              <p class="mt-2 text-sm text-[var(--color-muted)]">{p.blurb}</p>
+              {p.scope.length > 0 && (
+                <ul class="mt-4 flex flex-wrap gap-1.5">
+                  {p.scope.slice(0, 5).map((s) => <li class="border border-[var(--color-border)] px-2 py-1 font-[family-name:var(--font-mono)] text-[0.7rem] uppercase tracking-wide text-[var(--color-muted)]">{s}</li>)}
+                </ul>
+              )}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Foto dai cantieri -->
+  <section class="border-b border-[var(--color-border)] py-14 md:py-20">
+    <div class="u-container">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <h2 class="text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Foto dai cantieri di {city}</h2>
+        <a href="/lavori-eseguiti" class="u-label hover:text-[var(--color-accent)]">Tutti i lavori →</a>
+      </div>
+      <div class="jg mt-8">
+        {gallery.map((im) => (
+          <button class="jg-item ga-thumb group relative block overflow-hidden border border-[var(--color-border)]" style={`--r:${(im.src.width / im.src.height).toFixed(4)}`} data-full={im.full} data-alt={im.alt} aria-label={`Ingrandisci: ${im.alt}`}>
+            <Image src={im.src} alt={im.alt} widths={[400, 640]} sizes="(max-width:700px) 100vw, 30vw" class="block h-full w-full object-cover" loading="lazy" />
+            <span class="u-label absolute bottom-0 left-0 right-0 bg-[color-mix(in_srgb,var(--color-text)_80%,transparent)] px-3 py-2 text-left text-white">{im.caption || im.project.title}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Lavorazioni + pratiche -->
+  <section class="border-b border-[var(--color-border)] py-14 md:py-20">
+    <div class="u-container grid grid-cols-1 gap-10 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <p class="u-label">Cosa abbiamo fatto a {city}</p>
+        <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Le lavorazioni dei nostri cantieri</h2>
+        <ul class="mt-6 flex flex-wrap gap-2">
+          {lavorazioni.map((s) => <li class="border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1.5 text-sm">{s}</li>)}
+        </ul>
+        <a href="/servizi" class="u-label mt-6 inline-block hover:text-[var(--color-accent)]">Tutti i servizi →</a>
+      </div>
+      <div class="md:col-span-7">
+        <div class="border-l-4 border-[var(--color-accent)] bg-[var(--color-tint)] p-6 md:p-8">
+          <p class="u-label">Pratiche edilizie e direzione lavori</p>
+          <p class="mt-3 text-lg leading-relaxed">
+            Per i lavori che richiedono la <strong>CILA</strong> o la <strong>SCIA</strong>, il geom. Antonio Ippolito segue la pratica e la burocrazia con il Comune di {city} e poi la direzione dei lavori: avete un unico referente anche per le carte. Il costo delle pratiche si valuta a parte rispetto al preventivo dei lavori.
+          </p>
+        </div>
+        <p class="mt-6 text-[var(--color-muted)]">
+          Prima di iniziare rilasciamo il DURC e a fine lavori consegniamo gli impianti con regolare certificazione, conformi alle norme C.E.I. e alla legge 46/90: documenti spesso richiesti anche per le detrazioni fiscali.
+          <a href="/agevolazioni-fiscali" class="font-semibold text-[var(--color-accent)] underline underline-offset-2">Come funzionano le agevolazioni</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prezzi indicativi -->
+  <section class="border-b border-[var(--color-border)] bg-[var(--color-tint)] py-14 md:py-20">
+    <div class="u-container">
+      <p class="u-label">Quanto costa · aggiornato a {aggiornato.label}</p>
+      <h2 class="mt-4 max-w-3xl text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">Prezzi indicativi per una ristrutturazione a {city}</h2>
+      <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div class="border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+          <h3 class="u-label">Appartamento, al metro quadro</h3>
+          {appartamento.map((a) => (
+            <div class="flex items-baseline justify-between gap-4 border-b border-[var(--color-border)] py-3 last:border-b-0">
+              <span class="font-bold">{a.t}</span>
+              <span class="font-[family-name:var(--font-display)] text-lg font-black text-[var(--color-accent)]">{range(a.r)}</span>
+            </div>
+          ))}
+        </div>
+        <div class="border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+          <h3 class="u-label">Bagno completo</h3>
+          {bagno.map((b) => (
+            <div class="flex items-baseline justify-between gap-4 border-b border-[var(--color-border)] py-3 last:border-b-0">
+              <span class="font-bold">{b.t}</span>
+              <span class="font-[family-name:var(--font-display)] text-lg font-black text-[var(--color-accent)]">{range(b.r)}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <NotaPrezzi class="mt-5" />
+      <div class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+        <a href="/prezzi-ristrutturazione" class="u-label hover:text-[var(--color-accent)]">Tutti i prezzi e i tempi →</a>
+        <a href="/ristrutturazione-bagno-milano" class="u-label hover:text-[var(--color-accent)]">Ristrutturazione del bagno →</a>
+      </div>
+    </div>
+  </section>
+
+  {faqLocali.length > 0 && (
+    <section class="border-b border-[var(--color-border)] py-14 md:py-20">
+      <div class="u-container grid grid-cols-1 gap-10 md:grid-cols-12">
+        <div class="md:col-span-4">
+          <p class="u-label">Domande</p>
+          <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Prima di iniziare</h2>
+          <FaqToggle target="faq-comune" count={faqLocali.length} class="mt-7" />
+          <a href="/domande-frequenti" class="btn btn--ghost mt-3 w-full justify-center md:mt-7 md:w-auto">Tutte le domande</a>
+        </div>
+        <div id="faq-comune" data-faq-list class="border-t border-[var(--color-border)] md:col-span-8">
+          {faqLocali.map((f) => (
+            <div class="border-b border-[var(--color-border)] py-5">
+              <h3 class="text-lg font-black tracking-tight">{f.q}</h3>
+              <p class="mt-2 text-[var(--color-muted)]">{f.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Altri comuni -->
+  <section class="py-12 md:py-16">
+    <div class="u-container">
+      <p class="u-label">Lavoriamo anche a</p>
+      <ul class="mt-5 flex flex-wrap gap-2">
+        {altri.map((x) => (
+          <li>
+            <a href={x.href ?? `/lavori-eseguiti/${x.items[0].slug}`} class="inline-block border border-[var(--color-border)] px-3 py-1.5 text-sm transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]">
+              {x.city} <span class="text-[var(--color-muted)]">({x.items.length})</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a href="/ristrutturazioni" class="u-label mt-5 inline-block hover:text-[var(--color-accent)]">Tutte le zone in cui lavoriamo →</a>
+    </div>
+  </section>
+
+  <CTA title={`Una ristrutturazione a ${city}? Parliamone.`} />
+
+  <dialog id="lb" class="m-auto max-h-[92vh] max-w-[95vw] border-0 bg-transparent p-0 backdrop:bg-black/85">
+    <div class="relative">
+      <img id="lbImg" src="" alt="Foto ingrandita del lavoro" class="max-h-[92vh] max-w-[95vw] object-contain" />
+      <button id="lbClose" class="absolute right-2 top-2 flex h-10 w-10 items-center justify-center bg-[var(--color-text)] text-white" aria-label="Chiudi">✕</button>
+    </div>
+  </dialog>
+</Base>
+
+<script>
+  import '../../scripts/justified';
+  const lb = document.getElementById('lb') as HTMLDialogElement | null;
+  const img = document.getElementById('lbImg') as HTMLImageElement | null;
+  document.querySelectorAll<HTMLButtonElement>('.ga-thumb').forEach((b) => {
+    b.addEventListener('click', () => {
+      if (!lb || !img) return;
+      img.src = b.dataset.full || '';
+      img.alt = b.dataset.alt || '';
+      lb.showModal();
+    });
+  });
+  document.getElementById('lbClose')?.addEventListener('click', () => lb?.close());
+  lb?.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
+</script>

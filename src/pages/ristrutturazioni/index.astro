@@ -1,0 +1,92 @@
+---
+// Indice delle zone: tutti i comuni con lavori pubblicati, calcolati dalla collezione dei lavori.
+// I comuni con almeno MIN_LAVORI lavori hanno la loro pagina; gli altri portano al lavoro.
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import { site, ORG_ID, SITE_URL } from '../../data/site';
+import { comuni, comuniConPagina, riepilogo } from '../../data/comuni';
+import { projects } from '../../data/projects';
+
+const totLavori = comuni.reduce((n, c) => n + c.items.length, 0);
+const perProv = (['MI', 'MB'] as const)
+  .map((prov) => ({ prov, name: prov === 'MB' ? 'Provincia di Monza e Brianza' : 'Città metropolitana di Milano', list: comuni.filter((c) => c.prov === prov) }))
+  .filter((g) => g.list.length);
+
+const listSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Comuni in cui lavora l’Impresa Ippolito',
+  numberOfItems: comuniConPagina.length,
+  itemListElement: comuniConPagina.map((c, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE_URL}${c.href}`, name: `Ristrutturazioni a ${c.city}` })),
+};
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Ristrutturazioni in provincia di Milano e Monza Brianza',
+  serviceType: 'Ristrutturazione chiavi in mano',
+  provider: { '@id': ORG_ID },
+  areaServed: [
+    ...comuni.map((c) => ({ '@type': 'City', name: c.city })),
+    { '@type': 'AdministrativeArea', name: 'Città metropolitana di Milano' },
+    { '@type': 'AdministrativeArea', name: 'Provincia di Monza e della Brianza' },
+  ],
+  url: `${SITE_URL}/ristrutturazioni`,
+};
+---
+<Base
+  title="Dove lavoriamo: Milano e Monza Brianza | Impresa Ippolito"
+  description={`Ristrutturazioni a Milano, in provincia e in Brianza: ${totLavori} lavori pubblicati in ${comuni.length} comuni, con foto. Sede a Novate Milanese, sopralluogo gratuito.`}
+  schema={[serviceSchema, listSchema]}
+  breadcrumb={[{ name: 'Dove lavoriamo', path: '/ristrutturazioni' }]}
+>
+  <section class="border-b border-[var(--color-border)]">
+    <div class="u-container py-14 md:py-20">
+      <p class="u-label">Dove lavoriamo</p>
+      <h1 class="mt-5 max-w-4xl text-[clamp(2.4rem,5.5vw,4.5rem)] font-black leading-[0.92] tracking-[-0.03em]">
+        Ristrutturazioni a Milano <span class="text-[var(--color-accent)]">e in Brianza.</span>
+      </h1>
+      <p class="mt-7 max-w-3xl text-lg leading-relaxed">
+        <strong>In breve:</strong> l’{site.officialName} ha sede a {site.address.city}, in {site.address.street}, e lavora in tutta la provincia di Milano e in Monza Brianza. Sul sito ci sono <strong>{totLavori} lavori in {comuni.length} comuni</strong>, ognuno con le foto reali del cantiere. Per i comuni con più lavori trovate una pagina dedicata.
+      </p>
+    </div>
+  </section>
+
+  {perProv.map((g, gi) => (
+    <section class:list={['border-b border-[var(--color-border)] py-14 md:py-20', gi % 2 === 0 && 'bg-[var(--color-tint)]']}>
+      <div class="u-container">
+        <h2 class="text-[clamp(1.75rem,4vw,3rem)] font-black leading-none tracking-tight">{g.name}</h2>
+        <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {g.list.map((c, i) => {
+            const last = i === g.list.length - 1;
+            const n = g.list.length;
+            const span = last ? `${n % 2 === 1 ? 'sm:col-span-2' : ''} ${n % 3 === 2 ? 'lg:col-span-2' : n % 3 === 1 ? 'lg:col-span-3' : n % 2 === 1 ? 'lg:col-span-1' : ''}` : '';
+            const cover = c.items[0].cover;
+            return (
+              <a href={c.href ?? `/lavori-eseguiti/${c.items[0].slug}`} class:list={['card-anim group flex border border-[var(--color-border)] bg-[var(--color-surface)]', span]}>
+                <div class="relative w-28 shrink-0 overflow-hidden sm:w-32">
+                  <Image src={cover} alt={`${c.items[0].title}: lavoro dell'Impresa Ippolito a ${c.city}`} widths={[200, 320]} sizes="128px" class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" loading="lazy" />
+                </div>
+                <div class="flex flex-1 flex-col justify-center p-4">
+                  <h3 class="text-xl font-black tracking-tight group-hover:text-[var(--color-accent)]">{c.city}</h3>
+                  <p class="mt-1 text-sm text-[var(--color-muted)]">{riepilogo(c.items)} · {c.photos} foto</p>
+                  <p class="u-label mt-2">{c.hasPage ? 'Pagina del comune →' : `${c.items[0].title} →`}</p>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="py-12 md:py-16">
+    <div class="u-container max-w-3xl">
+      <p class="text-lg text-[var(--color-muted)]">
+        Il vostro comune non è nell’elenco? Lavoriamo in tutta la provincia di Milano e in Monza Brianza: chiamateci o scriveteci su WhatsApp al <a href={site.phone.href} class="font-semibold text-[var(--color-accent)]">{site.phone.display}</a> per un sopralluogo gratuito. Qui trovate tutti i <a href="/lavori-eseguiti" class="font-semibold text-[var(--color-accent)] underline underline-offset-2">{projects.length} lavori eseguiti</a>.
+      </p>
+    </div>
+  </section>
+
+  <CTA />
+</Base>
