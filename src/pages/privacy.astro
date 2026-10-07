@@ -1,0 +1,75 @@
+---
+// Informativa privacy (art. 13 GDPR) scritta sui trattamenti REALI del sito:
+// modulo preventivo → Google Apps Script dell'account Google dell'impresa: archivio su Google Fogli
+// e notifica email alla casella dell'impresa (Libero Mail). Netlify fa solo da hosting.
+// Nessun analytics, nessun cookie di profilazione, font ospitati sul sito.
+import LegalPage from '../components/LegalPage.astro';
+import { site } from '../data/site';
+const a = site.address;
+const updated = '4 ottobre 2026';
+---
+<LegalPage
+  title="Informativa privacy | Impresa Ippolito"
+  heading="Informativa privacy"
+  description="Come l'Impresa Edile Ippolito Antonio tratta i dati di chi la contatta dal sito: finalità, strumenti usati, tempi di conservazione e diritti."
+  path="/privacy"
+  updated={updated}
+>
+  <p>Questa informativa spiega come trattiamo i dati personali di chi visita il sito <strong>impresaippolito.it</strong> e di chi ci contatta per un preventivo, ai sensi dell’articolo 13 del Regolamento (UE) 2016/679 (GDPR).</p>
+
+  <h2>Titolare del trattamento</h2>
+  <p><strong>{site.legal.ragioneSociale}</strong> (ditta individuale, “{site.officialName}”)<br />
+    {a.street}, {a.zip} {a.city} ({a.province})<br />
+    P.IVA {site.legal.piva}<br />
+    Email: <a href={`mailto:${site.email}`}>{site.email}</a> · Telefono: <a href={site.phone.href}>{site.phone.display}</a></p>
+
+  <h2>Quali dati trattiamo</h2>
+  <ul>
+    <li><strong>Dati che ci date voi</strong> con il modulo di richiesta preventivo: nome e cognome, telefono, email (facoltativa), tipo di intervento e il testo del messaggio. Vi chiediamo di non inserire nel messaggio dati non necessari, come informazioni sulla salute.</li>
+    <li><strong>Dati dei contatti diretti</strong>, se ci chiamate, ci scrivete un’email o un messaggio WhatsApp: numero di telefono, nome e quanto ci scrivete.</li>
+    <li><strong>Dati tecnici di navigazione</strong>: come ogni sito, il servizio che lo ospita registra in modo automatico dati come l’indirizzo IP, il tipo di browser e le pagine richieste, per far funzionare il sito e proteggerlo da abusi.</li>
+  </ul>
+
+  <h2>Perché li trattiamo e su quale base</h2>
+  <table>
+    <thead><tr><th>Finalità</th><th>Base giuridica</th></tr></thead>
+    <tbody>
+      <tr><td>Rispondere alla vostra richiesta, fissare il sopralluogo e preparare il preventivo</td><td>Misure precontrattuali richieste da voi (art. 6.1.b GDPR)</td></tr>
+      <tr><td>Gestire il contratto e gli obblighi fiscali e contabili se il lavoro viene affidato</td><td>Esecuzione del contratto e obblighi di legge (art. 6.1.b e 6.1.c)</td></tr>
+      <tr><td>Far funzionare il sito, proteggerlo e filtrare le richieste di spam</td><td>Legittimo interesse del titolare (art. 6.1.f)</td></tr>
+    </tbody>
+  </table>
+  <p>Non usiamo i vostri dati per pubblicità, non li vendiamo e non facciamo profilazione né decisioni automatizzate.</p>
+
+  <h2>Strumenti che usiamo</h2>
+  <p>Per gestire le richieste ci appoggiamo ad alcuni fornitori, che trattano i dati per nostro conto come responsabili del trattamento oppure, dove indicato, come titolari autonomi:</p>
+  <ul>
+    <li><strong>Netlify, Inc.</strong> (Stati Uniti): ospita il sito e ne gestisce la consegna ai visitatori.</li>
+    <li><strong>Google</strong> (Google Ireland Ltd e Google LLC): i messaggi del modulo preventivo arrivano a un account Google dell’impresa, che li archivia in un foglio di calcolo (Google Fogli) e ci invia la notifica dei nuovi contatti via email.</li>
+    <li><strong>Italiaonline S.p.A.</strong> (Libero Mail): fornisce la casella email dell’impresa su cui riceviamo le notifiche e le vostre email.</li>
+    <li><strong>WhatsApp</strong> (Meta Platforms Ireland Ltd), solo se scegliete di scriverci su WhatsApp: in quel caso Meta tratta i dati come titolare autonomo secondo la propria informativa.</li>
+    <li><strong>OpenStreetMap Foundation</strong>: fornisce la mappa nella pagina Contatti; caricandola, il vostro browser comunica l’indirizzo IP ai suoi server.</li>
+  </ul>
+  <p>Netlify e Google possono trasferire dati negli Stati Uniti: il trasferimento avviene sulla base dell’EU-U.S. Data Privacy Framework, a cui entrambe le società aderiscono, e delle clausole contrattuali standard approvate dalla Commissione europea.</p>
+  <p>All’interno dell’impresa i dati sono letti solo dal titolare e, se serve per il lavoro, dai collaboratori e dai professionisti incaricati (per esempio il tecnico per le pratiche edilizie o il commercialista), tenuti alla riservatezza.</p>
+
+  <h2>Per quanto tempo li conserviamo</h2>
+  <ul>
+    <li>Richieste di preventivo a cui non segue un lavoro: fino a <strong>24 mesi</strong>, poi le cancelliamo.</li>
+    <li>Dati legati a un lavoro affidato: per la durata del rapporto e poi per <strong>10 anni</strong>, come previsto dagli obblighi civilistici e fiscali.</li>
+    <li>Dati tecnici di navigazione: per il tempo previsto dal fornitore che ospita il sito, di regola poche settimane.</li>
+  </ul>
+
+  <h2>È obbligatorio darci i dati?</h2>
+  <p>Nome, telefono e descrizione del lavoro sono necessari per rispondervi: senza non possiamo ricontattarvi. L’email è facoltativa.</p>
+
+  <h2>I vostri diritti</h2>
+  <p>Potete chiederci in ogni momento di accedere ai vostri dati, correggerli, cancellarli, limitarne il trattamento, opporvi al trattamento basato sul legittimo interesse e riceverli in un formato leggibile (articoli 15-22 GDPR). Basta scrivere a <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+  <p>Se ritenete che il trattamento violi la normativa, potete presentare reclamo al <a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">Garante per la protezione dei dati personali</a>.</p>
+
+  <h2>Cookie</h2>
+  <p>Il sito non usa cookie di profilazione né strumenti di statistica. I dettagli sono nella <a href="/cookie">cookie policy</a>.</p>
+
+  <h2>Modifiche</h2>
+  <p>Possiamo aggiornare questa informativa, per esempio se cambiano gli strumenti che usiamo. La data dell’ultimo aggiornamento è indicata in alto.</p>
+</LegalPage>

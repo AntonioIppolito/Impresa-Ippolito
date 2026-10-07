@@ -5,12 +5,11 @@ import { site, services, compliance, transparency, SITE_URL } from '../data/site
 import { projects } from '../data/projects';
 import { answered } from '../data/faq';
 import { google, conTesto, aggiornatoRecensioni, ratingLabel, tutteCinque } from '../data/recensioni';
-import { aggiornato, appartamento, bagno, cartongesso, durata, durataBagno, tempiPreventivo, pagamenti, range } from '../data/prezzi';
+import { aggiornato, appartamento, bagno, cartongesso, durata, durataBagno, tempiPreventivo, pagamenti, range, giorni } from '../data/prezzi';
 
 export const GET: APIRoute = () => {
   const u = (p: string) => `${SITE_URL}${p}`;
   const photos = projects.reduce((n, p) => n + p.images.length, 0);
-  const days = (r: Parameters<typeof range>[0]) => range(r).replace(' €', '');
   const lines = [
     `# ${site.officialName} (${site.name})`,
     '',
@@ -44,13 +43,13 @@ export const GET: APIRoute = () => {
     ...appartamento.map((a) => `- ${a.t}: ${range(a.r)} al mq. ${a.d}`),
     '### Bagno completo',
     ...bagno.map((b) => `- ${b.t}: ${range(b.r)}. ${b.d}`),
-    `- Durata: ${days(durataBagno)} giorni lavorativi`,
+    `- Durata: ${giorni(durataBagno)} giorni lavorativi`,
     '### Controsoffitti in cartongesso con LED (euro al metro quadro, posa inclusa)',
     ...cartongesso.map((c) => `- ${c.t}: ${c.extra ? '+' : ''}${range(c.r)} al mq. ${c.d}`),
     '### Durata dei lavori (giorni lavorativi, lavori standard)',
-    ...durata.map((d) => `- ${d.t} (${d.mq}): ${days(d.giorni)} giorni, ${d.circa}`),
+    ...durata.map((d) => `- ${d.t} (${d.mq}): ${giorni(d.giorni)} giorni, ${d.circa}`),
     '### Preventivo scritto',
-    ...tempiPreventivo.map((t) => `- ${t.t}: ${days(t.giorni)} giorni lavorativi`),
+    ...tempiPreventivo.map((t) => `- ${t.t}: ${giorni(t.giorni)} giorni lavorativi`),
     '### Pagamenti a stato di avanzamento lavori',
     ...pagamenti.map((p) => `- ${p.pct}% ${p.t.toLowerCase()}: ${p.d}`),
     '- Pratiche edilizie (CILA, SCIA, burocrazia) e direzione lavori: le segue il geom. Antonio Ippolito; il costo delle pratiche non è compreso nel preventivo dei lavori.',

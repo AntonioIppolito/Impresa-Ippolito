@@ -10,7 +10,8 @@ import FaqToggle from '../components/FaqToggle.astro';
 import { site, ORG_ID, SITE_URL } from '../data/site';
 import { getProject, pickPhoto } from '../data/projects';
 import { answered } from '../data/faq';
-import { cartongesso as prezzi, range, aggiornato } from '../data/prezzi';
+import { cartongesso as prezzi, range, aggiornato, totCartongesso, euro } from '../data/prezzi';
+import NotaPrezzi from '../components/NotaPrezzi.astro';
 
 // guida del titolare: le 3 soluzioni più richieste a Milano e Monza
 const soluzioni = [
@@ -70,7 +71,7 @@ const serviceSchema = {
 ---
 <Base
   title="Controsoffitti in cartongesso con LED a Milano | Ippolito"
-  description="Controsoffitti con gole e velette LED, nicchie e librerie in cartongesso a Milano e Monza: prezzi da 55 €/mq, guida alla luce e foto dei lavori."
+  description={`Controsoffitti con gole e velette LED, nicchie e librerie in cartongesso a Milano e Monza: prezzi da ${euro(totCartongesso.min)} €/mq, guida alla luce e foto dei lavori.`}
   schema={[serviceSchema]}
   breadcrumb={[{ name: 'Servizi', path: '/servizi' }, { name: 'Cartongesso di design', path: '/cartongesso-di-design' }]}
 >
@@ -184,6 +185,7 @@ const serviceSchema = {
             </div>
           ))}
         </div>
+        <NotaPrezzi class="mt-5" tint />
         <a href="/prezzi-ristrutturazione" class="u-label mt-5 inline-block hover:text-[var(--color-accent)]">Tutti i prezzi e i tempi di ristrutturazione →</a>
       </div>
     </div>

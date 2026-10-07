@@ -1,0 +1,39 @@
+---
+// Cookie policy sui comportamenti REALI del sito: nessun analytics, nessun cookie di profilazione,
+// font ospitati sul sito, mappa OpenStreetMap nella pagina Contatti, link esterni (WhatsApp, Google Maps, Facebook).
+import LegalPage from '../components/LegalPage.astro';
+import { site } from '../data/site';
+const updated = '4 ottobre 2026';
+---
+<LegalPage
+  title="Cookie policy | Impresa Ippolito"
+  heading="Cookie policy"
+  description="Il sito dell'Impresa Ippolito non usa cookie di profilazione né statistiche: ecco quali servizi esterni si caricano e come gestire i cookie dal browser."
+  path="/cookie"
+  updated={updated}
+>
+  <div class="box"><strong>In breve:</strong> questo sito non usa cookie di profilazione, pubblicità o strumenti di statistica. Per questo non vi chiediamo il consenso con un banner.</div>
+
+  <h2>Cosa sono i cookie</h2>
+  <p>I cookie sono piccoli file che un sito salva nel browser per ricordare informazioni, per esempio una preferenza o l’accesso a un’area riservata. Alcuni servono solo a far funzionare il sito (tecnici), altri servono a tracciare chi naviga a fini pubblicitari (di profilazione).</p>
+
+  <h2>Cookie usati da questo sito</h2>
+  <ul>
+    <li><strong>Nessun cookie di profilazione o pubblicitario.</strong></li>
+    <li><strong>Nessuno strumento di statistica</strong> (come Google Analytics).</li>
+    <li>I caratteri tipografici sono ospitati sul sito stesso: non vengono caricati da servizi esterni come Google Fonts.</li>
+    <li>Il modulo di richiesta preventivo non salva cookie: i dati inviati sono trattati come descritto nell’<a href="/privacy">informativa privacy</a>.</li>
+  </ul>
+
+  <h2>Servizi esterni</h2>
+  <ul>
+    <li><strong>Mappa OpenStreetMap</strong> nella pagina Contatti: si carica dai server di OpenStreetMap Foundation, che ricevono l’indirizzo IP del vostro browser e possono usare cookie tecnici secondo la propria informativa.</li>
+    <li><strong>Link a WhatsApp, Google Maps, Facebook e Instagram</strong>: sono semplici collegamenti. Solo se ci cliccate aprite il servizio esterno, che applica le proprie regole su cookie e privacy.</li>
+  </ul>
+
+  <h2>Come gestire i cookie dal browser</h2>
+  <p>Potete vedere, bloccare o cancellare i cookie dalle impostazioni del vostro browser (Chrome, Safari, Firefox, Edge). Bloccare i cookie tecnici di servizi esterni può impedire alla mappa di caricarsi, ma non cambia il funzionamento del resto del sito.</p>
+
+  <h2>Contatti</h2>
+  <p>Per qualsiasi domanda su cookie e privacy scrivete a <a href={`mailto:${site.email}`}>{site.email}</a>. Titolare del trattamento: {site.legal.ragioneSociale}, {site.address.street}, {site.address.zip} {site.address.city} ({site.address.province}), P.IVA {site.legal.piva}.</p>
+</LegalPage>

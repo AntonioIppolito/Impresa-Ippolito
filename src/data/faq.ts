@@ -3,6 +3,7 @@
 // o dal titolare. Le domande con a = null restano NASCOSTE finché Ippolito non risponde.
 // Risposte del titolare: questionario compilato, ottobre 2026 (prezzi e tempi indicativi forniti da lui).
 // `hint` = cosa deve contenere la risposta del titolare.
+import { faqBagno, faqCartongesso } from './prezzi';
 export type Faq = {
   q: string;
   a: string | null;
@@ -30,12 +31,12 @@ export const faqs: Faq[] = [
   },
   {
     q: 'Quanto costa rifare un bagno completo?',
-    a: 'Indicativamente un bagno completo costa da 6.000 a 8.000 euro nella fascia economica, con materiali standard e finiture di base; da 8.000 a 10.000 euro nella fascia media, con gres porcellanato e sanitari di marca e un ottimo rapporto qualità-prezzo; da 10.000 a 13.000 euro e oltre nella fascia alta, con materiali di design, modifiche importanti agli impianti e finiture di lusso.',
+    a: faqBagno(),
     tema: 'Preventivo e costi', home: true,
   },
   {
     q: 'Quanto costa un controsoffitto in cartongesso con luci LED?',
-    a: 'Prezzi medi al metro quadro, posa inclusa: da 55 a 80 euro per una struttura lineare o piana con faretti (lastra standard con i fori per i faretti LED da incasso); da 65 a 110 euro con velette o gole luminose per strisce LED (struttura a doppio livello con tagli di luce o retroilluminazione perimetrale); da 80 a 140 euro per un design complesso o curvo, con sagomature realizzate in opera. L’isolamento termoacustico, con lana di roccia o di vetro nell’intercapedine, aggiunge da 15 a 30 euro al metro quadro.',
+    a: faqCartongesso(),
     tema: 'Preventivo e costi',
   },
   {

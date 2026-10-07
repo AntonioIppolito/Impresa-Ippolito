@@ -9,6 +9,10 @@ const { address: a } = site;
 const faqPreview = answered.filter((f) => f.home);
 const bbox = `${a.geo.lng - 0.006},${a.geo.lat - 0.003},${a.geo.lng + 0.006},${a.geo.lat + 0.003}`;
 const osm = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${a.geo.lat},${a.geo.lng}`;
+// Modulo: Google Apps Script (foglio "Modulo Contatti" + notifica a impresa.ippolito@libero.it).
+// Endpoint e token: .env in locale, variabili d'ambiente su Netlify.
+const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
+const formToken = import.meta.env.PUBLIC_FORM_TOKEN ?? '';
 ---
 <Base
   title="Contatti e preventivo gratuito | Impresa Ippolito"
@@ -69,12 +73,16 @@ const osm = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=
       <form
         name="preventivo"
         method="POST"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-        class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2"
+        data-endpoint={formEndpoint}
+        class="preventivo-form mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2"
       >
-        <input type="hidden" name="form-name" value="preventivo" />
-        <p class="hidden"><label>Non compilare: <input name="bot-field" /></label></p>
+        <!-- trappola antispam per lo script Google: fuori schermo, i bot la compilano -->
+        <div aria-hidden="true" class="absolute -left-[9999px] h-px w-px overflow-hidden">
+          <label for="website">Lascia vuoto</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+        <input type="hidden" name="token" value={formToken} />
+        <input type="hidden" name="pagina" value="/contatti" />
 
         <div class="sm:col-span-1">
           <label for="nome" class="u-label">Nome e cognome *</label>
@@ -105,11 +113,12 @@ const osm = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=
           <textarea id="msg" name="messaggio" rows="5" required class="mt-2 w-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-base focus:border-[var(--color-accent)]"></textarea>
         </div>
         <div class="flex items-start gap-3 sm:col-span-2">
-          <input id="privacy" name="privacy" type="checkbox" required class="mt-1 h-5 w-5 shrink-0 accent-[var(--color-accent)]" />
-          <label for="privacy" class="text-sm text-[var(--color-muted)]">Ho letto l’informativa privacy e acconsento al trattamento dei dati per essere ricontattato. *</label>
+          <input id="privacy" name="privacy" type="checkbox" value="accettato" required class="mt-1 h-5 w-5 shrink-0 accent-[var(--color-accent)]" />
+          <label for="privacy" class="text-sm text-[var(--color-muted)]">Ho letto l’<a href="/privacy" target="_blank" class="font-semibold text-[var(--color-accent)] underline underline-offset-2">informativa privacy</a>: i miei dati servono solo per rispondere alla richiesta. *</label>
         </div>
         <div class="sm:col-span-2">
           <button type="submit" class="btn btn--primary w-full justify-center sm:w-auto">Invia richiesta</button>
+          <p class="form-status mt-4 text-sm text-[var(--color-muted)]" role="status" aria-live="polite"></p>
         </div>
       </form>
     </div>
@@ -145,3 +154,37 @@ const osm = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=
     ></iframe>
   </section>
 </Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('.preventivo-form');
+  if (form) {
+    const endpoint = form.dataset.endpoint;
+    const status = form.querySelector<HTMLElement>('.form-status')!;
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const say = (msg: string, strong = false) => {
+      status.textContent = msg;
+      status.classList.toggle('font-bold', strong);
+      status.classList.toggle('text-[var(--color-text)]', strong);
+    };
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      button.disabled = true;
+      say('Invio in corso…');
+      try {
+        if (!endpoint) throw new Error('endpoint mancante');
+        (form.elements.namedItem('pagina') as HTMLInputElement).value = location.pathname;
+        const data = new FormData(form);
+        // URLSearchParams = richiesta semplice, niente preflight: lo script Google risponde in JSON
+        const res = await fetch(endpoint, { method: 'POST', body: new URLSearchParams(data as any) });
+        const out = await res.json().catch(() => ({ ok: false }));
+        if (!out.ok) throw new Error(out.error || 'invio non riuscito');
+        form.reset();
+        say('Grazie! Abbiamo ricevuto la richiesta: il geom. Ippolito vi ricontatterà al più presto.', true);
+      } catch {
+        say('Invio non riuscito. Chiamateci o scriveteci su WhatsApp al 339 533 0704, oppure scrivete a impresa.ippolito@libero.it.', true);
+      } finally {
+        button.disabled = false;
+      }
+    });
+  }
+</script>

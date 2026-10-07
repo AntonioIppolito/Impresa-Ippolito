@@ -1,7 +1,22 @@
 {
-  "aggiornate": "2026-10-03",
+  "aggiornate": "2026-10-04",
   "schedaGoogle": "https://www.google.com/maps?cid=7735889055822353588",
+  "totaleGoogle": 9,
   "recensioni": [
+    {
+      "autore": "Lucia D.",
+      "fonte": "Google",
+      "voto": 5,
+      "anno": "2026",
+      "testo": "Antonio mi ha ristrutturato tutta casa, é stato davvero bravo, preciso e sempre puntuale e disponibile. Consiglio a tutti"
+    },
+    {
+      "autore": "Stefania S.",
+      "fonte": "Google",
+      "voto": 5,
+      "anno": "2026",
+      "testo": "Affidabile e veloce!\nNel 2023 gli abbiamo commissionato la ristrutturazione di casa e del box auto. Lavoro impeccabile, preciso, ma sopratutto rapido.\nRingrazio Antonio per la disponibilità e la professionalità."
+    },
     {
       "autore": "Salvatore P.",
       "fonte": "Google",
@@ -54,13 +69,6 @@
       "fonte": "Facebook",
       "voto": 5,
       "anno": "2016"
-    },
-    {
-      "autore": "Cliente",
-      "fonte": "Habitissimo",
-      "voto": 4,
-      "anno": "2025",
-      "testo": "Preciso."
     }
   ]
 }

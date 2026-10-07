@@ -5,15 +5,17 @@ interface Props { full?: boolean }
 const { full = false } = Astro.props;
 
 // bento senza buchi con qualsiasi numero di recensioni (griglia da 6 colonne su desktop, 2 su tablet):
-// le prime due occupano mezza riga, poi righe da tre; un resto di 1 prende la riga intera, di 2 mezza riga
+// le prime due occupano mezza riga, poi righe da tre; se avanzano 2 card vanno a mezza riga, se ne avanza 1
+// le ultime quattro diventano due righe da due (così una recensione breve non resta da sola su tutta la riga)
 const span = (i: number, n: number) => {
   const md = n % 2 === 1 && i === n - 1 ? 'md:col-span-2' : '';
   if (n === 1) return 'md:col-span-2 lg:col-span-6';
   if (i < 2) return `lg:col-span-3 ${md}`;
   const rest = n - 2;
   const tail = rest % 3;
-  const inTail = i >= n - tail;
-  const lg = !inTail ? 'lg:col-span-2' : tail === 1 ? 'lg:col-span-6' : 'lg:col-span-3';
+  if (rest === 1) return `lg:col-span-6 ${md}`;
+  const halves = tail === 2 ? 2 : tail === 1 ? 4 : 0; // card finali a mezza riga
+  const lg = i >= n - halves ? 'lg:col-span-3' : 'lg:col-span-2';
   return `${lg} ${md}`;
 };
 const long = (t?: string) => (t?.length ?? 0) > 320;

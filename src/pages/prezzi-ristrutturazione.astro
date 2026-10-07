@@ -5,11 +5,12 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import CTA from '../components/CTA.astro';
+import NotaPrezzi from '../components/NotaPrezzi.astro';
 import FaqToggle from '../components/FaqToggle.astro';
 import { site, ORG_ID, SITE_URL, faqBreadcrumb } from '../data/site';
 import { projects } from '../data/projects';
 import { answered } from '../data/faq';
-import { aggiornato, appartamento, bagno, cartongesso, durata, durataBagno, tempiPreventivo, pagamenti, range, euro } from '../data/prezzi';
+import { aggiornato, appartamento, bagno, cartongesso, durata, durataBagno, tempiPreventivo, pagamenti, range, euro, notaIndicativi, totAppartamento, totBagno, totCartongesso, breve, daA, giorni } from '../data/prezzi';
 
 const url = `${SITE_URL}/prezzi-ristrutturazione`;
 const bagni = projects.filter((p) => p.category === 'Bagni' && p.location).slice(0, 4);
@@ -61,7 +62,7 @@ const services = [
 ---
 <Base
   title="Quanto costa ristrutturare casa a Milano | Impresa Ippolito"
-  description="Prezzi indicativi 2026: appartamento da 400 a 1.500 €/mq, bagno completo da 6.000 a 13.000 €, controsoffitti LED da 55 €/mq. Tempi e pagamenti chiari."
+  description={`Prezzi indicativi 2026: appartamento da ${euro(totAppartamento.min)} a ${euro(totAppartamento.max ?? 0)} €/mq, bagno completo da ${euro(totBagno.min)} a ${euro(totBagno.max ?? 0)} €, controsoffitti LED da ${euro(totCartongesso.min)} €/mq. Tempi e pagamenti chiari.`}
   schema={[pageSchema, ...services]}
   breadcrumb={[faqBreadcrumb, { name: 'Prezzi e tempi', path: '/prezzi-ristrutturazione' }]}
 >
@@ -74,7 +75,7 @@ const services = [
           Quanto costa ristrutturare <span class="text-[var(--color-accent)]">casa a Milano.</span>
         </h1>
         <p class="mt-7 max-w-2xl text-lg leading-relaxed">
-          <strong>In breve:</strong> con l’Impresa Ippolito ristrutturare un appartamento costa indicativamente da <strong>400 a 1.500 euro al metro quadro</strong>, a seconda dell’intervento. Un <strong>bagno completo</strong> costa da <strong>6.000 a 13.000 euro</strong> e oltre e si rifà in <strong>8-15 giorni lavorativi</strong>. Un appartamento medio di 70-100 mq richiede da 60 a 80 giorni lavorativi.
+          <strong>In breve:</strong> con l’Impresa Ippolito ristrutturare un appartamento costa indicativamente <strong>{daA(totAppartamento)} al metro quadro</strong>, a seconda dell’intervento. Un <strong>bagno completo</strong> costa <strong>{daA(totBagno)}</strong> e si rifà in <strong>8-15 giorni lavorativi</strong>. Un appartamento medio di 70-100 mq richiede da 60 a 80 giorni lavorativi.
         </p>
         <p class="mt-4 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
           Sono i prezzi medi dei nostri lavori a Milano e in provincia, indicati dal titolare, il geom. Antonio Ippolito. Il prezzo esatto lo trovate nel preventivo voce per voce, dopo il sopralluogo gratuito.
@@ -82,9 +83,9 @@ const services = [
       </div>
       <div class="flex flex-col justify-end md:col-span-5">
         <dl class="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
-          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Appartamento</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">400-1.500 €/mq</dd></div>
-          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Bagno completo</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">6.000-13.000 €+</dd></div>
-          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Controsoffitto LED</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">55-140 €/mq</dd></div>
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Appartamento</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">{breve(totAppartamento, 'mq')}</dd></div>
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Bagno completo</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">{breve(totBagno)}</dd></div>
+          <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Controsoffitto LED</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">{breve(totCartongesso, 'mq')}</dd></div>
           <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Tempi bagno</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">8-15 giorni</dd></div>
           <div class="flex items-baseline justify-between gap-4 py-3"><dt class="u-label">Sopralluogo</dt><dd class="font-[family-name:var(--font-display)] text-xl font-black">Gratuito</dd></div>
         </dl>
@@ -153,6 +154,7 @@ const services = [
           ))}
         </div>
       </div>
+      <NotaPrezzi class="mt-10" />
     </div>
   </section>
 
@@ -162,7 +164,7 @@ const services = [
       <div class="md:col-span-4">
         <p class="u-label">Bagno</p>
         <h2 class="mt-4 text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-none tracking-tight">Quanto costa rifare un bagno completo</h2>
-        <p class="mt-5 text-lg text-[var(--color-muted)]">Un bagno completo da zero richiede mediamente <strong class="text-[var(--color-text)]">{range(durataBagno)} giorni lavorativi</strong>: le lavorazioni seguono una sequenza tecnica con tempi di posa e di asciugatura obbligatori.</p>
+        <p class="mt-5 text-lg text-[var(--color-muted)]">Un bagno completo da zero richiede mediamente <strong class="text-[var(--color-text)]">{giorni(durataBagno)} giorni lavorativi</strong>: le lavorazioni seguono una sequenza tecnica con tempi di posa e di asciugatura obbligatori.</p>
       </div>
       <div class="md:col-span-8">
         <div class="border-t border-[var(--color-border)]">
@@ -185,6 +187,7 @@ const services = [
             </a>
           ))}
         </div>
+        <NotaPrezzi class="mt-8" tint />
       </div>
     </div>
   </section>
@@ -209,6 +212,7 @@ const services = [
           </article>
         ))}
       </div>
+      <NotaPrezzi class="mt-8" />
     </div>
   </section>
 
@@ -222,7 +226,7 @@ const services = [
         {durata.map((d) => (
           <article class="card-anim group border-b border-r border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-8">
             <h3 class="u-label">{d.t} · {d.mq}</h3>
-            <p class="mt-4 font-[family-name:var(--font-display)] text-[clamp(1.9rem,3.2vw,2.6rem)] font-black leading-none tracking-tight text-[var(--color-accent)]">{range(d.giorni).replace(' €', '')} <span class="text-lg text-[var(--color-text)]">giorni</span></p>
+            <p class="mt-4 font-[family-name:var(--font-display)] text-[clamp(1.9rem,3.2vw,2.6rem)] font-black leading-none tracking-tight text-[var(--color-accent)]">{giorni(d.giorni)} <span class="text-lg text-[var(--color-text)]">giorni</span></p>
             <p class="mt-2 font-bold">{d.circa}</p>
             <p class="mt-3 text-[var(--color-muted)]">{d.d}</p>
           </article>
@@ -231,13 +235,13 @@ const services = [
       <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         <div class="card-anim group border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
           <p class="u-label">Bagno completo</p>
-          <p class="mt-3 text-2xl font-black tracking-tight">{range(durataBagno).replace(' €', '')} giorni lavorativi</p>
+          <p class="mt-3 text-2xl font-black tracking-tight">{giorni(durataBagno)} giorni lavorativi</p>
           <p class="mt-2 text-[var(--color-muted)]">Chi promette un bagno nuovo in meno di 5 giorni lavorativi spesso salta passaggi fondamentali.</p>
         </div>
         <div class="card-anim group border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
           <p class="u-label">Preventivo scritto</p>
           {tempiPreventivo.map((t) => (
-            <p class="mt-3"><span class="text-xl font-black tracking-tight">{range(t.giorni).replace(' €', '')} giorni lavorativi</span><br /><span class="text-[var(--color-muted)]">{t.t}, {t.es}.</span></p>
+            <p class="mt-3"><span class="text-xl font-black tracking-tight">{giorni(t.giorni)} giorni lavorativi</span><br /><span class="text-[var(--color-muted)]">{t.t}, {t.es}.</span></p>
           ))}
         </div>
       </div>

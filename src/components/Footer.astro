@@ -40,7 +40,11 @@ const year = new Date().getFullYear();
     <div class="u-container flex flex-col gap-2 py-6 font-[family-name:var(--font-mono)] text-xs text-white/50 md:flex-row md:items-center md:justify-between">
       <p>{site.legalName}</p>
       <p>Albo Artigiani {site.legal.alboArtigiani} · P.I. {site.legal.piva} · {site.legal.regImprese}</p>
-      <p>© {year}</p>
+      <p class="flex gap-4">
+        <a href="/privacy" class="hover:text-white">Privacy</a>
+        <a href="/cookie" class="hover:text-white">Cookie</a>
+        <span>© {year}</span>
+      </p>
     </div>
   </div>
 </footer>

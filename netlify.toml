@@ -4,6 +4,10 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  # modulo contatti: script Google del foglio "Modulo Contatti" (notifiche a impresa.ippolito@libero.it).
+  # Valori pubblici per natura (finiscono nell'HTML della pagina); in locale li legge da .env
+  PUBLIC_FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbyQOkx797RQYMxrga6TU_mOpv5HeePVgytKpZDBtqWFxYTaJNmjmkZxe-h59iO-Eni6Rg/exec"
+  PUBLIC_FORM_TOKEN = "dTnESc5HrT54dyg2UscJ7SJumgBCWTef"
 
 # il pannello /admin non va indicizzato
 [[headers]]
